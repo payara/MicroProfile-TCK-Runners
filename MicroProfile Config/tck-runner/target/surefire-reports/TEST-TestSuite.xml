@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="4.089" tests="69" errors="0" skipped="60" failures="6">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
+    <property name="java.vm.version" value="25.121-b13"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/omihalyi/workspaces/Payara/MicroProfile/MicroProfileTemplates/ConfigTCKRunner"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/omihalyi/workspaces/Payara/MicroProfile/MicroProfileTemplates/ConfigTCKRunner"/>
+    <property name="java.runtime.version" value="1.8.0_121-b13"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Linux"/>
+    <property name="classworlds.conf" value="/usr/share/maven/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value=":/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="4.4.0-72-generic"/>
+    <property name="user.home" value="/home/omihalyi"/>
+    <property name="user.timezone" value="Europe/Prague"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="user.name" value="omihalyi"/>
+    <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -f tck-runner/pom.xml -Pweld test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_121"/>
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="securerandom.source" value="file:/dev/./urandom"/>
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/usr/share/maven"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase name="arquillianBeforeClass" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="2.943">
+    <failure message="WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default&#10;  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConfigProviderTest.config&#10;  at org.eclipse.microprofile.config.tck.ConfigProviderTest.config(ConfigProviderTest.java:0)&#10;" type="org.jboss.weld.exceptions.DeploymentException">org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConfigProviderTest.config
+  at org.eclipse.microprofile.config.tck.ConfigProviderTest.config(ConfigProviderTest.java:0)
+
+</failure>
+    <system-out><![CDATA[...
+... TestNG 6.9.9 by Cédric Beust (cedric@beust.com)
+...
+
+]]></system-out>
+    <system-err><![CDATA[Apr 13, 2017 12:42:29 PM org.jboss.weld.bootstrap.WeldStartup <clinit>
+INFO: WELD-000900: 2.4.1 (Final)
+Apr 13, 2017 12:42:29 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+Apr 13, 2017 12:42:29 PM org.jboss.weld.interceptor.util.InterceptionTypeRegistry <clinit>
+WARN: WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
+Apr 13, 2017 12:42:29 PM org.jboss.weld.interceptor.util.InterceptionTypeRegistry <clinit>
+WARN: WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testDynamicValueInPropertyConfigSource" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testEmptyConfigTreatedAsNotExisting" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testEmptyConfigTreatedAsNotExistingGet" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testEnvironmentConfigSource" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testGetConfigSources" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testJavaConfigPropertyFilesConfigSource" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testNonExistingConfigKey" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testNonExistingConfigKeyGet" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testPropertyConfigSource" classname="org.eclipse.microprofile.config.tck.ConfigProviderTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="test" classname="org.eclipse.microprofile.config.tck.broken.WrongConverterOnInstanceInjectionTest" time="0.009"/>
+  <testcase name="test" classname="org.eclipse.microprofile.config.tck.broken.MissingConverterOnInstanceInjectionTest" time="0.002"/>
+  <testcase name="testConfigSourceProvider" classname="org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest" time="0.013">
+    <failure message="No ConfigProviderResolver implementation found!" type="java.lang.IllegalStateException">java.lang.IllegalStateException: No ConfigProviderResolver implementation found!
+	at org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest.testConfigSourceProvider(AutoDiscoveredConfigSourceTest.java:57)
+</failure>
+    <system-err><![CDATA[Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroyConversation is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroyRequest is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroySession is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeClass" classname="org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest" time="0.092">
+    <failure message="WELD-001408: Unsatisfied dependencies for type Optional&lt;Integer&gt; with qualifiers @ConfigProperty&#10;  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty&#10;  at org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty(OptionalValuesBean.java:0)&#10;" type="org.jboss.weld.exceptions.DeploymentException"><![CDATA[org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Optional<Integer> with qualifiers @ConfigProperty
+  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty
+  at org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty(OptionalValuesBean.java:0)
+
+]]></failure>
+    <system-err><![CDATA[Apr 13, 2017 12:42:30 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testOptionalInjection" classname="org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="test" classname="org.eclipse.microprofile.config.tck.broken.MissingValueOnInstanceInjectionTest" time="0.011"/>
+  <testcase name="arquillianBeforeClass" classname="org.eclipse.microprofile.config.tck.CustomConfigSourceTest" time="0.097">
+    <failure message="WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default&#10;  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config&#10;  at org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config(CustomConfigSourceTest.java:0)&#10;" type="org.jboss.weld.exceptions.DeploymentException">org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config
+  at org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config(CustomConfigSourceTest.java:0)
+
+</failure>
+    <system-err><![CDATA[Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroyConversation is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroyRequest is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroySession is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.CustomConfigSourceTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testConfigSourceProvider" classname="org.eclipse.microprofile.config.tck.CustomConfigSourceTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeClass" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0.081">
+    <failure message="WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default&#10;  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConverterTest.config&#10;  at org.eclipse.microprofile.config.tck.ConverterTest.config(ConverterTest.java:0)&#10;" type="org.jboss.weld.exceptions.DeploymentException">org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConverterTest.config
+  at org.eclipse.microprofile.config.tck.ConverterTest.config(ConverterTest.java:0)
+
+</failure>
+    <system-err><![CDATA[Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroySession is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testBoolean" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testDouble" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testDouble_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testDuration" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testDuration_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testFloat" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testFloat_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testInteger" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testInteger_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalDate" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalDateTime" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalDateTime_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalDate_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalTime" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLocalTime_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLong" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="testLong_Broken" classname="org.eclipse.microprofile.config.tck.ConverterTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeClass" classname="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest" time="0.079">
+    <failure message="WELD-001408: Unsatisfied dependencies for type Integer with qualifiers @ConfigProperty&#10;  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty&#10;  at org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty(SimpleValuesBean.java:0)&#10;" type="org.jboss.weld.exceptions.DeploymentException">org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Integer with qualifiers @ConfigProperty
+  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty
+  at org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty(SimpleValuesBean.java:0)
+
+</failure>
+    <system-err><![CDATA[Apr 13, 2017 12:42:30 PM org.jboss.arquillian.core.impl.ObserverImpl resolveArguments
+WARNING: Argument 1 for LifecycleHandler.destroySession is null. It won't be invoked.
+Apr 13, 2017 12:42:30 PM org.jboss.weld.bootstrap.WeldStartup startContainer
+INFO: WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
+]]></system-err>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="arquillianBeforeTest" classname="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="can_inject_dynamic_values_via_CDI_provider" classname="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+  <testcase name="can_inject_simple_values_when_defined" classname="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest" time="0">
+    <skipped/>
+  </testcase>
+</testsuite>

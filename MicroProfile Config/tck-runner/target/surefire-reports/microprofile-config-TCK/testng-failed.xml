@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [microprofile-config-TCK]">
+  <test name="microprofile-config 1.0 TCK(failed)">
+    <classes>
+      <class name="org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest">
+        <methods>
+          <include name="testConfigSourceProvider"/>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+          <include name="arquillianBeforeTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest -->
+      <class name="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest">
+        <methods>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="can_inject_dynamic_values_via_CDI_provider"/>
+          <include name="can_inject_simple_values_when_defined"/>
+          <include name="arquillianAfterTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.CDIPlainInjectionTest -->
+      <class name="org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest">
+        <methods>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="testOptionalInjection"/>
+          <include name="arquillianAfterTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest -->
+      <class name="org.eclipse.microprofile.config.tck.broken.WrongConverterOnInstanceInjectionTest">
+        <methods>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+          <include name="arquillianBeforeTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.broken.WrongConverterOnInstanceInjectionTest -->
+      <class name="org.eclipse.microprofile.config.tck.broken.MissingValueOnInstanceInjectionTest">
+        <methods>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+          <include name="arquillianBeforeTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.broken.MissingValueOnInstanceInjectionTest -->
+      <class name="org.eclipse.microprofile.config.tck.CustomConfigSourceTest">
+        <methods>
+          <include name="testConfigSourceProvider"/>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.CustomConfigSourceTest -->
+      <class name="org.eclipse.microprofile.config.tck.broken.MissingConverterOnInstanceInjectionTest">
+        <methods>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+          <include name="arquillianBeforeTest"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.broken.MissingConverterOnInstanceInjectionTest -->
+      <class name="org.eclipse.microprofile.config.tck.ConfigProviderTest">
+        <methods>
+          <include name="testDynamicValueInPropertyConfigSource"/>
+          <include name="testNonExistingConfigKey"/>
+          <include name="arquillianAfterSuite"/>
+          <include name="testEmptyConfigTreatedAsNotExistingGet"/>
+          <include name="arquillianAfterClass"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="arquillianAfterTest"/>
+          <include name="testEnvironmentConfigSource"/>
+          <include name="arquillianBeforeSuite"/>
+          <include name="testJavaConfigPropertyFilesConfigSource"/>
+          <include name="testEmptyConfigTreatedAsNotExisting"/>
+          <include name="testGetConfigSources"/>
+          <include name="testPropertyConfigSource"/>
+          <include name="testNonExistingConfigKeyGet"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.ConfigProviderTest -->
+      <class name="org.eclipse.microprofile.config.tck.ConverterTest">
+        <methods>
+          <include name="testLocalDate"/>
+          <include name="testLocalDateTime"/>
+          <include name="testLong"/>
+          <include name="testFloat"/>
+          <include name="testLong_Broken"/>
+          <include name="arquillianAfterClass"/>
+          <include name="testLocalTime_Broken"/>
+          <include name="arquillianBeforeClass"/>
+          <include name="testDuration_Broken"/>
+          <include name="testDouble"/>
+          <include name="arquillianAfterTest"/>
+          <include name="testBoolean"/>
+          <include name="testInteger"/>
+          <include name="testLocalDate_Broken"/>
+          <include name="testDouble_Broken"/>
+          <include name="testDuration"/>
+          <include name="testFloat_Broken"/>
+          <include name="testInteger_Broken"/>
+          <include name="testLocalDateTime_Broken"/>
+          <include name="testLocalTime"/>
+        </methods>
+      </class> <!-- org.eclipse.microprofile.config.tck.ConverterTest -->
+    </classes>
+  </test> <!-- microprofile-config 1.0 TCK(failed) -->
+</suite> <!-- Failed suite [microprofile-config-TCK] -->

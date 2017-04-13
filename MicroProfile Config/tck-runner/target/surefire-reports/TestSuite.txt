@@ -1,0 +1,43 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 69, Failures: 6, Errors: 0, Skipped: 60, Time elapsed: 4.089 sec <<< FAILURE! - in TestSuite
+arquillianBeforeClass(org.eclipse.microprofile.config.tck.ConfigProviderTest)  Time elapsed: 2.943 sec  <<< FAILURE!
+org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConfigProviderTest.config
+  at org.eclipse.microprofile.config.tck.ConfigProviderTest.config(ConfigProviderTest.java:0)
+
+
+testConfigSourceProvider(org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest)  Time elapsed: 0.013 sec  <<< FAILURE!
+java.lang.IllegalStateException: No ConfigProviderResolver implementation found!
+	at org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest.testConfigSourceProvider(AutoDiscoveredConfigSourceTest.java:57)
+
+arquillianBeforeClass(org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest)  Time elapsed: 0.092 sec  <<< FAILURE!
+org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Optional<Integer> with qualifiers @ConfigProperty
+  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty
+  at org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest$OptionalValuesBean.notexistingProperty(OptionalValuesBean.java:0)
+
+
+arquillianBeforeClass(org.eclipse.microprofile.config.tck.CustomConfigSourceTest)  Time elapsed: 0.097 sec  <<< FAILURE!
+org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config
+  at org.eclipse.microprofile.config.tck.CustomConfigSourceTest.config(CustomConfigSourceTest.java:0)
+
+
+arquillianBeforeClass(org.eclipse.microprofile.config.tck.ConverterTest)  Time elapsed: 0.081 sec  <<< FAILURE!
+org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Config with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.eclipse.microprofile.config.tck.ConverterTest.config
+  at org.eclipse.microprofile.config.tck.ConverterTest.config(ConverterTest.java:0)
+
+
+arquillianBeforeClass(org.eclipse.microprofile.config.tck.CDIPlainInjectionTest)  Time elapsed: 0.079 sec  <<< FAILURE!
+org.jboss.weld.exceptions.DeploymentException: 
+WELD-001408: Unsatisfied dependencies for type Integer with qualifiers @ConfigProperty
+  at injection point [BackedAnnotatedField] @Inject @ConfigProperty private org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty
+  at org.eclipse.microprofile.config.tck.CDIPlainInjectionTest$SimpleValuesBean.intProperty(SimpleValuesBean.java:0)
+
+
