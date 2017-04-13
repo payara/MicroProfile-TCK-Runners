@@ -28,7 +28,9 @@ Requirements:
 How to run the tests:
  - tests can be executed with the tck-runner project - go to the tck-runner project's directory and run `mvn test`
 
-The tck-runner project executes the tests in the microprofile-config-tck artifact. The tests will fail, because no implementation is provided yet. On of the 2 following methods can be used to provide an implementation.
+The tck-runner project executes the tests in the microprofile-config-tck artifact. The tests will fail, because no implementation is provided yet. One of the 2 following methods can be used to provide an implementation.
+
+(general info about running the TCK can be found in the MP config repo: [running_the_tck.asciidoc](https://github.com/eclipse/microprofile-config/blob/master/tck/running_the_tck.asciidoc) )
 
 ### Running the tests with a custom Arquillian container
 
@@ -52,4 +54,8 @@ The tests will again fail until the project weld-arquillian-extension provides a
 
 ## Implementing the MicroProfile Config spec
 
-The specification only relies on Java 8 and CDI 1.1 (1.2)
+The specification only relies on Java 8 and CDI 1.1 (1.2), so the implementation only needs to provide CDI and MicroProfile Config APIs.
+
+See the README of [microprofile-config](https://github.com/eclipse/microprofile-config) to get more details about MicroProfile Config. Especially the [list of implementations](https://github.com/eclipse/microprofile-config#implementaions) could be interesting for implementers. It's not a list of MicroProfile Config impls, but rather a list of third-party configuration frameworks which can be used by the MP Config implementation to provide a meaningful solution.
+
+A sample implementation (only the necessary minimum to pass the TCK) can be found at in [Mark Struberg's repo](https://github.com/struberg/javaConfig/tree/master/impl) (under APLv2 license). If only this implementation is copied to Payara MicroProfile, it should pass the TCK. However, we might want to enhance it to fit the internals, or rewrite it completely and build it upon a third-party library that provides configuration. However, Mark Struberg's implementation is quite handy as an example how to implement the CDI functionality - there are some tricks worth observing.
