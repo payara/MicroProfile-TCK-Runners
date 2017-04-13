@@ -20,9 +20,19 @@ There are 2 ways to provide the implementation:
 
 The option 2 (extension) is probably much simpler, although doing the option 1 (container adapter) could be a base for a proper Arquillian container adapter for Payara Micro and MicroProfile, which would be useful also for users and wider adoption of our implementation.
 
+## Running the tests
+
+Requirements:
+ - before milestone releases of MP Config are published in maven, it's necessary to build the project in https://github.com/eclipse/microprofile-config - just run `mvn install` in the root folder
+
+How to run the tests:
+ - tests can be executed with the tck-runner project - go to the tck-runner project's directory and run `mvn test`
+
+The tck-runner project executes the tests in the microprofile-config-tck artifact. The tests will fail, because no implementation is provided yet. On of the 2 following methods can be used to provide an implementation.
+
 ### Running the tests with a custom Arquillian container
 
-1. add configuration for the arquillian container adapter into the tck-runner maven project (adapter dependencies,optional arquillian configuration)
+1. add configuration for the arquillian container adapter into the tck-runner maven project (adapter dependencies,optional arquillian configuration) - it is necesary to implement a container adapter for the implementation if it's not available yet
 2. run tests in the tck-runner project via maven: `cd tck-runner && mvn test`
 
 ### Running the tests with an Arquillian extension
@@ -30,7 +40,15 @@ The option 2 (extension) is probably much simpler, although doing the option 1 (
 1. setup Arquillian to test against a CDI container (such as Weld or OpenWebBeans container) - add appropriate dependencies into the maven project
 2. provide an Arquillian extension, either as a dependency, or directly in the test classpath
 
-The tck-runner project contains configuration for running the TCK with Weld adapter. To use it, you can run the TCK with the `weld` profile. An example Arquillian extension is in the weld-arquillian-extension, which is a required dependency for the `weld` profile - you need to build it first.
+The tck-runner project contains configuration for running the TCK with Weld container adapter (a standalone weld, which provides CDI API). To use it, you can run the TCK with the `weld` profile. 
+An example Arquillian extension is in the weld-arquillian-extension, which is a required dependency for the `weld` profile - you need to build it first.
+
+In short:
+
+1. mvn -f weld-arquillian-extension/pom.xml install
+2. mvn -f tck-runner/pom.xml -Pweld test
+
+The tests will again fail until the project weld-arquillian-extension provides a working implementation classes and files via the `PayaraArchiveProcessor.class` .
 
 ## Implementing the MicroProfile Config spec
 

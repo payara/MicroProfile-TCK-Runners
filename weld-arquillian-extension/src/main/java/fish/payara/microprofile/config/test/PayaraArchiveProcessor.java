@@ -19,7 +19,7 @@ public class PayaraArchiveProcessor implements ApplicationArchiveProcessor {
             JavaArchive configJar = ShrinkWrap
                     .create(JavaArchive.class, "payara-config-impl.jar");
             
-            // add files of the implementation into the configJar archive, or read the contents of the configJar archive from a JAR file or from maven resolver
+            // add files of the implementation into the configJar archive, or read the contents of the configJar archive from a JAR file or from maven depdendency with the maven resolver
                     
             ((WebArchive) applicationArchive).addAsLibraries(configJar);
         }
