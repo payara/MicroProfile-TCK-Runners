@@ -26,8 +26,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.apis</groupId>
-            <artifactId>microprofile-config_1.0_api</artifactId>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -39,4 +39,19 @@
             <artifactId>arquillian-container-test-spi</artifactId>
         </dependency>
     </dependencies>
+    
+        <repositories>
+        <repository>
+            <id>eclipse.microprofile</id>
+            <name>Eclipse MicroProfile Repository</name>
+            <url>https://repo.eclipse.org/content/groups/microprofile/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>    
+    </repositories>
+
 </project>

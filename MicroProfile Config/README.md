@@ -5,6 +5,12 @@ This repository contains:
  - tck-runner - a template project to run the MicroProfile TCK suite against a custom implementation
  - weld-arquillian-extension - a template extension to use if the runner project provide the implementation via an arquillian extension
 
+# Quick start
+
+To run tests against Payara Server, see [Run against Payara Server](#Run against Payara Server) below.
+
+There are no instructions to run against Payara Micro yet. This requires an arquillian adapter for Payara Micro which isn't ready yet.
+
 # Some notes and requirements of the TCK
 
 The TCK tests the MicroProfile Config API, which depends on CDI 1.1 API.
@@ -15,15 +21,12 @@ The TCK tests are designed as Arquillian tests, which run tests in an isolated c
 
 There are 2 ways to provide the implementation:
 
- 1. as a custom Arquillian container adapter that can connect to the runtime that contains the implementation ([an official guide how to do it](http://arquillian.org/guides/developing_a_container_adapter/))
+ 1. as an Arquillian container adapter that can connect to the runtime that contains the implementation ([an official guide how to do it](http://arquillian.org/guides/developing_a_container_adapter/))
  2. as an Arquillian extension that deploys the required classes and files together with the deployment archive (bundled with the test application) (an example how to do it is in a [sample config implementation](https://github.com/struberg/javaConfig/tree/master/impl/src/test) by Mark Struberg - a service loader file and 2 simple classes in test scope)
 
 The option 2 (extension) is probably much simpler, although doing the option 1 (container adapter) could be a base for a proper Arquillian container adapter for Payara Micro and MicroProfile, which would be useful also for users and wider adoption of our implementation.
 
 ## Running the tests
-
-Requirements:
- - before milestone releases of MP Config are published in maven, it's necessary to build the project in https://github.com/eclipse/microprofile-config - just run `mvn install` in the root folder
 
 How to run the tests:
  - tests can be executed with the tck-runner project - go to the tck-runner project's directory and run `mvn test`
@@ -32,10 +35,18 @@ The tck-runner project executes the tests in the microprofile-config-tck artifac
 
 (general info about running the TCK can be found in the MP config repo: [running_the_tck.asciidoc](https://github.com/eclipse/microprofile-config/blob/master/tck/running_the_tck.asciidoc) )
 
-### Running the tests with a custom Arquillian container
+### Running the tests with an Arquillian container
 
 1. add configuration for the arquillian container adapter into the tck-runner maven project (adapter dependencies,optional arquillian configuration) - it is necesary to implement a container adapter for the implementation if it's not available yet
 2. run tests in the tck-runner project via maven: `cd tck-runner && mvn test`
+
+#### Run against Payara Server
+
+There is already a profile for running against remote Payara Server called `payara-server-remote`. To run tests against Payara Server, do the following:
+
+
+1. Start Payara Server on localhost and default admin port 4848
+2. Run tests in the tck-runner project via maven: `cd tck-runner && mvn -Ppayara-server-remote test`
 
 ### Running the tests with an Arquillian extension
 
