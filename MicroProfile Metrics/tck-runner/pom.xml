@@ -69,7 +69,7 @@
                 <configuration>
                     <dependenciesToScan>
                         <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-api-tck</dependency>
-                        <!--<dependency>org.eclipse.microprofile.metrics:microprofile-metrics-rest-tck</dependency>-->
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-rest-tck</dependency>
                     </dependenciesToScan>
                     <environmentVariables>
                         <MP_METRICS_TAGS>tier=integration</MP_METRICS_TAGS>
