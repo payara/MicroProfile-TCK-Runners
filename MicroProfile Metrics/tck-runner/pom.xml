@@ -8,7 +8,7 @@
     <name>MicroProfile Metrics TCK Runner Template</name>
 
     <properties>
-        <microprofile.metrics.version>1.0.1</microprofile.metrics.version>
+        <microprofile.metrics.version>1.0.1.payara-p1</microprofile.metrics.version>
         <arquillian.version>1.1.13.Final</arquillian.version>
         <cdi.version>1.2</cdi.version>
         <junit.version>4.12</junit.version>
