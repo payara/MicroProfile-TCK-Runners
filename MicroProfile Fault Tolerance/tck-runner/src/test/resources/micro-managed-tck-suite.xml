@@ -7,8 +7,15 @@
             <package name="org.eclipse.microprofile.fault.tolerance.tck.*">
                 <exclude name="org.eclipse.microprofile.fault.tolerance.tck.invalidParameters"/>
                 <exclude name="org.eclipse.microprofile.fault.tolerance.tck.illegalConfig"/>
+                <exclude name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead"/>
             </package>
-        </packages>     
+        </packages>
+        
+        <classes>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadFutureTest"/>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchRetryTest"/>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchTest"/>
+        </classes>
     </test>
 
 </suite>
