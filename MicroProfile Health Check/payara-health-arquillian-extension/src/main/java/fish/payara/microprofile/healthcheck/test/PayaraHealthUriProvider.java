@@ -41,23 +41,29 @@ package fish.payara.microprofile.healthcheck.test;
 
 import java.lang.annotation.Annotation;
 import java.net.URI;
+import java.net.URISyntaxException;
+import org.jboss.arquillian.container.test.impl.enricher.resource.URIResourceProvider;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
 
 /**
  *
  * @author Andrew Pielage
  */
-public class PayaraHealthUriProvider implements ResourceProvider {
-
-    @Override
-    public boolean canProvide(Class<?> type) {
-        return type.isAssignableFrom(URI.class);
-    }
+public class PayaraHealthUriProvider extends URIResourceProvider {
 
     @Override
     public Object lookup(ArquillianResource ar, Annotation... antns) {
-        return URI.create("http://localhost:8080");
+        Object object = super.lookup(ar, antns);
+        if (object == null) {
+            return null;
+        }
+        
+        try {
+            URI originalUri = (URI) object;
+            return new URI(originalUri.getScheme(), originalUri.getAuthority(), "", originalUri.getQuery(), originalUri.getFragment());
+        } catch (URISyntaxException use) {
+            throw new RuntimeException("Could not convert URL to URI: " + object, use);
+        }
     }
     
 }
