@@ -15,7 +15,7 @@ The TCK tests are designed as Arquillian tests, which run tests in an isolated c
 
 There is a profile for running against remote Payara Server called payara-server-remote. To run tests against Payara Server, do the following:
     
-    Build the payara-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
+    Build the payara-health-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
     Start Payara Server on localhost and default admin port 4848
     Run tests in the tck-runner project via maven: cd tck-runner && mvn clean -Ppayara-server-remote test
 
@@ -24,12 +24,12 @@ There is a profile for running against remote Payara Server called payara-server
 
 There is a profile for running against Payara Micro called payara-micro-managed. To run tests against Payara Micro, do the following:
 
-    Build the payara-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
+    Build the payara-health-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
     Run tests in the tck-runner project via maven, replacing ${version} with the version of Payara Micro you wish to test against: cd tck-runner && mvn clean -Ppayara-micro-managed test -Dpayara.version=${version}
 
 ## Run against Payara Embedded
 
 There is a profile for running against Payara Embedded All called payara-embedded. To run tests against Payara Embedded All, do the following:
 
-    Build the payara-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
+    Build the payara-health-arquillian-extension project via maven: cd payara-arquillian-extension && mvn clean install
     Run tests in the tck-runner project via maven, replacing ${version} with the version of Payara Embedded All you wish to test against: cd tck-runner && mvn clean -Ppayara-embedded test -Dpayara.version=${version}
