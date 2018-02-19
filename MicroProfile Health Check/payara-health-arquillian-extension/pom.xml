@@ -2,14 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fish.payara.microprofile.healthcheck</groupId>
-    <artifactId>weld-arquillian-extension</artifactId>
+    <artifactId>payara-health-arquillian-extension</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>MicroProfile Health TCK Runner Weld Extension Template</name>
+    <name>MicroProfile Health TCK Runner Payara Extension</name>
+    
     <properties>
+        <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- Health Dependencies -->
+        <microprofile.health.version>1.0.payara-p1</microprofile.health.version>
+        
+        <!-- Arquillian Dependencies -->
+        <version.arquillian>1.1.14.Final</version.arquillian>
     </properties>
     
     <dependencyManagement>
@@ -17,7 +25,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.13.Final</version>
+                <version>${version.arquillian}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -28,7 +36,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile.health</groupId>
             <artifactId>microprofile-health-api</artifactId>
-            <version>1.0</version>
+            <version>${microprofile.health.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.core</groupId>
@@ -38,9 +46,13 @@
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-test-spi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-test-impl-base</artifactId>
+        </dependency>
     </dependencies>
     
-        <repositories>
+    <repositories>
         <repository>
             <id>eclipse.microprofile</id>
             <name>Eclipse MicroProfile Repository</name>
@@ -51,7 +63,18 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>    
+        </repository>
+        <repository>
+            <id>payara.patched.projects</id>
+            <name>Payara_PatchedProjects Repository</name>
+            <url>https://raw.github.com/payara/Payara_PatchedProjects/master/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository> 
     </repositories>
 
 </project>
