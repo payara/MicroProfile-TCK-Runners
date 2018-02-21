@@ -5,7 +5,7 @@
     <artifactId>microprofile-fault-tolerance-tck-runner</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>MicroProfile Fault Tolerance TCK Runner Template</name>
+    <name>MicroProfile Fault Tolerance TCK Runner</name>
     
     <properties>
         <!-- Maven Dependencies -->
