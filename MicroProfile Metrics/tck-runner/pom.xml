@@ -34,6 +34,7 @@
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
         <jersey.version>2.26</jersey.version>
+        <servlet.version>4.0.0</servlet.version>
     </properties>
     
     <dependencies>
@@ -234,6 +235,12 @@
                     <groupId>org.glassfish.jersey.inject</groupId>
                     <artifactId>jersey-hk2</artifactId>
                     <version>${jersey.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <version>${servlet.version}</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
