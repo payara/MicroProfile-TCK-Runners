@@ -5,7 +5,7 @@
         <!-- The required base JAX-RS and CDI based tests that all MP-JWT implementations
     must pass.
     -->
-    <test name="base-tests" verbose="10">
+    <test name="base-tests">
         <groups>
             <define name="base-groups">
                 <include name="arquillian" description="Arquillian internal"/>
@@ -37,7 +37,7 @@
             <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.InvalidTokenTest" />
         </classes>
     </test>
-    <test name="extended-tests" verbose="10">
+    <test name="extended-tests">
         <groups>
             <define name="extended-groups">
                 <include name="arquillian" description="Arquillian internal"/>

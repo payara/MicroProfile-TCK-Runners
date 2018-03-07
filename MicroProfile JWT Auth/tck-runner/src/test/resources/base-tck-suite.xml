@@ -2,7 +2,7 @@
 
 <suite name="microprofile-jwt-auth-TCK" verbose="2" configfailurepolicy="continue" >
 
-    <test name="base-tests" verbose="10">
+    <test name="base-tests">
         <groups>
             <define name="base-groups">
                 <include name="arquillian" description="Arquillian internal"/>
