@@ -4,17 +4,23 @@
 
     <test name="microprofile-config 1.0 TCK">      
         <classes>
+            <class name="org.eclipse.microprofile.config.tck.ArrayConverterTest"/>
             <class name="org.eclipse.microprofile.config.tck.AutoDiscoveredConfigSourceTest"/>
+            <class name="org.eclipse.microprofile.config.tck.CDIPlainInjectionTest"/>
             <class name="org.eclipse.microprofile.config.tck.CdiOptionalInjectionTest"/>
             <class name="org.eclipse.microprofile.config.tck.ConfigProviderTest">
-                <methods>
+               <!-- <methods>
                     <exclude name="testGetPropertyNames"/>
                     <exclude name="testInjectedConfigSerializable"/>
-                </methods>
+                </methods> -->
             </class>
+            <class name="org.eclipse.microprofile.config.tck.ClassConverterTest"/>
             <class name="org.eclipse.microprofile.config.tck.ConverterTest"/>
             <class name="org.eclipse.microprofile.config.tck.CustomConfigSourceTest"/>
             <class name="org.eclipse.microprofile.config.tck.EmptyValuesTest"/>
+            <class name="org.eclipse.microprofile.config.tck.ImplicitConverterTest"/>
+            <class name="org.eclipse.microprofile.config.tck.EmptyValuesTest"/>
+            <class name="org.eclipse.microprofile.config.tck.WarPropertiesLocationTest"/>
         </classes>
     </test>
 </suite>
