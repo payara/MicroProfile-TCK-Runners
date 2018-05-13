@@ -9,14 +9,9 @@
     
     <properties>
         <!-- Maven Dependencies -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
         
         <!-- Rest Client Dependencies -->
-        <microprofile.config.version>1.0</microprofile.config.version>
-        <microprofile.rest.client.version>1.1-payara-p1</microprofile.rest.client.version>
         <microprofile.rest.client.tck.version>1.1-payara-p1</microprofile.rest.client.tck.version>
         
         <!-- Arquillian Dependencies -->

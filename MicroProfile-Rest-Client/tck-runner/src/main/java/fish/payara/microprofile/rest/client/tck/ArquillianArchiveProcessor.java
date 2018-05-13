@@ -42,7 +42,6 @@ package fish.payara.microprofile.rest.client.tck;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
