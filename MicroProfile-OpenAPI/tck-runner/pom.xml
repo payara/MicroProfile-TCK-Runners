@@ -33,8 +33,9 @@
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
         <jersey.version>2.26</jersey.version>
+        <servlet.version>4.0.0</servlet.version>
 
-        <!-- OpenAPI tests test url -->
+        <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
     
@@ -170,6 +171,10 @@
         
         <profile>
             <id>payara-embedded</id>
+
+            <properties>
+                <test.url>http://localhost:8181/openapi/</test.url>
+            </properties>
             
             <build>
                 <plugins>
@@ -207,12 +212,6 @@
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee7</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
                     <groupId>fish.payara.extras</groupId>
                     <artifactId>payara-embedded-all</artifactId>
                     <version>${payara.version}</version>
@@ -240,6 +239,17 @@
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-client</artifactId>
                     <version>${jersey.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.jersey.inject</groupId>
+                    <artifactId>jersey-hk2</artifactId>
+                    <version>${jersey.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <version>${servlet.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
