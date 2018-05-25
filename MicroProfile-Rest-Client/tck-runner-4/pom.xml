@@ -12,7 +12,7 @@
         <maven.surefire.version>2.20.1</maven.surefire.version>
         
         <!-- Rest Client Dependencies -->
-        <microprofile.rest.client.tck.version>1.0.1.payara-p1</microprofile.rest.client.tck.version>
+        <microprofile.rest.client.tck.version>1.0.1.payara-p2</microprofile.rest.client.tck.version>
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
