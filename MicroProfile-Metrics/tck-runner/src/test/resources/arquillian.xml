@@ -9,5 +9,12 @@
             <property name="bindHttpPort">8080</property>
         </configuration>
     </container>
+  
+    <container qualifier="payara-micro-managed">
+        <configuration>
+            <property name="randomHttpPort">false</property>
+            <property name="autoBindHttp">false</property>
+        </configuration>
+    </container>
 
 </arquillian>
