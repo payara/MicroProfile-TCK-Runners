@@ -15,8 +15,8 @@
         <maven.surefire.version>2.20.1</maven.surefire.version>
         
         <!-- Fault Tolerance Dependencies -->
-        <microprofile.opentracing.version>1.0.payara-p1</microprofile.opentracing.version>
-        <microprofile.opentracing.tck.version>1.0.payara-p1</microprofile.opentracing.tck.version>
+        <microprofile.opentracing.version>1.1</microprofile.opentracing.version>
+        <microprofile.opentracing.tck.version>1.1</microprofile.opentracing.tck.version>
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
@@ -66,6 +66,8 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <forkCount>0</forkCount>
+                    <debugForkedProcess>true</debugForkedProcess>
                 </configuration>
             </plugin>
         </plugins>

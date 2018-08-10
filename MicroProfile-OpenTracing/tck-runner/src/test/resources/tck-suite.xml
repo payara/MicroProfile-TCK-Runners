@@ -20,7 +20,7 @@
                     <exclude name="testNestedSpansWithClientFailure"/>
                     <exclude name="testNotTraced"/>
                     <exclude name="testOperationName"/>
-                    <exclude name="testStandardTags"/>-->
+                    <exclude name="testStandardTags"/> -->
                 </methods>
             </class>
         </classes>
