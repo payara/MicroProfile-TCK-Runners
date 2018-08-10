@@ -66,8 +66,6 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <forkCount>0</forkCount>
-                    <debugForkedProcess>true</debugForkedProcess>
                 </configuration>
             </plugin>
         </plugins>
