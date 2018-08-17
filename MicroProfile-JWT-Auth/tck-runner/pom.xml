@@ -15,8 +15,8 @@
         <maven.surefire.version>2.20.1</maven.surefire.version>
         
         <!-- Health Dependencies -->
-        <microprofile.jwt-auth.version>1.0.payara-p1</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.0</microprofile.jwt-auth.tck.version>
+        <microprofile.jwt-auth.version>1.1.payara-p1</microprofile.jwt-auth.version>
+        <microprofile.jwt-auth.tck.version>1.1.payara-p1</microprofile.jwt-auth.tck.version>
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
@@ -24,7 +24,7 @@
         <payara.jwt-auth.arquillian.extension.version>1.0-SNAPSHOT</payara.jwt-auth.arquillian.extension.version>
         
         <!-- Payara Dependencies -->
-        <payara.version>5.181-SNAPSHOT</payara.version>
+        <payara.version>5.183-SNAPSHOT</payara.version>
         
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>

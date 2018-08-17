@@ -39,8 +39,8 @@
  */
 package fish.payara.microprofile.jwtauth.tck;
 
+import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
-
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
@@ -61,7 +61,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
  */
 public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
     
-    private static Logger log = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -74,13 +74,15 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         if (publicKeyNode == null) {
             return;
         }
-        
-        log.info("Augmenting virtual web archive: " + archive);
-        
-        webArchive.addAsResource("payara-mp-jwt.properties")
-                  .addAsWebInfResource("web.xml")
-                  ;
-        
-        log.info("Virtually augmented web archive: \n" + webArchive.toString(true));
+
+        Node microprofileConfig = webArchive.get("/META-INF/microprofile-config.properties");
+        if (microprofileConfig == null) {
+            webArchive.addAsResource("payara-mp-jwt.properties");
+        }
+        webArchive.addAsWebInfResource("web.xml")
+                .addAsWebInfResource("glassfish-web.xml");
+
+        LOGGER.log(INFO, "Augmenting virtual web archive: {0}", archive);
+        LOGGER.log(INFO, "Virtually augmented web archive: \n{0}", webArchive.toString(true));
     }
 }
