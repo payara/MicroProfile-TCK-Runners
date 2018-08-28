@@ -7,6 +7,7 @@
             <package name="org.eclipse.microprofile.fault.tolerance.tck.*">
                 <exclude name="org.eclipse.microprofile.fault.tolerance.tck.invalidParameters"/>
                 <exclude name="org.eclipse.microprofile.fault.tolerance.tck.illegalConfig"/>
+                <exclude name="org.eclipse.microprofile.fault.tolerance.tck.metrics"/>
             </package>
         </packages>
         <classes>
@@ -15,20 +16,6 @@
                 <methods>
                     <exclude name="testCircuitInitialSuccessDefaultSuccessThreshold"/>
                     <exclude name="testCircuitLateSuccessDefaultSuccessThreshold"/>
-                </methods>
-            </class>
-            <!-- Disabled due to dubious validity: it's using fallback without any other annotation -->
-            <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.FallbackMetricTest">
-                <methods>
-                    <exclude name="fallbackMetricMethodTest"/>
-                    <exclude name="fallbackMetricHandlerTest"/>
-                </methods>
-            </class>
-            <!-- Disabled due to odd behaviour - possibly due to future.get() interation -->
-            <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest">
-                <methods>
-                    <exclude name="bulkheadMetricHistogramTest"/>
-                    <exclude name="bulkheadMetricRejectionTest"/>
                 </methods>
             </class>
         </classes>
