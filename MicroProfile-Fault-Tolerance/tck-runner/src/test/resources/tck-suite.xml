@@ -10,13 +10,6 @@
             </package>
         </packages>
         <classes>
-            <!-- Disabled due to https://github.com/eclipse/microprofile-fault-tolerance/issues/302 -->
-            <class name="org.eclipse.microprofile.fault.tolerance.tck.CircuitBreakerTest">
-                <methods>
-                    <exclude name="testCircuitInitialSuccessDefaultSuccessThreshold"/>
-                    <exclude name="testCircuitLateSuccessDefaultSuccessThreshold"/>
-                </methods>
-            </class>
             <!-- Disabled due to dubious validity: it's using fallback without any other annotation -->
             <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.FallbackMetricTest">
                 <methods>
