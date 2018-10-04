@@ -6,31 +6,31 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>MicroProfile Fault Tolerance TCK Runner</name>
-    
+
     <properties>
         <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
-        
+
         <!-- Fault Tolerance Dependencies -->
         <microprofile.fault-tolerance.version>1.1.1</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>1.1.1.payara-p1</microprofile.fault-tolerance.tck.version>
-        
+        <microprofile.fault-tolerance.tck.version>1.1.1.payara-p2</microprofile.fault-tolerance.tck.version>
+
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
         <payara.arquillian.container.version>1.0.Beta3-m3</payara.arquillian.container.version>
-        
+
         <!-- Payara Dependencies -->
-        <payara.version>5.183-SNAPSHOT</payara.version>
-        
+        <payara.version>5.184-SNAPSHOT</payara.version>
+
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
         <jersey.version>2.26</jersey.version>
     </properties>
-    
+
     <repositories>
         <repository>
             <id>eclipse.microprofile</id>
@@ -55,7 +55,7 @@
             </snapshots>
         </repository>
     </repositories>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -70,7 +70,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -82,7 +82,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
@@ -97,11 +97,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <profiles>
         <profile>
             <id>payara-server-remote</id>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -124,7 +124,7 @@
                     </testResource>
                 </testResources>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -134,10 +134,10 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
             <id>payara-server-remote-ext-libs</id>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -161,9 +161,9 @@
                         <directory>src/test/resources-glassfish-remote</directory>
                         <filtering>true</filtering>
                     </testResource>
-                </testResources>           
+                </testResources>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -173,10 +173,10 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
             <id>payara-micro-managed</id>
-            
+
             <build>
                 <plugins>
                     <!-- Download Payara Micro and copy to target directory -->
@@ -221,7 +221,7 @@
                     </plugin>
                 </plugins>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -237,10 +237,10 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
             <id>payara-embedded</id>
-            
+
             <build>
                 <testResources>
                     <testResource>
@@ -253,7 +253,7 @@
                     </testResource>
                 </testResources>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
