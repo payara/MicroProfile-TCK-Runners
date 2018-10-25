@@ -143,7 +143,8 @@
                                 <MICRO_JAR>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</MICRO_JAR>
                             </environmentVariables>
                             <systemProperties>
-                                <test.url>${test.url}</test.url>
+				<test.url>${test.url}</test.url>
+                                <payara.randomHttpPort>false</payara.randomHttpPort>
                             </systemProperties>
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
