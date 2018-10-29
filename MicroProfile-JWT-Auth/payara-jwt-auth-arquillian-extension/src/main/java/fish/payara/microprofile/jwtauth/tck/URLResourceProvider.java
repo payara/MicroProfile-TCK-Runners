@@ -39,48 +39,63 @@
  */
 package fish.payara.microprofile.jwtauth.tck;
 
-import java.util.logging.Logger;
+import java.lang.annotation.Annotation;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
-import org.jboss.arquillian.test.spi.TestClass;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.Node;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.arquillian.container.spi.client.protocol.metadata.HTTPContext;
+import org.jboss.arquillian.container.spi.client.protocol.metadata.ProtocolMetaData;
+import org.jboss.arquillian.container.test.impl.enricher.resource.OperatesOnDeploymentAwareProvider;
+import org.jboss.arquillian.core.api.Instance;
+import org.jboss.arquillian.core.api.annotation.Inject;
+import org.jboss.arquillian.test.api.ArquillianResource;
 
 /**
- * This archive processor adds the files <code>payara-mp-jwt.properties</code>
- * and <code>web.xml</code> to each archive being created by the MP-JWT TCK.
- * 
- * <p>
- * <code>payara-mp-jwt.properties</code> configures the valid issuer, while
- * <code>web.xml</code> contains a fix for a TCK bug, and a fix for a Payara bug
- * (see inside that file for more details).
+ * A minimal replacement for the base URL provider backing the URL injection
+ * in tests. This is needed to compensate for an ending slash difference.
  * 
  * @author Arjan Tijms
  *
  */
-public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
-    
-    private static Logger log = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
+public class URLResourceProvider extends OperatesOnDeploymentAwareProvider {
+
+    @Inject
+    private Instance<ProtocolMetaData> protocolMetadataInstance;
 
     @Override
-    public void process(Archive<?> archive, TestClass testClass) {
-        if (!(archive instanceof WebArchive)) {
-            return;
+    public Object doLookup(ArquillianResource resource, Annotation... qualifiers) {
+        try {
+            
+            return removeTrailingSlash(
+                    protocolMetadataInstance
+                            .get()
+                            .getContexts(HTTPContext.class)
+                            .iterator()
+                            .next()
+                            .getServlets()
+                            .get(0)
+                            .getBaseURI()
+                            .toURL());
+            
+        } catch (MalformedURLException e) {
+            throw new IllegalStateException("Error converting to URL", e);
         }
-        
-        WebArchive webArchive = WebArchive.class.cast(archive);
-        Node publicKeyNode = webArchive.get("/WEB-INF/classes/publicKey.pem");
-        if (publicKeyNode == null) {
-            return;
-        }
-        
-        log.info("Augmenting virtual web archive: " + archive);
-        
-        webArchive.addAsResource("payara-mp-jwt.properties")
-                  .addAsWebInfResource("web.xml")
-                  ;
-        
-        log.info("Virtually augmented web archive: \n" + webArchive.toString(true));
     }
+    
+    private URL removeTrailingSlash(URL url) throws MalformedURLException {
+        if (url.getPath().endsWith("/")) {
+            String urlString = url.toExternalForm();
+            urlString = urlString.substring(0, urlString.length() - 1);
+
+            url = new URL(urlString);
+        }
+
+        return url;
+    }
+    
+    @Override
+    public boolean canProvide(Class<?> type) {
+        return type.isAssignableFrom(URL.class);
+    }
+
 }
