@@ -197,7 +197,7 @@
         </profile>
 
         <profile>
-            <id>payara-embedded</id>
+            <id>payara-server-embedded</id>
 
             <build>
                 <testResources>
