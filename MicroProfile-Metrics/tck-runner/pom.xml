@@ -14,9 +14,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
         
-        <!-- Fault Tolerance Dependencies -->
-        <microprofile.metrics.version>1.0.payara-p1</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>1.0.payara-p1</microprofile.metrics.tck.version>
+        <!-- Metrics Dependencies -->
+        <microprofile.metrics.version>1.0.1.payara-p1</microprofile.metrics.version>
+        <microprofile.metrics.tck.version>1.0.1.payara-p1</microprofile.metrics.tck.version>
         
         <!-- Arquillian Dependencies -->
         <arquillian.version>1.1.14.Final</arquillian.version>
@@ -157,6 +157,9 @@
                             <environmentVariables>
                                 <MICRO_JAR>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</MICRO_JAR>
                             </environmentVariables>
+                            <systemPropertyVariables>
+                                <arquillian.launch>payara-micro-managed</arquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -243,6 +246,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+
         </profile>
     </profiles>
     
