@@ -13,28 +13,28 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
-        
+
         <!-- Fault Tolerance Dependencies -->
         <microprofile.metrics.version>1.1.payara-p1</microprofile.metrics.version>
         <microprofile.metrics.tck.version>1.1.payara-p1</microprofile.metrics.tck.version>
-        
+
         <!-- Arquillian Dependencies -->
         <arquillian.version>1.1.14.Final</arquillian.version>
         <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
-        
+
         <!-- Other Test Dependencies -->
         <cdi.version>1.2</cdi.version>
-        
+
         <!-- Payara Dependencies -->
         <payara.version>5.182-SNAPSHOT</payara.version>
-        
+
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
         <jersey.version>2.26</jersey.version>
         <servlet.version>4.0.0</servlet.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
@@ -61,7 +61,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -73,7 +73,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -92,7 +92,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>payara-server-remote</id>
@@ -114,10 +114,10 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
             <id>payara-micro-managed</id>
-            
+
             <build>
                 <plugins>
                     <!-- Download Payara Micro and copy to target directory -->
@@ -145,7 +145,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    
+
                     <!-- Configure Payara Micro Runtime -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -162,7 +162,7 @@
                     </plugin>
                 </plugins>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -178,10 +178,10 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
-            <id>payara-embedded</id>
-            
+            <id>payara-server-embedded</id>
+
             <build>
                 <testResources>
                     <testResource>
@@ -202,7 +202,7 @@
                     </plugin>
                 </plugins>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -255,7 +255,7 @@
 
         </profile>
     </profiles>
-    
+
     <repositories>
         <repository>
             <id>eclipse.microprofile</id>
@@ -267,7 +267,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>  
+        </repository>
         <repository>
             <id>payara-patched-externals</id>
             <name>Payara Patched Externals</name>
@@ -276,8 +276,8 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled> 
+                <enabled>false</enabled>
             </snapshots>
-        </repository>  
+        </repository>
     </repositories>
 </project>
