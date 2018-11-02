@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>fish.payara.microprofile</groupId>
     <artifactId>microprofile-openapi-tck-runner</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>MicroProfile OpenAPI TCK Runner</name>
-    
+
     <properties>
         <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
-        
+
         <!-- Microprofile Dependencies -->
         <microprofile.openapi.version>1.0.1</microprofile.openapi.version>
         <microprofile.openapi.tck.version>1.0.1.payara-p1</microprofile.openapi.tck.version>
 
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
-        
+
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
         <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
-        
+
         <!-- Payara Dependencies -->
         <payara.version>5.182-SNAPSHOT</payara.version>
-        
+
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
@@ -38,7 +38,7 @@
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.openapi</groupId>
@@ -59,7 +59,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -71,7 +71,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <profiles>
         <profile>
             <id>payara-server-remote</id>
@@ -83,7 +83,7 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -102,10 +102,10 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>payara-micro-managed</id>
-            
+
             <build>
                 <plugins>
                     <!-- Download Payara Micro and copy to target directory -->
@@ -153,7 +153,7 @@
                     </plugin>
                 </plugins>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -169,14 +169,14 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
-            <id>payara-embedded</id>
+            <id>payara-server-embedded</id>
 
             <properties>
                 <test.url>http://localhost:8181/openapi/</test.url>
             </properties>
-            
+
             <build>
                 <plugins>
                     <plugin>
@@ -204,7 +204,7 @@
                     </testResource>
                 </testResources>
             </build>
-            
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -256,7 +256,7 @@
             </dependencies>
         </profile>
     </profiles>
-    
+
     <repositories>
         <repository>
             <id>eclipse.microprofile</id>
@@ -279,6 +279,6 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository> 
+        </repository>
     </repositories>
 </project>
