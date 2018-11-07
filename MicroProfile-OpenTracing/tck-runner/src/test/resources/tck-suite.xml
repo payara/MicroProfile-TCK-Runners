@@ -2,7 +2,7 @@
 
 <suite name="microprofile-opentracing-TCK" verbose="2" configfailurepolicy="continue" >
 
-    <test name="microprofile-opentracing 1.1 TCK">
+    <test name="microprofile-opentracing 1.0 TCK">
         <classes>
             <class name="org.eclipse.microprofile.opentracing.tck.OpentracingClientTests">
                 <methods>

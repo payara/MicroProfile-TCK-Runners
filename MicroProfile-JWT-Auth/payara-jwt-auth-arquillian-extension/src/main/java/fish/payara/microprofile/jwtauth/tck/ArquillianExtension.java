@@ -41,6 +41,7 @@ package fish.payara.microprofile.jwtauth.tck;
 
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
+import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
 
 /**
  * This arquillian extension installs the {@link ArquillianArchiveProcessor}, which
@@ -56,7 +57,11 @@ public class ArquillianExtension implements LoadableExtension {
     public void register(ExtensionBuilder extensionBuilder) {
         System.err.println("\n\n\n\n Registered Payara TCK ArquillianExtension \n\n\n\n");
         
-        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class);
+        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class)
+                        .override(
+                                ResourceProvider.class,
+                                org.jboss.arquillian.container.test.impl.enricher.resource.URLResourceProvider.class,
+                                fish.payara.microprofile.jwtauth.tck.URLResourceProvider.class);
     }
 
 }
