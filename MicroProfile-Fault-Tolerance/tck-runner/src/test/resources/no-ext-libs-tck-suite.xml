@@ -10,6 +10,53 @@
                 <exclude name="org.eclipse.microprofile.fault.tolerance.tck.metrics"/>
             </package>
         </packages>
-    </test>
 
+        <!--below are ignored until fix of PAYARA-3238-->
+        <classes>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.RetryTimeoutTest">
+                <methods>
+                   <exclude name=".*testRetryTimeout.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.TimeoutTest">
+                <methods>
+                  <exclude name=".*testGTDefaultTimeout.*"/>
+                  <exclude name=".*testGTShorterTimeoutOverride.*"/>
+                  <exclude name=".*testLTDefaultTimeoutClassLevel.*"/>
+                  <exclude name=".*testSecondsTimeout.*"/>
+                  <exclude name=".*testTimeoutClassLevel.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.AsyncTimeoutTest">
+                <methods>
+                    <exclude name=".*testAsyncClassLevelTimeout.*"/>
+                    <exclude name=".*testAsyncTimeout.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableFTEnableOnMethodTest">
+                <methods>
+                    <exclude name=".*testTimeout.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.FallbackTest">
+                <methods>
+                    <exclude name=".*testFallbackTimeout.*"/>
+                    <exclude name=".*testClassLevelFallbackSuccess.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.TimeoutMethodConfigTest">
+                <methods>
+                    <exclude name=".*testTimeout.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableFTEnableGloballyTest">
+                <methods>
+                    <exclude name=".*testTimeout.*"/>
+                </methods>
+            </class>
+             
+            <!--end. Above are ignored until fix of PAYARA-3238-->
+            
+        </classes>
+    </test>
 </suite>
