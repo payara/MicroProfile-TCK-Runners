@@ -2,34 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>fish.payara.tests.integration</groupId>
+        <artifactId>integration-tests-microprofile</artifactId>
+        <version>5.191-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
     <groupId>fish.payara.microprofile</groupId>
     <artifactId>microprofile-config-tck-runner</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
     <name>MicroProfile Config TCK Runner</name>
 
     <properties>
-        <!-- Maven Dependencies -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.surefire.version>2.20.1</maven.surefire.version>
-
-        <!-- Fault Tolerance Dependencies -->
+        <!-- Config Dependencies -->
         <microprofile.config.version>1.3</microprofile.config.version>
         <microprofile.config.tck.version>1.3</microprofile.config.tck.version>
-
-        <!-- Arquillian Dependencies -->
-        <version.arquillian>1.1.14.Final</version.arquillian>
-        <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
-
-        <!-- Payara Dependencies -->
-        <payara.version>5.181-SNAPSHOT</payara.version>
-
-        <!-- Embedded Dependencies -->
-        <json.version>1.1.2</json.version>
-        <tyrus.version>1.13.1</tyrus.version>
-        <jersey.version>2.26</jersey.version>
     </properties>
 
     <dependencies>
@@ -47,47 +36,57 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <profiles>
         <profile>
-            <id>payara-server-remote</id>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-remote</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-
+            <id>payara-server-managed</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
+                    <!-- Copy the Payara artifact into the target directory -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven.surefire.version}</version>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                    </plugin>
+                    <!-- Run the integration tests against the remote server -->
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
-			<!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
-			<environmentVariables>
-			    <my_int_property>45</my_int_property>
-			    <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
-			    <my_string_property>haha</my_string_property>
-			    <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
-			</environmentVariables>
+                            <environmentVariables>
+                                <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
+                                <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
+                                <my_int_property>45</my_int_property>
+                                <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
+                                <my_string_property>haha</my_string_property>
+                                <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>payara-server-remote</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
+                            <environmentVariables>
+                                <my_int_property>45</my_int_property>
+                                <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
+                                <my_string_property>haha</my_string_property>
+                                <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                            </environmentVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -101,42 +100,19 @@
                 <plugins>
                     <!-- Download Payara Micro and copy to target directory -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>fish.payara.extras</groupId>
-                                            <artifactId>payara-micro</artifactId>
-                                            <version>${payara.version}</version>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${session.executionRootDirectory}/target/</outputDirectory>
-                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
                     <!-- Configure Payara Micro Runtime -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven.surefire.version}</version>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <MICRO_JAR>${session.executionRootDirectory}/target/payara-micro-${payara.version}.jar</MICRO_JAR>
-                    		<my_int_property>45</my_int_property>
-                    		<MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
-                    		<my_string_property>haha</my_string_property>
-                    		<MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
-			    </environmentVariables>
+                                <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
+                                <my_int_property>45</my_int_property>
+                                <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
+                                <my_string_property>haha</my_string_property>
+                                <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+			                </environmentVariables>
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
@@ -144,21 +120,6 @@
                     </plugin>
                 </plugins>
             </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-5-managed</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee7</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
         </profile>
 
         <profile>
@@ -167,20 +128,18 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven.surefire.version}</version>
+                        <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
-			<!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
-			<environmentVariables>
-			    <my_int_property>45</my_int_property>
-			    <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
-			    <my_string_property>haha</my_string_property>
-			    <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
-			</environmentVariables>
+                            <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
+                            <environmentVariables>
+                                <my_int_property>45</my_int_property>
+                                <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
+                                <my_string_property>haha</my_string_property>
+                                <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                            </environmentVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -195,76 +154,6 @@
                     </testResource>
                 </testResources>
             </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-embedded</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee7</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
-                    <version>${json.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-client</artifactId>
-                    <version>${tyrus.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.tyrus</groupId>
-                    <artifactId>tyrus-container-grizzly-client</artifactId>
-                    <version>${tyrus.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                    <version>${jersey.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>eclipse.microprofile</id>
-            <name>Eclipse MicroProfile Repository</name>
-            <url>https://repo.eclipse.org/content/groups/microprofile/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>payara.patched.projects</id>
-            <name>Payara_PatchedProjects Repository</name>
-            <url>https://raw.github.com/payara/Payara_PatchedProjects/master/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>

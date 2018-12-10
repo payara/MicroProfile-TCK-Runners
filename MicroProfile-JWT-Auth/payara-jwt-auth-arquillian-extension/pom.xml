@@ -41,29 +41,23 @@ holder.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fish.payara.tests.integration</groupId>
+        <artifactId>integration-tests-microprofile</artifactId>
+        <version>5.191-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
     
     <groupId>fish.payara.microprofile.jwt-auth</groupId>
     <artifactId>payara-jwt-auth-arquillian-extension</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Payara Microprofile JWT Auth Arquillian Extension</name>
 
     <properties>
-        <!-- Maven Dependencies -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        
         <!-- JWT Auth Dependencies -->
         <microprofile.jwt-auth.version>1.1.payara-p1</microprofile.jwt-auth.version>
         <microprofile.jwt-auth.tck.version>1.1.payara-p1</microprofile.jwt-auth.tck.version>
-        
-        <!-- Arquillian Dependencies -->
-        <version.arquillian>1.1.14.Final</version.arquillian>
-        <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
-        
-        <!-- Payara Dependencies -->
-        <payara.version>5.184-SNAPSHOT</payara.version>
         
         <!-- JSON Dependencies -->
         <json.version>1.1.2</json.version>
@@ -72,45 +66,7 @@ holder.
         <jersey.version>2.26</jersey.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>eclipse.microprofile</id>
-            <name>Eclipse MicroProfile Repository</name>
-            <url>https://repo.eclipse.org/content/groups/microprofile/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>payara.patched.projects</id>
-            <name>Payara_PatchedProjects Repository</name>
-            <url>https://raw.github.com/payara/Payara_PatchedProjects/master/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-    
         <!-- JWT -->
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
@@ -134,7 +90,7 @@ holder.
         <dependency>
             <groupId>fish.payara.microprofile.jwt-auth</groupId>
             <artifactId>microprofile-jwt-auth</artifactId>
-            <version>${payara.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Arquillian -->
