@@ -33,6 +33,16 @@
                     <exclude name=".*testAsyncTimeout.*"/>
                 </methods>
             </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableAnnotationGloballyEnableOnMethodTest">
+                <methods>
+                    <exclude name=".*testTimeout.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableAnnotationGloballyEnableOnClassTest">
+                <methods>
+                    <exclude name=".*testTimeout.*"/>
+                </methods>
+            </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableFTEnableOnMethodTest">
                 <methods>
                     <exclude name=".*testTimeout.*"/>
@@ -54,9 +64,9 @@
                     <exclude name=".*testTimeout.*"/>
                 </methods>
             </class>
-             
+
             <!--end. Above are ignored until fix of PAYARA-3238-->
-            
+
         </classes>
     </test>
 </suite>
