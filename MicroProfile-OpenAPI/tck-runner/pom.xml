@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.tests.integration</groupId>
-        <artifactId>integration-tests-microprofile</artifactId>
-        <version>5.191-SNAPSHOT</version>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../../</relativePath>
     </parent>
 
-    <groupId>fish.payara.microprofile</groupId>
-    <artifactId>microprofile-openapi-tck-runner</artifactId>
+    <groupId>fish.payara.microprofile.openapi</groupId>
+    <artifactId>tck-runner</artifactId>
     <packaging>pom</packaging>
 
     <name>MicroProfile OpenAPI TCK Runner</name>

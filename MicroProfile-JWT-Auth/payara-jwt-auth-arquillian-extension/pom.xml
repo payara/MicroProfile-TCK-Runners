@@ -43,16 +43,17 @@ holder.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.tests.integration</groupId>
-        <artifactId>integration-tests-microprofile</artifactId>
-        <version>5.191-SNAPSHOT</version>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../../</relativePath>
     </parent>
     
     <groupId>fish.payara.microprofile.jwt-auth</groupId>
-    <artifactId>payara-jwt-auth-arquillian-extension</artifactId>
+    <artifactId>tck-arquillian-extension</artifactId>
     <packaging>jar</packaging>
-    <name>Payara Microprofile JWT Auth Arquillian Extension</name>
+
+    <name>MicroProfile JWT Auth Arquillian Extension</name>
 
     <properties>
         <!-- JWT Auth Dependencies -->
@@ -90,7 +91,7 @@ holder.
         <dependency>
             <groupId>fish.payara.microprofile.jwt-auth</groupId>
             <artifactId>microprofile-jwt-auth</artifactId>
-            <version>${project.version}</version>
+            <version>${payara.version}</version>
         </dependency>
 
         <!-- Arquillian -->

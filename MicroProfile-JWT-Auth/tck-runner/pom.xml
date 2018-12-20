@@ -3,15 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.tests.integration</groupId>
-        <artifactId>integration-tests-microprofile</artifactId>
-        <version>5.191-SNAPSHOT</version>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../../</relativePath>
     </parent>
 
     <groupId>fish.payara.microprofile.jwt-auth</groupId>
-    <artifactId>microprofile-jwt-auth-tck-runner</artifactId>
+    <artifactId>tck-runner</artifactId>
     <packaging>pom</packaging>
+
     <name>MicroProfile JWT-Auth TCK Runner</name>
 
     <properties>
