@@ -23,7 +23,7 @@
         <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
         
         <!-- Test Dependencies -->
-        <version.failsafe>2.22.1</version.failsafe>
+        <failsafe.version>2.22.1</failsafe.version>
 
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
@@ -264,7 +264,7 @@
             <!-- Configure failsafe plugin to run integration tests -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${version.failsafe}</version>
+                <version>${failsafe.version}</version>
                 <executions>
                     <execution>
                         <id>run-tests</id>
