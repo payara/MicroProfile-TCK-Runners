@@ -6,25 +6,30 @@
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../</relativePath>
     </parent>
 
     <groupId>fish.payara.microprofile.health</groupId>
-    <artifactId>tck-arquillian-extension</artifactId>
-    <packaging>jar</packaging>
-    <name>MicroProfile Health TCK Runner Payara Extension</name>
-    
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>MicroProfile Health TCK Runner Parent</name>
+
     <properties>
-        <!-- Health Dependencies -->
         <microprofile.health.version>1.0.payara-p1</microprofile.health.version>
     </properties>
+
+    <modules>
+        <module>tck-arquillian-extension</module>
+        <module>tck-runner</module>
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.health</groupId>
             <artifactId>microprofile-health-api</artifactId>
             <version>${microprofile.health.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
 </project>

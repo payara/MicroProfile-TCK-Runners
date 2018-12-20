@@ -3,21 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.microprofile</groupId>
-        <artifactId>tck-suite-parent</artifactId>
+        <groupId>fish.payara.microprofile.health</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../</relativePath>
     </parent>
 
-    <groupId>fish.payara.microprofile.health</groupId>
     <artifactId>tck-runner</artifactId>
     <packaging>pom</packaging>
 
     <name>MicroProfile Health TCK Runner</name>
 
     <properties>
-        <!-- Health Dependencies -->
-        <microprofile.health.version>1.0.payara-p1</microprofile.health.version>
         <microprofile.health.tck.version>1.0.payara-p1</microprofile.health.tck.version>
     </properties>
 

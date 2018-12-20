@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>fish.payara.microprofile.jwt-auth</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>MicroProfile JWT-Auth TCK Runner Parent</name>
+
+    <properties>
+        <!-- JWT Auth Dependencies -->
+        <microprofile.jwt-auth.version>1.1.payara-p1</microprofile.jwt-auth.version>
+        <microprofile.jwt-auth.tck.version>1.1.payara-p1</microprofile.jwt-auth.tck.version>
+
+        <!-- Jersey Dependencies -->
+        <jersey.version>2.26</jersey.version>
+    </properties>
+
+    <modules>
+        <module>tck-arquillian-extension</module>
+        <module>tck-runner</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile.jwt</groupId>
+            <artifactId>microprofile-jwt-auth-tck</artifactId>
+            <version>${microprofile.jwt-auth.tck.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.jwt</groupId>
+            <artifactId>microprofile-jwt-auth-api</artifactId>
+            <version>${microprofile.jwt-auth.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.microprofile.jwt-auth</groupId>
+            <artifactId>microprofile-jwt-auth</artifactId>
+            <version>${payara.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.jwt</groupId>
+            <artifactId>microprofile-jwt-auth-tck</artifactId>
+            <version>${microprofile.jwt-auth.tck.version}</version>
+            <type>test-jar</type>
+        </dependency>
+    </dependencies>
+
+</project>

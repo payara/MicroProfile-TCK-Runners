@@ -43,67 +43,22 @@ holder.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.microprofile</groupId>
-        <artifactId>tck-suite-parent</artifactId>
+        <groupId>fish.payara.microprofile.jwt-auth</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../</relativePath>
     </parent>
     
-    <groupId>fish.payara.microprofile.jwt-auth</groupId>
     <artifactId>tck-arquillian-extension</artifactId>
     <packaging>jar</packaging>
 
-    <name>MicroProfile JWT Auth Arquillian Extension</name>
+    <name>MicroProfile JWT Auth TCK Arquillian Extension</name>
 
     <properties>
-        <!-- JWT Auth Dependencies -->
-        <microprofile.jwt-auth.version>1.1.payara-p1</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.1.payara-p1</microprofile.jwt-auth.tck.version>
-        
         <!-- JSON Dependencies -->
         <json.version>1.1.2</json.version>
-        
-        <!-- Jersey Dependencies -->
-        <jersey.version>2.26</jersey.version>
     </properties>
 
     <dependencies>
-        <!-- JWT -->
-        <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-tck</artifactId>
-            <version>${microprofile.jwt-auth.tck.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-tck</artifactId>
-            <version>${microprofile.jwt-auth.tck.version}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-tck</artifactId>
-            <version>${microprofile.jwt-auth.tck.version}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>fish.payara.microprofile.jwt-auth</groupId>
-            <artifactId>microprofile-jwt-auth</artifactId>
-            <version>${payara.version}</version>
-        </dependency>
-
-        <!-- Arquillian -->
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-container-spi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-container-test-spi</artifactId>
-        </dependency>
-
         <!-- JAX-RS client API dependencies -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
