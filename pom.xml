@@ -344,6 +344,14 @@
     
     <repositories>
         <repository>
+            <id>payara-staging</id>
+            <url>https://nexus.payara.fish/content/repositories/payara-staging/</url>
+        </repository>
+        <repository>
+            <id>payara-patches</id>
+            <url>https://nexus.payara.fish/content/repositories/payara-patches/</url>
+        </repository>
+        <repository>
             <id>eclipse.microprofile</id>
             <name>Eclipse MicroProfile Repository</name>
             <url>https://repo.eclipse.org/content/groups/microprofile/</url>
