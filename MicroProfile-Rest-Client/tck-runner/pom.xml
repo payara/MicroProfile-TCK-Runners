@@ -54,20 +54,6 @@
 
     <name>MicroProfile Rest Client TCK Runner</name>
     
-    <properties>
-        <!-- Rest Client Dependencies -->
-        <microprofile.rest.client.tck.version>1.1.payara-p2</microprofile.rest.client.tck.version>
-    </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile.rest.client</groupId>
-            <artifactId>microprofile-rest-client-tck</artifactId>
-            <version>${microprofile.rest.client.tck.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    
     <build>
         <plugins>
             <plugin>
@@ -91,6 +77,48 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>payara5</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5.+/</value>
+                </property>
+            </activation>
+            <properties>
+                <!-- Rest Client Dependencies -->
+                <microprofile.rest.client.tck.version>1.1.payara-p2</microprofile.rest.client.tck.version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.microprofile.rest.client</groupId>
+                    <artifactId>microprofile-rest-client-tck</artifactId>
+                    <version>${microprofile.rest.client.tck.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>payara4</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/4.+/</value>
+                </property>
+            </activation>
+            <properties>
+                <!-- Rest Client Dependencies -->
+                <microprofile.rest.client.tck.version>1.0.1.payara-p2</microprofile.rest.client.tck.version>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.microprofile.rest.client</groupId>
+                    <artifactId>microprofile-rest-client-tck</artifactId>
+                    <version>${microprofile.rest.client.tck.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>payara-server-managed</id>
             <activation>
