@@ -128,10 +128,6 @@
         </profile>
 
         <profile>
-            <id>payara-server-remote</id>
-        </profile>
-
-        <profile>
             <id>payara-micro-managed</id>
 
             <build>
