@@ -76,7 +76,6 @@
     <modules>
         <module>MicroProfile-Fault-Tolerance/tck-runner</module>
         <module>MicroProfile-JWT-Auth/</module>
-        <module>MicroProfile-OpenTracing/tck-runner</module>
         <module>MicroProfile-Metrics/tck-runner</module>
         <module>MicroProfile-Rest-Client/tck-runner</module>
         <module>MicroProfile-Health/</module>
@@ -139,6 +138,9 @@
             <properties>
                 <payara.path>${project.build.directory}/dependency/payara5</payara.path>
             </properties>
+            <modules>
+                <module>MicroProfile-OpenTracing/tck-runner</module>
+            </modules>
         </profile>
         <profile>
             <id>payara-server-managed</id>
