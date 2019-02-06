@@ -4,7 +4,7 @@
     <extension>
         <groupId>fish.payara.maven.extensions</groupId>
         <artifactId>regex-profile-activator</artifactId>
-        <version>1.0</version>
+        <version>0.1</version>
     </extension>
 
 </extensions>
