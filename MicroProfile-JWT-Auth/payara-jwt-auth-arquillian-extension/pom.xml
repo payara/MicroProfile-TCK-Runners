@@ -2,7 +2,7 @@
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+Copyright (c) [2017-2019] Payara Foundation and/or its affiliates. All rights reserved.
 
 The contents of this file are subject to the terms of either the GNU
 General Public License Version 2 only ("GPL") or the Common Development
@@ -55,8 +55,8 @@ holder.
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- JWT Auth Dependencies -->
-        <microprofile.jwt-auth.version>1.1.payara-p1</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.1.payara-p1</microprofile.jwt-auth.tck.version>
+        <microprofile.jwt-auth.version>1.1.1</microprofile.jwt-auth.version>
+        <microprofile.jwt-auth.tck.version>1.1.1</microprofile.jwt-auth.tck.version>
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
