@@ -94,6 +94,12 @@
             <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee7</artifactId>
+            <version>${payara.arquillian.container.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
