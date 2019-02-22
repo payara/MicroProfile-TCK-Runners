@@ -73,8 +73,38 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <dependenciesToScan>
+                        <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
+                    </dependenciesToScan>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources-glassfish-remote</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee8</artifactId>
+            <version>${payara.arquillian.container.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -134,28 +164,12 @@
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <dependenciesToScan>
-                                <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
-                            </dependenciesToScan>
                             <environmentVariables>
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
                             </environmentVariables>
-                            <includes>
-                                <include>**/*Test.java</include>
-                            </includes>
                         </configuration>
                     </plugin>
                 </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
             </build>
         </profile>
         <profile>
@@ -172,16 +186,6 @@
                         </configuration>
                     </plugin>
                 </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
             </build>
         </profile>
         
