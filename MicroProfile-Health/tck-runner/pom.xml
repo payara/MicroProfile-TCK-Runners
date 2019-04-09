@@ -70,17 +70,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>tck-arquillian-extension</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee7</artifactId>
             <version>${payara.arquillian.container.version}</version>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>tck-arquillian-extension</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <!-- exclude dependency inheritance for server-managed from tck extension -->
+                <exclusion>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-managed</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
     </dependencies>
 
     <build>
