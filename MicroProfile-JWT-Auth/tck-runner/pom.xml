@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
   
-   Copyright (c) [2017-2018] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2017-2019] Payara Foundation and/or its affiliates. All rights reserved.
   
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -62,6 +62,11 @@
                 <exclusion>
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
+                </exclusion>
+                 <!-- exclude dependency inheritance for server-managed from tck extension -->
+                <exclusion>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-managed</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -190,7 +195,6 @@
                                 <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
                             </environmentVariables>
                             <systemPropertyVariables>
-                                <arquillian.launch>payara-micro-managed</arquillian.launch>
                                 <mp.jwt.tck.jwks.baseURL>http://localhost:8080/PublicKeyAsJWKLocationURLTest/</mp.jwt.tck.jwks.baseURL>
                                 <mp.jwt.tck.pem.baseURL>http://localhost:8080/PublicKeyAsPEMLocationURLTest/</mp.jwt.tck.pem.baseURL>
                             </systemPropertyVariables>
