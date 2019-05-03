@@ -55,10 +55,6 @@
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 
     <properties>
-        <!-- Fault Tolerance Dependencies -->
-        <microprofile.fault-tolerance.version>1.1.1</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>1.1.1.payara-p2</microprofile.fault-tolerance.tck.version>
-
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
     </properties>
@@ -96,7 +92,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/resources/stable-no-ext-libs-tck-suite.xml</suiteXmlFile>
+                        <suiteXmlFile>${basedir}/src/test/resources/${microprofile.fault-tolerance.tck.suite}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -104,6 +100,34 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>mp-ft-1.1</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5\.18.+|5\.191.*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.fault-tolerance.version>1.1.1</microprofile.fault-tolerance.version>
+                <microprofile.fault-tolerance.tck.version>1.1.1.payara-p2</microprofile.fault-tolerance.tck.version>
+                <microprofile.fault-tolerance.tck.suite>stable-no-ext-libs-tck-suite.xml</microprofile.fault-tolerance.tck.suite>
+            </properties>
+        </profile>
+        <profile>
+            <id>mp-ft-2.0</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5\.19[^1].*|5\.2.*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.fault-tolerance.version>2.0</microprofile.fault-tolerance.version>
+                <microprofile.fault-tolerance.tck.version>2.0</microprofile.fault-tolerance.tck.version>
+                <microprofile.fault-tolerance.tck.suite>tck-suite2.0.xml</microprofile.fault-tolerance.tck.suite>
+            </properties>
+        </profile>
         <profile>
             <id>unstable</id>
             <build>
