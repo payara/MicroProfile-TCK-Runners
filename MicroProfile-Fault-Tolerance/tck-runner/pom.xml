@@ -105,7 +105,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/5\.18.+|5\.191.*/</value>
+                    <value>/4\..+|5\.18.+|5\.191.*/</value>
                 </property>
             </activation>
             <properties>
