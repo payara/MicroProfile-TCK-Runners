@@ -55,7 +55,7 @@
     <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- Microprofile Dependencies -->
+        <!-- Latest version of Microprofile Dependencies set via profiles -->
         <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
         <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
 
@@ -109,6 +109,32 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>mp-openapi-1.0</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/4\..+|5\.18.+|5\.191.*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.openapi.version>1.0.1</microprofile.openapi.version>
+                <microprofile.openapi.tck.version>1.0.1.payara-p1</microprofile.openapi.tck.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>mp-openapi-1.1</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5\.19[^1].*|5\.2.+/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
+                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
+            </properties>
+        </profile>
         <profile>
             <id>payara-server-managed</id>
             <activation>
