@@ -55,6 +55,11 @@
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 
     <properties>
+        <!-- Defaults for API and TCK dependencies - latest version -->
+        <microprofile.fault-tolerance.version>2.0</microprofile.fault-tolerance.version>
+        <microprofile.fault-tolerance.tck.version>2.0</microprofile.fault-tolerance.tck.version>
+        <microprofile.fault-tolerance.tck.suite>tck-suite2.0.xml</microprofile.fault-tolerance.tck.suite>
+
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
     </properties>
