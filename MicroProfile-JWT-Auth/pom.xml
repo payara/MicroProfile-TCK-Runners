@@ -60,6 +60,9 @@
 
         <!-- Jersey Dependencies -->
         <jersey.version>2.26</jersey.version>
+
+        <!-- Payara build version for JWT Auth module -->
+        <payara.build.version>${payara.version}</payara.build.version>
     </properties>
 
     <modules>
@@ -81,7 +84,7 @@
         <dependency>
             <groupId>fish.payara.microprofile.jwt-auth</groupId>
             <artifactId>microprofile-jwt-auth</artifactId>
-            <version>${payara.version}</version>
+            <version>${payara.build.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
