@@ -58,12 +58,26 @@
         <json.version>1.1.2</json.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>payara4</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/4.+/</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.microprofile.jwt-auth</groupId>
+                    <artifactId>microprofile-jwt-auth</artifactId>
+                    <version>{payara.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <dependencies>
-        <dependency>
-            <groupId>fish.payara.microprofile.jwt-auth</groupId>
-            <artifactId>microprofile-jwt-auth</artifactId>
-           <version>${payara.version}</version>
-        </dependency>
         <!-- JAX-RS client API dependencies -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
