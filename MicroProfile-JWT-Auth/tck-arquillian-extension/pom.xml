@@ -52,12 +52,12 @@
     <packaging>jar</packaging>
 
     <name>MicroProfile JWT Auth TCK Arquillian Extension</name>
-    
+
     <properties>
         <!-- JSON Dependencies -->
         <json.version>1.1.2</json.version>
     </properties>
-
+   
     <profiles>
         <profile>
             <id>payara4</id>
