@@ -72,7 +72,7 @@
                 <dependency>
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
-                    <version>{$payara.version}</version>
+                    <version>${payara.version}</version>
                 </dependency>
             </dependencies>
             <build>
