@@ -57,23 +57,39 @@
         <!-- JSON Dependencies -->
         <json.version>1.1.2</json.version>
     </properties>
-   
+    
     <profiles>
         <profile>
-            <id>payara4</id>
+            <id>payara5</id>
             <activation>
                 <property>
-                    <name>payara.version</name>
-                    <value>/4.+/</value>
+                    <name>$payara.version</name>
+                    <value>/5\.([1-9][9][3-4]|[2-9][0-9][0-9])/</value>
                 </property>
             </activation>
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
-                    <version>{payara.version}</version>
+                    <version>{$payara.version}</version>
                 </dependency>
             </dependencies>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.8.1</version>
+                            <configuration>
+                                <excludes>
+                                    <exclude>fish/payara/microprofile/jwtauth/tck/TokenParser.java</exclude>
+                                </excludes>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
         </profile>
     </profiles>
 
