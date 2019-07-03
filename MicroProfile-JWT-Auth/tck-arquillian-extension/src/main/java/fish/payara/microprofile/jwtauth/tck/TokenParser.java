@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017-2019 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -40,30 +40,30 @@
 package fish.payara.microprofile.jwtauth.tck;
 
 import java.security.PublicKey;
-
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.eclipse.microprofile.jwt.tck.util.ITokenParser;
-
-import fish.payara.microprofile.jwtauth.jwt.JwtTokenParser;
+import fish.payara.microprofile.jwtauth.jwt.MockJwtTokenParser;
 
 /**
- * This implements the artefact mandated by the MP-JWT TCK for offline (outside container) testing
+ *
+ *  * This implements the artefact mandated by the MP-JWT TCK for offline
+ * (outside container) testing
  * of the token parser.
- * 
+ *
  * @author Arjan Tijms
  *
  */
-public class TokenParser implements ITokenParser {
-    
-    private final JwtTokenParser jwtTokenParser = new JwtTokenParser();
-    
-    @Override
+public class TokenParser {
+
+    private final MockJwtTokenParser jwtTokenParser = new MockJwtTokenParser();
+
     public JsonWebToken parse(String bearerToken, String issuer, PublicKey signedBy) throws Exception {
         try {
-            return jwtTokenParser.parse(bearerToken, issuer, signedBy);
+            jwtTokenParser.parse(bearerToken);
+            return jwtTokenParser.verify(issuer, signedBy);
         } catch (Exception e) {
             throw new IllegalStateException("", e);
         }
     }
 
 }
+

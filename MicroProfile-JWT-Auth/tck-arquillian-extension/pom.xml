@@ -61,7 +61,7 @@
     <profiles>
        <!-- This profile will exclude the TokenParser class and use the one in Payara Server instead. For versions 5.193+ -->
         <profile>
-            <id>payara5</id>
+            <id>payara5.193+</id>
             <activation>
                 <property>
                     <name>payara.version</name>
