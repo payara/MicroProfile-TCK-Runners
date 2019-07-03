@@ -52,7 +52,7 @@ import fish.payara.microprofile.jwtauth.jwt.MockJwtTokenParser;
  * @author Arjan Tijms
  *
  */
-public class TokenParser {
+public class MockTokenParser {
 
     private final MockJwtTokenParser jwtTokenParser = new MockJwtTokenParser();
 
