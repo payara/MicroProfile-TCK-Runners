@@ -13,7 +13,11 @@
             <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest">
                 <methods><exclude name=".*"></exclude></methods>
             </class>
-        
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchRetryTest">
+                <methods>
+                    <exclude name="testRetriesJoinBackOfQueue"></exclude>
+                </methods>
+            </class>
             <!-- exception is thrown but wrapped, added JUnit tests instead -->
             <class name="org.eclipse.microprofile.fault.tolerance.tck.fallbackmethod.FallbackMethodWildcardNegativeTest">
                 <methods><exclude name=".*"></exclude></methods>
