@@ -41,7 +41,7 @@ package fish.payara.microprofile.jwtauth.tck;
 
 import java.security.PublicKey;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import fish.payara.microprofile.jwtauth.jwt.MockJwtTokenParser;
+import fish.payara.microprofile.jwtauth.jwt.JwtTokenParser;
 
 /**
  *
