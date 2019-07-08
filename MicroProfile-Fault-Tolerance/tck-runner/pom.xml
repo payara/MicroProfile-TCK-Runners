@@ -258,7 +258,7 @@
                                 <EXTRA_MICRO_OPTIONS>--prebootcommandfile ${basedir}/micro-pre-boot-commands.txt</EXTRA_MICRO_OPTIONS>
                             </environmentVariables>
                             <suiteXmlFiles>
-                                <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
+                                <suiteXmlFile>${basedir}/src/test/resources/${microprofile.fault-tolerance.tck.suite}</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
