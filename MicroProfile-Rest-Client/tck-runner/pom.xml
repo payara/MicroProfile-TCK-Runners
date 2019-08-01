@@ -56,7 +56,8 @@
 
     <properties>
         <!-- Rest Client Dependencies -->
-        <microprofile.rest.client.tck.version>1.2.1.payara-p1</microprofile.rest.client.tck.version>
+	<microprofile.rest.client.tck.version>1.2.1.payara-p1</microprofile.rest.client.tck.version>
+	<microprofile.rest.client.api.version>1.2.1.payara-p1</microprofile.rest.client.api.version>
     </properties>
     
     <build>
@@ -138,7 +139,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
-            <version>${microprofile.rest.client.tck.version}</version>
+            <version>${microprofile.rest.client.api.version}</version>
             <scope>test</scope>
         </dependency>
 
