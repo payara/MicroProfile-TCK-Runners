@@ -114,6 +114,9 @@
                     <environmentVariables>
                         <MP_METRICS_TAGS>tier=integration</MP_METRICS_TAGS>
                     </environmentVariables>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
@@ -173,9 +176,6 @@
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
                                 <MP_METRICS_TAGS>tier=integration</MP_METRICS_TAGS>
                             </environmentVariables>
-                            <includes>
-                                <include>**/*Test.java</include>
-                            </includes>
                         </configuration>
                     </plugin>
                 </plugins>
