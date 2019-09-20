@@ -57,7 +57,8 @@
     <properties>
         <!-- OpenTracing Dependencies -->
         <microprofile.opentracing.version>1.3.1</microprofile.opentracing.version>
-        <microprofile.opentracing.tck.version>1.3.1</microprofile.opentracing.tck.version>
+        <microprofile.opentracing.tck.rest-client.version>1.3.1</microprofile.opentracing.tck.rest-client.version>
+        <microprofile.opentracing.tck.version>1.3.1.payara-p1</microprofile.opentracing.tck.version>
     </properties>
 
     <dependencies>
@@ -76,7 +77,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
             <artifactId>microprofile-opentracing-tck-rest-client</artifactId>
-            <version>${microprofile.opentracing.tck.version}</version>
+            <version>${microprofile.opentracing.tck.rest-client.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
