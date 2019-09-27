@@ -288,6 +288,24 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>jdk11</id>
+            <activation>
+                <jdk>11</jdk>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>jakarta.xml.bind</groupId>
+                    <artifactId>jakarta.xml.bind-api</artifactId>
+                    <version>2.3.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>jakarta.activation</groupId>
+                    <artifactId>jakarta.activation-api</artifactId>
+                    <version>1.2.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
     
     <dependencyManagement>
