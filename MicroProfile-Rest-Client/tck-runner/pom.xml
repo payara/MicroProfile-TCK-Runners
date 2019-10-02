@@ -82,6 +82,7 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
+                    <trimStackTrace>false</trimStackTrace>
                     <dependenciesToScan>
                         <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
                     </dependenciesToScan>
@@ -119,13 +120,13 @@
     </dependencies>
 
     <profiles>
-        <!-- Payara 5 versions up to and including 5.192 -->
+        <!-- Payara 5 versions up to but excluding 5.192 -->
         <profile>
             <id>payara5.192-</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/5\.1(8\d*|9[1-2])(?:-SNAPSHOT|\.\d*)?/</value>
+                    <value>/5\.1(8\d*|91)(?:-SNAPSHOT|\.\d*)?/</value>
                 </property>
             </activation>
             <properties>
@@ -133,13 +134,13 @@
                 <microprofile.rest.client.api.version>1.1.payara-p2</microprofile.rest.client.api.version>
             </properties>
         </profile>
-        <!-- Payara 5 versions from 5.193 -->
+        <!-- Payara 5 versions from 5.192 -->
         <profile>
             <id>payara5.193+</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/^[5-9]\.(193|[2-9]\d{2})(?:-SNAPSHOT|\.\d*)?/</value>
+                    <value>/^[5-9]\.(19[2-4]|[2-9]\d{2})(?:-SNAPSHOT|\.\d*)?/</value>
                 </property>
             </activation>
             <properties>
