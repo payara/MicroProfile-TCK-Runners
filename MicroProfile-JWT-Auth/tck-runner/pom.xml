@@ -63,6 +63,10 @@
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
                 </exclusion>
+				<exclusion>
+					<groupId>fish.payara.server.internal.payara-appserver-modules</groupId>
+					<artifactId>microprofile-jwt-auth</artifactId>
+				</exclusion>
                  <!-- exclude dependency inheritance for server-managed from tck extension -->
                 <exclusion>
                     <groupId>fish.payara.arquillian</groupId>
