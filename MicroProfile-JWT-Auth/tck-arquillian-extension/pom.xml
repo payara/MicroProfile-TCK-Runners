@@ -59,7 +59,25 @@
     </properties>
     
     <profiles>
-       <!-- This profile will exclude the TokenParser class and use the one in Payara Server instead. For versions 5.193+ -->
+        
+        <profile>
+            <id>payara5.192-</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^(4\.1\.2\.[1-9]\d{2}|5\.1(?!93)[1-9]\d{1})(?:-SNAPSHOT|\.\d*)?/</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.microprofile.jwt-auth</groupId>
+                    <artifactId>microprofile-jwt-auth</artifactId>
+                    <version>${payara.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+       <!-- This profile will exclude the TokenParser class and use the one in Payara Server instead. For versions 5.193 -->
         <profile>
             <id>payara5.193</id>
             <activation>
@@ -101,12 +119,7 @@
                 </property>
             </activation>
             <dependencies>
-                <dependency>
-                    <!-- This probably needs refactoring out -->
-                    <groupId>fish.payara.server.internal.payara-appserver-modules</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                    <version>${payara.version}</version>
-                </dependency>
+                
             </dependencies>
             <build>
                 <pluginManagement>
