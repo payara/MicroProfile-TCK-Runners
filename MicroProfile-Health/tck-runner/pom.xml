@@ -53,7 +53,7 @@
     <name>MicroProfile Health TCK Runner</name>
 
     <properties>
-        <microprofile.health.tck.version>1.0.payara-p1</microprofile.health.tck.version>
+        <microprofile.health.tck.version>2.1</microprofile.health.tck.version>
     </properties>
 
     <dependencies>
@@ -201,6 +201,31 @@
                     </testResource>
                 </testResources>
             </build>
+        </profile>
+
+        <profile>
+            <id>mp-hc-1.0</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/4\..+|5\.18.+|5\.19[^4].*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.health.tck.version>1.0.payara-p1</microprofile.health.tck.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>mp-hc-2.1</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/5\.194.*|5\.2.*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.health.tck.version>2.1</microprofile.health.tck.version>
+            </properties>
         </profile>
     </profiles>
 </project>
