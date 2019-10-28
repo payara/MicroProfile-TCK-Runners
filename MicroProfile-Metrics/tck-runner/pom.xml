@@ -125,7 +125,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/4\..+|5\.18.+|5\.192.*/</value>
+                    <value>/^(4\.1\.2\.[1-9]\d{2}|5\.1(?!94)[1-9]\d{1})(?:-SNAPSHOT|\.\d*)?/</value>
                 </property>
             </activation>
             <properties>
@@ -142,7 +142,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/5\.19[^2].*|5\.2.*/</value>
+                    <value>/^[5-9]\.(19[3-4]|[2-9]\d{2})(?:-SNAPSHOT|\.\d*)?/</value>
                 </property>
             </activation>
             <properties>
