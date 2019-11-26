@@ -273,7 +273,7 @@
             <properties>
                 <!-- Rest Client Dependencies -->
                 <microprofile.rest.client.tck.version>1.0.1.payara-p2</microprofile.rest.client.tck.version>
-                <microprofile.rest.client.api.version>1.0.1.payara-p2</microprofile.rest.client.api.version>
+                <microprofile.rest.client.api.version>1.1.payara-p2</microprofile.rest.client.api.version>
             </properties>
         </profile>
         <profile>
