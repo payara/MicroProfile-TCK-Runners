@@ -105,12 +105,6 @@
             <version>${payara.arquillian.container.version}</version>
             <scope>test</scope>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.eclipse.microprofile.rest.client</groupId>
-            <artifactId>microprofile-rest-client-api</artifactId>
-            <version>${microprofile.rest.client.api.version}</version>
-            <scope>test</scope>
-        </dependency> -->
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-tck</artifactId>
