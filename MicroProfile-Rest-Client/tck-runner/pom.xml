@@ -105,12 +105,12 @@
             <version>${payara.arquillian.container.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
             <version>${microprofile.rest.client.api.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-tck</artifactId>
@@ -132,6 +132,7 @@
             <properties>
                 <microprofile.rest.client.tck.version>1.1.payara-p2</microprofile.rest.client.tck.version>
                 <microprofile.rest.client.api.version>1.1.payara-p2</microprofile.rest.client.api.version>
+                <jersey.version>2.29.payara-p2</jersey.version>
             </properties>
         </profile>
         <!-- Payara 5.192 and 193 - Rest Client 1.2 -->
@@ -273,7 +274,8 @@
             <properties>
                 <!-- Rest Client Dependencies -->
                 <microprofile.rest.client.tck.version>1.0.1.payara-p2</microprofile.rest.client.tck.version>
-                <microprofile.rest.client.api.version>1.1.payara-p2</microprofile.rest.client.api.version>
+                <microprofile.rest.client.api.version>1.0.1.payara-p2</microprofile.rest.client.api.version>
+                <jersey.version>2.29.payara-p2</jersey.version>
             </properties>
         </profile>
         <profile>
