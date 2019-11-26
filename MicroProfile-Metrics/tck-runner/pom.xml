@@ -214,9 +214,6 @@
                             <environmentVariables>
                                 <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
                             </environmentVariables>
-                            <systemPropertyVariables>
-                                <arquillian.launch>payara-micro-managed</arquillian.launch>
-                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
