@@ -54,6 +54,15 @@
 
     <name>MicroProfile Metrics TCK Runner</name>
 
+    <properties>
+        <!-- Metrics Dependencies -->
+    	<microprofile.metrics.version>2.2.payara-p1</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>2.2.payara-p1</microprofile.metrics.tck.version>
+
+    	<!-- Other Test Dependencies -->
+    	<cdi.version>2.0</cdi.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
@@ -143,24 +152,6 @@
                 <!-- Metrics Dependencies -->
                 <microprofile.metrics.version>2.0.1</microprofile.metrics.version>
                 <microprofile.metrics.tck.version>2.0.1</microprofile.metrics.tck.version>
-
-                <!-- Other Test Dependencies -->
-                <cdi.version>2.0</cdi.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>mp-metrics-2.2</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/5\.(194|[2-9]\d\d)(?:-SNAPSHOT|\.\d*)?/</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Metrics Dependencies -->
-                <microprofile.metrics.version>2.2.payara-p1</microprofile.metrics.version>
-       			<microprofile.metrics.tck.version>2.2.payara-p1</microprofile.metrics.tck.version>
 
                 <!-- Other Test Dependencies -->
                 <cdi.version>2.0</cdi.version>
