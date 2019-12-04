@@ -50,17 +50,17 @@
 
     <groupId>fish.payara.microprofile.metrics</groupId>
     <artifactId>tck-runner</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>MicroProfile Metrics TCK Runner</name>
 
     <properties>
         <!-- Metrics Dependencies -->
-        <microprofile.metrics.version>2.2.payara-p1</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>2.2.payara-p1</microprofile.metrics.tck.version>
+    	<microprofile.metrics.version>2.2.payara-p1</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>2.2.payara-p1</microprofile.metrics.tck.version>
 
-        <!-- Other Test Dependencies -->
-        <cdi.version>2.0</cdi.version>
+    	<!-- Other Test Dependencies -->
+    	<cdi.version>2.0</cdi.version>
     </properties>
 
     <dependencies>
@@ -157,6 +157,7 @@
                 <cdi.version>2.0</cdi.version>
             </properties>
         </profile>
+
         <profile>
             <id>payara-server-managed</id>
             <activation>
@@ -214,6 +215,9 @@
                             <environmentVariables>
                                 <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
                             </environmentVariables>
+                            <systemPropertyVariables>
+                                <arquillian.launch>payara-micro-managed</arquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
