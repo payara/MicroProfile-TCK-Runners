@@ -59,7 +59,7 @@
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
-        <payara.arquillian.container.version>2.0-SNAPSHOT</payara.arquillian.container.version>
+        <payara.arquillian.container.version>2.0</payara.arquillian.container.version>
         
         <!-- Test Dependencies -->
         <failsafe.version>2.22.1</failsafe.version>
@@ -124,7 +124,7 @@
                 </property>
             </activation>
             <properties>
-                <payara.arquillian.container.version>1.3-SNAPSHOT</payara.arquillian.container.version>
+                <payara.arquillian.container.version>1.3</payara.arquillian.container.version>
                 <payara.path>${project.build.directory}/dependency/payara41</payara.path>
             </properties>
         </profile>
