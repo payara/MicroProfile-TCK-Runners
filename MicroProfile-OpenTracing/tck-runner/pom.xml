@@ -94,7 +94,7 @@
             <version>${payara.arquillian.container.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Probably a "Duck tape fix":
+        <!-- Workaround:
              Use an updated version of resteasy client compared to that of the TCK.
              Using their one (3.1.4) seems to end up with a comparison failure of the HTTP status tag at
              TestSpan.equals() due to it getting transformed from an Integer to a BigDecimal between the return method
