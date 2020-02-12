@@ -134,19 +134,16 @@
             </properties>
         </profile>
         <profile>
-            <id>unstable</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <id>unstable-1.1</id>
+            <properties>
+                <microprofile.fault-tolerance.tck.suite>no-ext-libs-tck-suite.xml</microprofile.fault-tolerance.tck.suite>
+            </properties>
+        </profile>
+        <profile>
+            <id>unstable-2.0</id>
+            <properties>
+                <microprofile.fault-tolerance.tck.suite>tck-suite2.0.xml</microprofile.fault-tolerance.tck.suite>
+            </properties>
         </profile>
     
         <profile>
