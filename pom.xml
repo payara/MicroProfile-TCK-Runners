@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
   
-   Copyright (c) [2018] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2018-2020] Payara Foundation and/or its affiliates. All rights reserved.
   
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -59,7 +59,7 @@
         
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
-        <payara.arquillian.container.version>2.0</payara.arquillian.container.version>
+        <payara.arquillian.container.version>2.1</payara.arquillian.container.version>
         
         <!-- Test Dependencies -->
         <failsafe.version>2.22.1</failsafe.version>
