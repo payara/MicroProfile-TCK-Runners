@@ -16,6 +16,7 @@
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchRetryTest">
                 <methods>
                     <exclude name="testRetriesJoinBackOfQueue"></exclude>
+                    <exclude name="testBulkheadClassAsynchronous3"></exclude>
                 </methods>
             </class>
             <!-- exception is thrown but wrapped, added JUnit tests instead -->
