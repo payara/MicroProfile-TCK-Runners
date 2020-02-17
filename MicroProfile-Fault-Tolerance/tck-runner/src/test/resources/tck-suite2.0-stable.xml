@@ -20,6 +20,7 @@
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchTest">
                 <methods>
+                    <exclude name="testBulkheadClassAsynchronous3"></exclude>
                     <exclude name="testBulkheadClassAsynchronous10"></exclude>
                 </methods>
             </class>
