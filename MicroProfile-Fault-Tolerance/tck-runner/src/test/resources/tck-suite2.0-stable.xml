@@ -16,6 +16,7 @@
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchTest">
                 <methods>
                     <exclude name="testBulkheadMethodSemaphore3"></exclude>
+                    <exclude name="testBulkheadClassSemaphore3"></exclude>
                     <exclude name="testBulkheadClassSemaphore10"></exclude>
                 </methods>
             </class>
