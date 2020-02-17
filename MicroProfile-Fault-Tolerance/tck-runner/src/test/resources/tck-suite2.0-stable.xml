@@ -25,6 +25,11 @@
                     <exclude name="testBulkheadClassAsynchronous10"></exclude>
                 </methods>
             </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchConfigTest">
+                <methods>
+                    <exclude name="testBulkheadClassSemaphore3"></exclude>
+                </methods>
+            </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchRetryTest">
                 <methods>
                     <exclude name="testBulkheadClassSynchronousPassiveRetry55"></exclude>
