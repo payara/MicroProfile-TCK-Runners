@@ -25,6 +25,7 @@
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchRetryTest">
                 <methods>
+                    <exclude name="testBulkheadClassSynchronousPassiveRetry55"></exclude>
                     <exclude name="testNoRetriesBulkhead"></exclude>
                 </methods>
             </class>
