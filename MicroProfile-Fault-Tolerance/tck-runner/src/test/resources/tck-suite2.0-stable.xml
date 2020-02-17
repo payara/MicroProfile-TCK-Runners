@@ -37,6 +37,11 @@
                     <exclude name="testBulkheadClassAsynchronous3"></exclude>
                 </methods>
             </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableAnnotationGloballyEnableOnMethodTest">
+                <methods>
+                    <exclude name="testBulkhead"></exclude>
+                </methods>
+            </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableFTEnableGloballyTest">
                 <methods>
                     <exclude name="testBulkhead"></exclude>
