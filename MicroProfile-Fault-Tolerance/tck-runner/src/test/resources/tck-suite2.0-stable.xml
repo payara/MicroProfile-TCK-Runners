@@ -19,6 +19,7 @@
                     <exclude name="testBulkheadMethodSemaphore10"></exclude>
                     <exclude name="testBulkheadClassSemaphore3"></exclude>
                     <exclude name="testBulkheadClassSemaphore10"></exclude>
+                    <exclude name="testBulkheadClassSemaphoreDefault"></exclude>
                 </methods>
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchTest">
