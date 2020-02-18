@@ -38,6 +38,7 @@
                     <exclude name="testBulkheadPassiveRetryMethodSynchronous55"></exclude>
                     <exclude name="testBulkheadMethodSynchronousRetry55"></exclude>
                     <exclude name="testNoRetriesBulkhead"></exclude>
+                    <exclude name="testIgnoreWaitingTaskQueueBulkhead"></exclude>
                 </methods>
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchRetryTest">
