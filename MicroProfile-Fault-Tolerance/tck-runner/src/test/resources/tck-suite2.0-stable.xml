@@ -6,7 +6,7 @@
         <packages>
             <package name="org.eclipse.microprofile.fault.tolerance.tck.*" />
         </packages>
-        
+
         <!-- excludes -->
         <classes>
             <!-- Unstable -->
@@ -43,6 +43,7 @@
                 <methods>
                     <exclude name="testRetriesJoinBackOfQueue"></exclude>
                     <exclude name="testBulkheadClassAsynchronous3"></exclude>
+                    <exclude name="testBulkheadPassiveRetryMethodSynchronous55"><exclude>
                 </methods>
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableAnnotationGloballyEnableOnMethodTest">
