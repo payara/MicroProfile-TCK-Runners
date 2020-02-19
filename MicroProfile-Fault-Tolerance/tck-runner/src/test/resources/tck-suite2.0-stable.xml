@@ -53,6 +53,11 @@
                     <exclude name="testBulkhead"></exclude>
                 </methods>
             </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableAnnotationOnClassEnableOnMethodTest">
+                <methods>
+                    <exclude name="testBulkhead"></exclude>
+                </methods>
+            </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.disableEnv.DisableFTEnableGloballyTest">
                 <methods>
                     <exclude name="testBulkhead"></exclude>
