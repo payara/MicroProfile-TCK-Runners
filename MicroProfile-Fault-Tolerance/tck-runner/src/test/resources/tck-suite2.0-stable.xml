@@ -10,6 +10,12 @@
         <!-- excludes -->
         <classes>
             <!-- Unstable -->
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.TimeoutTest">
+                <methods>
+                    <exclude name="testLTDefaultTimeout"/>
+                    <exclude name="testTimeout"/>
+                </methods>
+            </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest">
                 <methods><exclude name=".*"></exclude></methods>
             </class>
