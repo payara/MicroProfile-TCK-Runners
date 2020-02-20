@@ -12,8 +12,8 @@
             <!-- Unstable -->
             <class name="org.eclipse.microprofile.fault.tolerance.tck.TimeoutTest">
                 <methods>
-                    <exclude name="testLTDefaultTimeout"/>
-                    <exclude name="testTimeout"/>
+                    <exclude name="testLTDefaultTimeout"></exclude>
+                    <exclude name="testTimeout"></exclude>
                 </methods>
             </class>
             <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest">
