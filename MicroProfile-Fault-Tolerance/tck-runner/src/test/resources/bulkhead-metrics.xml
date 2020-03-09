@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-openapi-TCK" verbose="2" configfailurepolicy="continue" >
+    <test name="microprofile-openapi 2.0 TCK">
+        <classes>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest"></class>
+            <!-- 
+        <packages>
+            <package name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead"/>
+        </packages>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadFutureTest">
+                <methods>
+                    <exclude name="testBulkheadClassAsynchFutureDoneAfterGet"></exclude>
+                    <exclude name="testBulkheadMethodAsynchFutureDoneAfterGet"></exclude>
+                </methods>
+            </class>
+             -->
+        </classes>
+    </test>
+</suite>
