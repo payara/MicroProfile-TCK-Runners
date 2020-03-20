@@ -56,8 +56,8 @@
 
     <properties>
         <!-- Metrics Dependencies -->
-    	<microprofile.metrics.version>2.2.payara-p1</microprofile.metrics.version>
-    	<microprofile.metrics.tck.version>2.2.payara-p1</microprofile.metrics.tck.version>
+    	<microprofile.metrics.version>2.3</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>2.3</microprofile.metrics.tck.version>
 
     	<!-- Other Test Dependencies -->
     	<cdi.version>2.0</cdi.version>
@@ -119,6 +119,25 @@
                     </includes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo>Metrics version     ${microprofile.metrics.version}</echo>
+                                <echo>Metrics TCK version ${microprofile.metrics.tck.version}</echo>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
         </plugins>
     </build>
 
@@ -145,7 +164,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/^5\.193(\.\d*)?(-SNAPSHOT)?/</value>
+                    <value>/5\.19[^1].*|5\.201.*/</value>
                 </property>
             </activation>
             <properties>
@@ -157,6 +176,24 @@
                 <cdi.version>2.0</cdi.version>
             </properties>
         </profile>
+        <profile>
+            <id>mp-metrics-2.3</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>5\.20[^1].*/</value>
+                </property>
+            </activation>
+            <properties>
+                <!-- Metrics Dependencies -->
+                <microprofile.metrics.version>2.3</microprofile.metrics.version>
+                <microprofile.metrics.tck.version>2.3</microprofile.metrics.tck.version>
+
+                <!-- Other Test Dependencies -->
+                <cdi.version>2.0.2</cdi.version>
+            </properties>
+        </profile>
+
 
         <profile>
             <id>payara-server-managed</id>
