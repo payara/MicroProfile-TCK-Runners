@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-FT-TCK" verbose="2" configfailurepolicy="continue" >
+
+    <test name="microprofile-FT 2.1 TCK">
+        <classes>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadAsynchTest">
+            </class>
+        </classes>
+    </test>
+
+</suite>
