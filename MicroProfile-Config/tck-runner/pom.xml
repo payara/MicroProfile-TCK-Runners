@@ -195,7 +195,7 @@
                                 <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
                             </environmentVariables>
                             <suiteXmlFiles>
-                                <suiteXmlFile>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</suiteXmlFile>
+                                <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
