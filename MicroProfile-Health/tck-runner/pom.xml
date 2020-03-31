@@ -53,7 +53,7 @@
     <name>MicroProfile Health TCK Runner</name>
 
     <properties>
-        <microprofile.health.tck.version>2.1</microprofile.health.tck.version>
+        <microprofile.health.tck.version>2.2</microprofile.health.tck.version>
     </properties>
 
     <dependencies>
@@ -224,7 +224,7 @@
                 </property>
             </activation>
             <properties>
-                <microprofile.health.tck.version>2.1</microprofile.health.tck.version>
+                <microprofile.health.tck.version>2.2</microprofile.health.tck.version>
             </properties>
         </profile>
     </profiles>
