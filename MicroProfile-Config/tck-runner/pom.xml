@@ -45,7 +45,8 @@
     <parent>
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
-        <version>1.0</version>
+	<version>1.0</version>
+        <relativePath>../..</relativePath>
     </parent>
 
     <groupId>fish.payara.microprofile.config</groupId>
