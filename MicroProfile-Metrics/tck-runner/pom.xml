@@ -198,7 +198,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>5\.20[^1].*/</value>
+                    <value>/5\.20[^1].*/</value>
                 </property>
             </activation>
             <properties>
@@ -207,7 +207,7 @@
                 <microprofile.metrics.tck.version>2.3</microprofile.metrics.tck.version>
 
                 <!-- Other Test Dependencies -->
-                <cdi.version>2.0.2</cdi.version>
+                <cdi.version>2.0.SP1</cdi.version>
             </properties>
         </profile>
 
