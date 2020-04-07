@@ -109,6 +109,7 @@
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
                                 <my_string_property>haha</my_string_property>
                                 <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                                <MP_CONFIG_CACHE_DURATION>0</MP_CONFIG_CACHE_DURATION>
                             </environmentVariables>
                         </configuration>
                     </plugin>
@@ -165,6 +166,12 @@
                                                 Missing environment variable MY_STRING_PROPERTY - it should be set to woohoo. Make sure you set it globally and restart the server.
                                             </message>
                                         </requireEnvironmentVariable>
+                                        <requireEnvironmentVariable>
+                                            <variableName>MP_CONFIG_CACHE_DURATION</variableName>
+                                            <message>
+                                                Missing environment variable MP_CONFIG_CACHE_DURATION - it should be set to 0. Make sure you set it globally and restart the server.
+                                            </message>
+                                        </requireEnvironmentVariable>
                                     </rules>
                                     <fail>true</fail>
                                 </configuration>
@@ -194,6 +201,7 @@
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
                                 <my_string_property>haha</my_string_property>
                                 <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                                <MP_CONFIG_CACHE_DURATION>0</MP_CONFIG_CACHE_DURATION>
                             </environmentVariables>
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
@@ -221,6 +229,7 @@
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
                                 <my_string_property>haha</my_string_property>
                                 <MY_STRING_PROPERTY>woohoo</MY_STRING_PROPERTY>
+                                <MP_CONFIG_CACHE_DURATION>0</MP_CONFIG_CACHE_DURATION>
                             </environmentVariables>
                         </configuration>
                     </plugin>
