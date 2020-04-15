@@ -214,7 +214,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/5\.(194|201)(?:-SNAPSHOT|\.\d*)?/</value>
+                    <value>/5\.(194|201).*/</value>
                 </property>
             </activation>
             <properties>
