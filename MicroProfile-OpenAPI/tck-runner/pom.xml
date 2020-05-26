@@ -109,25 +109,13 @@
     </build>
 
     <profiles>
+
         <profile>
-            <id>mp-openapi-1.0</id>
+            <id>Payara Community</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/4\..+|5\.18.+|5\.191.*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.openapi.version>1.0.1</microprofile.openapi.version>
-                <microprofile.openapi.tck.version>1.0.1.payara-p1</microprofile.openapi.tck.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>mp-openapi-1.1</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/5\.19[^1].*|5\.2.+/</value>
+                    <value>/^[5-9]\.[0-9]{4}(-SNAPSHOT|\..*)*/</value>
                 </property>
             </activation>
             <properties>
@@ -135,6 +123,21 @@
                 <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
             </properties>
         </profile>
+
+        <profile>
+            <id>Payara Enterprise</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^[5-9]\.[0-9]{2}\.[0-9]{1,2}(-SNAPSHOT)*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
+                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
+            </properties>
+        </profile>
+
         <profile>
             <id>payara-server-managed</id>
             <activation>

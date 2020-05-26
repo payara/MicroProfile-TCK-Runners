@@ -126,39 +126,11 @@
 
     <profiles>
         <profile>
-            <id>mp-ft-1.1</id>
+            <id>Payara Community</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/4\..+|5\.18.+|5\.191.*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.fault-tolerance.version>1.1.1</microprofile.fault-tolerance.version>
-                <microprofile.fault-tolerance.tck.version>1.1.1.payara-p2</microprofile.fault-tolerance.tck.version>
-                <microprofile.fault-tolerance.tck.suite>stable-no-ext-libs-tck-suite.xml</microprofile.fault-tolerance.tck.suite>
-            </properties>
-        </profile>
-        <profile>
-            <id>mp-ft-2.0</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/5\.19[^1].*|5\.201.*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.fault-tolerance.version>2.0.1</microprofile.fault-tolerance.version>
-                <microprofile.fault-tolerance.tck.version>2.0.1</microprofile.fault-tolerance.tck.version>
-                <microprofile.fault-tolerance.tck.suite>tck-suite2.0-stable.xml</microprofile.fault-tolerance.tck.suite>
-            </properties>
-        </profile>
-        <profile>
-            <id>mp-ft-2.1</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>5\.20[^1].*/</value>
+                    <value>/^[5-9]\.[0-9]{4}(-SNAPSHOT|\..*)*/</value>
                 </property>
             </activation>
             <properties>
@@ -167,6 +139,22 @@
                 <microprofile.fault-tolerance.tck.suite>tck-suite2.1-stable.xml</microprofile.fault-tolerance.tck.suite>
             </properties>
         </profile>
+
+        <profile>
+            <id>Payara Enterprise</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^[5-9]\.[0-9]{2}\.[0-9]{1,2}(-SNAPSHOT)*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.fault-tolerance.version>2.1</microprofile.fault-tolerance.version>
+                <microprofile.fault-tolerance.tck.version>2.1</microprofile.fault-tolerance.tck.version>
+                <microprofile.fault-tolerance.tck.suite>tck-suite2.1-stable.xml</microprofile.fault-tolerance.tck.suite>
+            </properties>
+        </profile>
+
         <profile>
             <id>unstable-1.1</id>
             <properties>
