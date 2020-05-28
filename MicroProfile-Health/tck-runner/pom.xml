@@ -208,7 +208,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\..*/</value>
+                    <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
                 </property>
             </activation>
             <properties>
@@ -221,7 +221,7 @@
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\..*/</value>
+                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
                 </property>
             </activation>
             <properties>
