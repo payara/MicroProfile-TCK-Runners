@@ -204,28 +204,30 @@
         </profile>
 
         <profile>
-            <id>mp-hc-1.0</id>
+            <id>Payara Community</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>/4\..+|5\.18.+|5\.19[^4].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.health.tck.version>1.0.payara-p1</microprofile.health.tck.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>mp-hc-2.1</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/5\.194.*|5\.2.*/</value>
+                    <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
                 </property>
             </activation>
             <properties>
                 <microprofile.health.tck.version>2.2</microprofile.health.tck.version>
             </properties>
         </profile>
+
+        <profile>
+            <id>Payara Enterprise</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
+                </property>
+            </activation>
+            <properties>
+                <microprofile.health.tck.version>2.2</microprofile.health.tck.version>
+            </properties>
+        </profile>
+
     </profiles>
 </project>
