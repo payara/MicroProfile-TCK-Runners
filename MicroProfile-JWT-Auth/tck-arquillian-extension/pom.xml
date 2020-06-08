@@ -61,11 +61,11 @@
     <profiles>
         
         <profile>
-            <id>payara5.192-</id>
+            <id>payara4-</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>=[4,5.193-SNAPSHOT)</value>
+                    <value>=[4,5)</value>
                 </property>
             </activation>
             <dependencies>
@@ -76,51 +76,15 @@
                 </dependency>
             </dependencies>
         </profile>
-        
-       <!-- This profile will exclude the TokenParser class and use the one in Payara Server instead. For versions 5.193 -->
+
         <profile>
-            <id>payara5.193</id>
+            <id>payara5</id>
             <activation>
                 <property>
                     <name>payara.version</name>
-                    <value>=[5.193-SNAPSHOT, 5.194-SNAPSHOT)</value>
+                    <value>=[5,)</value>
                 </property>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.microprofile.jwt-auth</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                    <version>${payara.version}</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <version>3.8.1</version>
-                            <configuration>
-                                <excludes>
-                                    <exclude>fish/payara/microprofile/jwtauth/tck/MockTokenParser.java</exclude>
-                                </excludes>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>payara5.194+</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>=[5.194-SNAPSHOT,)</value>
-                </property>
-            </activation>
-            <dependencies>
-                
-            </dependencies>
             <build>
                 <pluginManagement>
                     <plugins>
