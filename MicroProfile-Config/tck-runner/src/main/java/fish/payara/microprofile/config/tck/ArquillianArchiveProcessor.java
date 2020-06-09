@@ -57,7 +57,7 @@ import java.util.logging.Logger;
 public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
-    
+
     private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all:1.3";
     private static final String JUNIT_DEP = "junit:junit-dep:4.10";
 
@@ -74,7 +74,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
     }
 
     private File[] lib(String gav) {
-        return Maven.resolver()
+        return Maven.configureResolver().withRemoteRepo("Maven", "https://repo1.maven.org/maven2/", "default")
                 .resolve(gav)
                 .withoutTransitivity().asFile();
     }
