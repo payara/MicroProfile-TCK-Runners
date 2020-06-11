@@ -71,6 +71,8 @@
 
         <!-- Payara Dependencies -->
         <payara.version>5.193.1</payara.version>
+        <payara.path>${project.build.directory}/dependency/payara5</payara.path>
+        
     </properties>
 
     <modules>
@@ -116,19 +118,6 @@
     <!-- Profile specific dependencies -->
     <profiles>
         <profile>
-            <id>payara4</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/4.+/</value>
-                </property>
-            </activation>
-            <properties>
-                <payara.arquillian.container.version>1.4</payara.arquillian.container.version>
-                <payara.path>${project.build.directory}/dependency/payara41</payara.path>
-            </properties>
-        </profile>
-        <profile>
             <id>payara5</id>
             <activation>
                 <property>
@@ -137,7 +126,7 @@
                 </property>
             </activation>
             <properties>
-                <payara.path>${project.build.directory}/dependency/payara5</payara.path>
+
             </properties>
             <modules>
                 <module>MicroProfile-OpenTracing/tck-runner</module>
