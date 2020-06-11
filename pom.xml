@@ -59,8 +59,8 @@
 
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.1.14.Final</version.arquillian>
-        <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
-
+        <payara.arquillian.container.version>2.3.RC1</payara.arquillian.container.version>
+        
         <!-- Test Dependencies -->
         <failsafe.version>2.22.1</failsafe.version>
 
