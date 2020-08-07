@@ -178,6 +178,40 @@
                     <!-- Copy the Payara artifact into the target directory -->
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
+                    </plugin>                    
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-payara-server</id>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <target>
+                                        <condition property="payara.executable" value="${payara.path}/bin/asadmin.bat" else="${payara.path}/bin/asadmin">
+                                            <os family="windows" />
+                                        </condition>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="start-domain" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="delete-jvm-options" />
+                                            <arg value="-Xmx512m" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="create-jvm-options" />
+                                            <arg value="-Xmx1000m" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="stop-domain" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                     <!-- Run the integration tests against the remote server -->
                     <plugin>
