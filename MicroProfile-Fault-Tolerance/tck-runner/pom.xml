@@ -200,7 +200,7 @@
                                         </exec>
                                         <exec executable="${payara.executable}">
                                             <arg value="create-jvm-options" />
-                                            <arg value="-Xmx1000m" />
+                                            <arg value="-Xmx2g" />
                                         </exec>
                                         <exec executable="${payara.executable}">
                                             <arg value="stop-domain" />
