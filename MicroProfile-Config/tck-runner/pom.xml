@@ -57,8 +57,8 @@
 
     <properties>
         <!-- Config Dependencies -->
-        <microprofile.config.version>1.4</microprofile.config.version>
-        <microprofile.config.tck.version>1.4</microprofile.config.tck.version>
+        <microprofile.config.version>2.0-RC5</microprofile.config.version>
+        <microprofile.config.tck.version>2.0-RC5</microprofile.config.tck.version>
         <microprofile.config.tck.suite.file></microprofile.config.tck.suite.file>
     </properties>
 
