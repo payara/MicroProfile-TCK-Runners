@@ -54,7 +54,7 @@
     <name>MicroProfile Health TCK Runner Parent</name>
 
     <properties>
-        <microprofile.health.version>2.2</microprofile.health.version>
+        <microprofile.health.version>3.0-RC5</microprofile.health.version>
     </properties>
 
     <modules>
