@@ -109,35 +109,6 @@
     </build>
 
     <profiles>
-
-        <profile>
-            <id>Payara Community</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\..*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
-                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>Payara Enterprise</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
-                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
-            </properties>
-        </profile>
-
         <profile>
             <id>payara-server-managed</id>
             <activation>
