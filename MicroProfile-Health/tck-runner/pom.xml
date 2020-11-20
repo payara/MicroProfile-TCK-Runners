@@ -204,19 +204,6 @@
         </profile>
 
         <profile>
-            <id>Payara Community</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.health.tck.version>2.2</microprofile.health.tck.version>
-            </properties>
-        </profile>
-
-        <profile>
             <id>Payara Enterprise</id>
             <activation>
                 <property>
