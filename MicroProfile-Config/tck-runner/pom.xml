@@ -246,20 +246,5 @@
                 </testResources>
             </build>
         </profile>
-
-        <profile>
-            <id>Payara Enterprise</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.config.version>1.4</microprofile.config.version>
-                <microprofile.config.tck.version>1.4</microprofile.config.tck.version>
-            </properties>
-        </profile>
-
     </profiles>
 </project>
