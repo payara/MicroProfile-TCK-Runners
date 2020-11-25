@@ -56,9 +56,9 @@
 
     <properties>
         <!-- Defaults for API and TCK dependencies - latest version -->
-        <microprofile.fault-tolerance.version>2.1</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>2.1</microprofile.fault-tolerance.tck.version>
-        <microprofile.fault-tolerance.tck.suite>tck-suite2.1-stable.xml</microprofile.fault-tolerance.tck.suite>
+        <microprofile.fault-tolerance.version>3.0-RC2</microprofile.fault-tolerance.version>
+        <microprofile.fault-tolerance.tck.version>3.0-RC2</microprofile.fault-tolerance.tck.version>
+        <microprofile.fault-tolerance.tck.suite>tck-suite3.0-stable.xml</microprofile.fault-tolerance.tck.suite>
 
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
