@@ -6,9 +6,26 @@
         <packages>
             <package name="org.eclipse.microprofile.fault.tolerance.tck.*" />
         </packages>
-
+        <!--
+        <packages>
+            <package name="org.eclipse.microprofile.fault.tolerance.tck.metrics.*" />
+        </packages>
+        -->
         <!-- excludes -->
         <classes>
+            <!--
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.config.BulkheadConfigTest">
+                <methods><include name=".*"></include></methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.CircuitBreakerRetryTest">
+                <methods><include name=".*"></include></methods>
+            </class>
+            <class name="org.eclipse.microprofile.fault.tolerance.tck.AsyncCancellationTest">
+                <methods><include name=".*"></include></methods>
+            </class>
+
+
+            -->
             <!-- Unstable -->
             <class name="org.eclipse.microprofile.fault.tolerance.tck.bulkhead.BulkheadSynchConfigTest">
                 <!-- Work is not being done simultaneously enough... -->
