@@ -56,8 +56,8 @@
 
     <properties>
         <!-- Metrics Dependencies -->
-    	<microprofile.metrics.version>2.3</microprofile.metrics.version>
-    	<microprofile.metrics.tck.version>2.3</microprofile.metrics.tck.version>
+    	<microprofile.metrics.version>3.0-RC4</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>3.0-RC4</microprofile.metrics.tck.version>
 
     	<!-- Other Test Dependencies -->
     	<cdi.version>2.0.SP1</cdi.version>
