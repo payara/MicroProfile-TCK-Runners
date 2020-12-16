@@ -56,9 +56,10 @@
 
     <properties>
         <!-- Defaults for API and TCK dependencies - latest version -->
-        <microprofile.fault-tolerance.version>2.1</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>2.1</microprofile.fault-tolerance.tck.version>
-        <microprofile.fault-tolerance.tck.suite>tck-suite2.1-stable.xml</microprofile.fault-tolerance.tck.suite>
+        <microprofile.fault-tolerance.version>3.0-RC2</microprofile.fault-tolerance.version>
+        <microprofile.fault-tolerance.tck.version>3.0-RC2</microprofile.fault-tolerance.tck.version>
+        <microprofile.metrics.version>3.0-RC4</microprofile.metrics.version>
+        <microprofile.fault-tolerance.tck.suite>tck-suite3.0-stable.xml</microprofile.fault-tolerance.tck.suite>
 
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
@@ -77,6 +78,12 @@
             <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
             <artifactId>microprofile-fault-tolerance-api</artifactId>
             <version>${microprofile.fault-tolerance.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api</artifactId>
+            <version>${microprofile.metrics.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -101,6 +108,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${basedir}/src/test/resources/${microprofile.fault-tolerance.tck.suite}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>2.0</org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>
+                    </systemPropertyVariables>                    
                 </configuration>
             </plugin>
             <plugin>
