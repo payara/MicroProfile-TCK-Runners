@@ -63,8 +63,6 @@
 
         <!-- Test Dependencies -->
         <testng.version>6.9.9</testng.version>
-
-        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
