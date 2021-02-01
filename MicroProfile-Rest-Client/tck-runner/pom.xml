@@ -88,6 +88,9 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>**/ProxyServerTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -121,8 +124,10 @@
                     <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
                 </property>
             </activation>
-            <properties>
-                <jersey.version>2.30.payara-p2</jersey.version>
+            <properties
+                <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
+                <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
+                <jersey.version>2.30.payara-p4</jersey.version>
             </properties>
             <dependencies>
                 <dependency>
@@ -260,6 +265,9 @@
                             <environmentVariables>
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
                             </environmentVariables>
+                            <excludes>
+                                <exclude>**/ProxyServerTest.java</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -276,6 +284,9 @@
                             <systemPropertyVariables>
                                 <javaEEServer>payara-remote</javaEEServer>
                             </systemPropertyVariables>
+                            <excludes>
+                                <exclude>**/ProxyServerTest.java</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -301,6 +312,9 @@
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-micro-managed</arquillian.launch>
                             </systemPropertyVariables>
+                            <excludes>
+                                <exclude>**/ProxyServerTest.java</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
