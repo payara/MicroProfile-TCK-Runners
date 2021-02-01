@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
   
-   Copyright (c) [2018] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2020] Payara Foundation and/or its affiliates. All rights reserved.
   
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -56,11 +56,16 @@
 
     <properties>
         <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
+        <microprofile.openapi.version>2.0-RC3</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>2.0-RC3</microprofile.openapi.tck.version>
 
         <!-- Test Dependencies -->
-        <testng.version>6.9.9</testng.version>
+        <testng.version>7.0.0</testng.version>
+        <!-- TestNG 7 (user by the TCK) requires a more recent arquillian version -->
+        <version.arquillian>1.7.0.Alpha6</version.arquillian>
+        <!-- Tests were breaking without this JCommander override -->
+        <jcommander.version>1.78</jcommander.version>
+
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
@@ -82,6 +87,12 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>${jcommander.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -109,35 +120,6 @@
     </build>
 
     <profiles>
-
-        <profile>
-            <id>Payara Community</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\..*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
-                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>Payara Enterprise</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.openapi.version>1.1.2</microprofile.openapi.version>
-                <microprofile.openapi.tck.version>1.1.2</microprofile.openapi.tck.version>
-            </properties>
-        </profile>
-
         <profile>
             <id>payara-server-managed</id>
             <activation>

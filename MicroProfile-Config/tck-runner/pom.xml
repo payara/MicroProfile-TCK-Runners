@@ -286,6 +286,5 @@
                 </testResources>
             </build>
         </profile>
-
     </profiles>
 </project>
