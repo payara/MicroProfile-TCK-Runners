@@ -56,7 +56,7 @@
 
     <properties>
         <!-- OpenTracing Dependencies -->
-        <microprofile.opentracing.version>2.0-RC2.payara-p1</microprofile.opentracing.version>
+        <microprofile.opentracing.version>2.0.payara-p1</microprofile.opentracing.version>
     </properties>
 
     <dependencies>

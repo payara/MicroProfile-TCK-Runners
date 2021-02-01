@@ -55,8 +55,8 @@
 
     <properties>
         <!-- JWT Auth Dependencies -->
-        <microprofile.jwt-auth.version>1.2-RC2</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.2-RC2</microprofile.jwt-auth.tck.version>
+        <microprofile.jwt-auth.version>1.2</microprofile.jwt-auth.version>
+        <microprofile.jwt-auth.tck.version>1.2</microprofile.jwt-auth.tck.version>
 
         <!-- Jersey Dependencies -->
         <jersey.version>2.26</jersey.version>
