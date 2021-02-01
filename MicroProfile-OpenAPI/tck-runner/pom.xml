@@ -56,8 +56,8 @@
 
     <properties>
         <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>2.0-RC3</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>2.0-RC3</microprofile.openapi.tck.version>
+        <microprofile.openapi.version>2.0</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>2.0</microprofile.openapi.tck.version>
 
         <!-- Test Dependencies -->
         <testng.version>7.0.0</testng.version>
