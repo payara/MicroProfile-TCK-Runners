@@ -45,7 +45,7 @@
     <parent>
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
-	<version>1.0</version>
+	    <version>1.0</version>
         <relativePath>../..</relativePath>
     </parent>
 
@@ -57,8 +57,8 @@
 
     <properties>
         <!-- Config Dependencies -->
-        <microprofile.config.version>2.0-RC5</microprofile.config.version>
-        <microprofile.config.tck.version>2.0-RC5</microprofile.config.tck.version>
+        <microprofile.config.version>2.0</microprofile.config.version>
+        <microprofile.config.tck.version>2.0</microprofile.config.tck.version>
         <microprofile.config.tck.suite.file></microprofile.config.tck.suite.file>
     </properties>
 
@@ -102,8 +102,17 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <systemProperties>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>120</config_ordinal>
+                                <customer.hobby>Tennis</customer.hobby>
+                                <mp.tck.prop.dummy>dummy</mp.tck.prop.dummy>
+                            </systemProperties>
                             <environmentVariables>
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>45</config_ordinal>
+                                <customer_name>Bob</customer_name>
                                 <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
@@ -142,6 +151,18 @@
                                 </goals>
                                 <configuration>
                                     <rules>
+                                        <requireEnvironmentVariable>
+                                            <variableName>config_ordinal</variableName>
+                                            <message>
+                                                Missing environment variable config_ordinal - it should be set to 45. Make sure you set it globally and restart the server.
+                                            </message>
+                                        </requireEnvironmentVariable>
+                                        <requireEnvironmentVariable>
+                                            <variableName>customer_name</variableName>
+                                            <message>
+                                                Missing environment variable customer_name - it should be set to Bob. Make sure you set it globally and restart the server.
+                                            </message>
+                                        </requireEnvironmentVariable>
                                         <requireEnvironmentVariable>
                                             <variableName>my_int_property</variableName>
                                             <message>
@@ -195,8 +216,18 @@
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
+                            <systemProperties>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>120</config_ordinal>
+                                <customer.hobby>Tennis</customer.hobby>
+                                <mp.tck.prop.dummy>dummy</mp.tck.prop.dummy>
+                            </systemProperties>
                             <environmentVariables>
                                 <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>45</config_ordinal>
+                                <customer_name>Bob</customer_name>
+                                <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
                                 <my_string_property>haha</my_string_property>
@@ -223,8 +254,17 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
-                            <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
+                            <systemProperties>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>120</config_ordinal>
+                                <customer.hobby>Tennis</customer.hobby>
+                                <mp.tck.prop.dummy>dummy</mp.tck.prop.dummy>
+                            </systemProperties>
                             <environmentVariables>
+                                <!-- Required for DefaultConfigSourceOrdinalTest -->
+                                <config_ordinal>45</config_ordinal>
+                                <customer_name>Bob</customer_name>
+                                <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
                                 <my_string_property>haha</my_string_property>
@@ -245,34 +285,6 @@
                     </testResource>
                 </testResources>
             </build>
-        </profile>
-
-        <profile>
-            <id>Payara Community</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.config.version>1.4</microprofile.config.version>
-                <microprofile.config.tck.version>1.4</microprofile.config.tck.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>Payara Enterprise</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.config.version>1.4</microprofile.config.version>
-                <microprofile.config.tck.version>1.4</microprofile.config.tck.version>
-            </properties>
         </profile>
 
     </profiles>
