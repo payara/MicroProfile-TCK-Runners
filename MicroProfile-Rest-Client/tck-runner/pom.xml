@@ -88,9 +88,6 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <excludes>
-                        <exclude>**/ProxyServerTest.java</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -125,9 +122,9 @@
                 </property>
             </activation>
             <properties>
-                <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
-                <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
-                <jersey.version>2.30.payara-p4</jersey.version>
+                <microprofile.rest.client.tck.version>1.4.1.payara-p2</microprofile.rest.client.tck.version>
+                <microprofile.rest.client.api.version>1.4.1</microprofile.rest.client.api.version>
+                <jersey.version>2.30.payara-p2</jersey.version>
             </properties>
             <dependencies>
                 <dependency>
@@ -267,9 +264,6 @@
                             <environmentVariables>
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
                             </environmentVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -286,9 +280,6 @@
                             <systemPropertyVariables>
                                 <javaEEServer>payara-remote</javaEEServer>
                             </systemPropertyVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -314,9 +305,6 @@
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-micro-managed</arquillian.launch>
                             </systemPropertyVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>
