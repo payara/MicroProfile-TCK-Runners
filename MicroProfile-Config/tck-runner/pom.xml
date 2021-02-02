@@ -102,12 +102,12 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
-                            <systemProperties>
+                            <systemPropertyVariables>
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
                                 <config_ordinal>120</config_ordinal>
                                 <customer.hobby>Tennis</customer.hobby>
                                 <mp.tck.prop.dummy>dummy</mp.tck.prop.dummy>
-                            </systemProperties>
+                            </systemPropertyVariables>
                             <environmentVariables>
                                 <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->

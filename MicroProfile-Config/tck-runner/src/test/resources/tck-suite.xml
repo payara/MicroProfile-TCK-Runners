@@ -19,6 +19,15 @@
             <class name="org.eclipse.microprofile.config.tck.emptyvalue.EmptyValuesTest">
                 <methods><exclude name=".*"></exclude></methods>
             </class>
+            <!--Excluded due to system properties not being passed to the server from arquillian -->
+            <class name="org.eclipse.microprofile.config.tck.configsources.DefaultConfigSourceOrdinalTest">
+                <methods><exclude name=".*"></exclude></methods>
+            </class>
+            <class name="org.eclipse.microprofile.config.tck.ConfigProviderTest">
+                <methods>
+                    <exclude name="testPropertyConfigSource"></exclude>
+                </methods>
+            </class>
         </classes>
     </test>
 
