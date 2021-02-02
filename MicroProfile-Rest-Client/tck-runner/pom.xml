@@ -55,8 +55,8 @@
     <name>MicroProfile Rest Client TCK Runner</name>
 
     <properties>
-        <microprofile.rest.client.tck.version>1.4.1.payara-p2</microprofile.rest.client.tck.version>
-        <microprofile.rest.client.api.version>1.4.1</microprofile.rest.client.api.version>
+        <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
+        <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
     </properties>
     
     <build>
@@ -124,7 +124,7 @@
                     <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
                 </property>
             </activation>
-            <properties
+            <properties>
                 <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
                 <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
                 <jersey.version>2.30.payara-p4</jersey.version>
