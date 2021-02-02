@@ -95,6 +95,44 @@
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
                     </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-payara-server</id>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <target>
+                                        <condition property="payara.executable" value="${payara.path}/bin/asadmin.bat" else="${payara.path}/bin/asadmin">
+                                            <os family="windows" />
+                                        </condition>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="start-domain" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="create-system-properties" />
+                                            <arg value="config_ordinal=120" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="create-system-properties" />
+                                            <arg value="customer.hobby=Tennis" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="create-system-properties" />
+                                            <arg value="mp.tck.prop.dummy=dummy" />
+                                        </exec>
+                                        <exec executable="${payara.executable}">
+                                            <arg value="stop-domain" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <!-- Run the integration tests against the remote server -->
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
@@ -113,6 +151,7 @@
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
                                 <config_ordinal>45</config_ordinal>
                                 <customer_name>Bob</customer_name>
+                                <MP_TCK_ENV_DUMMY>dummy</MP_TCK_ENV_DUMMY>
                                 <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
