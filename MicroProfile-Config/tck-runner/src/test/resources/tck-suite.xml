@@ -26,6 +26,7 @@
             <class name="org.eclipse.microprofile.config.tck.ConfigProviderTest">
                 <methods>
                     <exclude name="testPropertyConfigSource"></exclude>
+                    <exclude name="testEnvironmentConfigSource"></exclude>
                 </methods>
             </class>
         </classes>
