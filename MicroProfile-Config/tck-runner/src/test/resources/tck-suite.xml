@@ -10,9 +10,6 @@
         </packages>
         <!-- Exclude tests which return correct exceptions in @Before, but Arquillian wraps them which makes the tests fail -->
         <classes>
-            <class name="org.eclipse.microprofile.config.tck.ConfigPropertiesTest">
-                <methods><exclude name=".*"></exclude></methods>
-            </class>
             <class name="org.eclipse.microprofile.config.tck.converters.convertToNull.ConvertedNullValueBrokenInjectionTest">
                 <methods><exclude name=".*"></exclude></methods>
             </class>
