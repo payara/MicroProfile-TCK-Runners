@@ -268,6 +268,7 @@
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
                                 <config_ordinal>45</config_ordinal>
                                 <customer_name>Bob</customer_name>
+                                <MP_TCK_ENV_DUMMY>dummy</MP_TCK_ENV_DUMMY>
                                 <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
@@ -305,6 +306,7 @@
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
                                 <config_ordinal>45</config_ordinal>
                                 <customer_name>Bob</customer_name>
+                                <MP_TCK_ENV_DUMMY>dummy</MP_TCK_ENV_DUMMY>
                                 <!-- These env variables are required for org.eclipse.configjsr.CDIPropertyNameMatchingTest -->
                                 <my_int_property>45</my_int_property>
                                 <MY_BOOLEAN_PROPERTY>true</MY_BOOLEAN_PROPERTY>
