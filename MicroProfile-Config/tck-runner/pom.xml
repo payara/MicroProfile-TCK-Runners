@@ -255,12 +255,14 @@
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <systemProperties>
+                            <systemPropertyVariables>
+                                <!-- Configure system properties for the server process in the arquillian.xml -->
+                                <arquillian.launch>payara-micro-managed</arquillian.launch>
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
                                 <config_ordinal>120</config_ordinal>
                                 <customer.hobby>Tennis</customer.hobby>
                                 <mp.tck.prop.dummy>dummy</mp.tck.prop.dummy>
-                            </systemProperties>
+                            </systemPropertyVariables>
                             <environmentVariables>
                                 <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
                                 <!-- Required for DefaultConfigSourceOrdinalTest -->
