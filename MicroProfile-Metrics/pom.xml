@@ -38,43 +38,32 @@
    only if the new code is made subject to such option by the copyright
    holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
         <version>1.0</version>
-        <relativePath>../../</relativePath>
     </parent>
 
-    <groupId>fish.payara.microprofile.fault-tolerance</groupId>
+    <groupId>fish.payara.microprofile.metrics</groupId>
     <artifactId>tck-runner</artifactId>
+    <packaging>jar</packaging>
 
-    <name>MicroProfile Fault Tolerance TCK Runner</name>
+    <name>MicroProfile Metrics TCK Runner</name>
 
     <properties>
-        <!-- Defaults for API and TCK dependencies - latest version -->
-        <microprofile.fault-tolerance.version>3.0</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>3.0</microprofile.fault-tolerance.tck.version>
-        <microprofile.metrics.version>3.0</microprofile.metrics.version>
-        <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-stable.xml</mptck.suite>
+        <!-- Metrics Dependencies -->
+    	<microprofile.metrics.version>3.0</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>3.0</microprofile.metrics.tck.version>
+        <micro.randomPort>false</micro.randomPort>
+
+    	<!-- Other Test Dependencies -->
+    	<cdi.version>2.0.SP1</cdi.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
-            <artifactId>microprofile-fault-tolerance-tck</artifactId>
-            <version>${microprofile.fault-tolerance.tck.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
-            <artifactId>microprofile-fault-tolerance-api</artifactId>
-            <version>${microprofile.fault-tolerance.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
@@ -82,13 +71,36 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api-tck</artifactId>
+            <version>${microprofile.metrics.tck.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-rest-tck</artifactId>
+            <version>${microprofile.metrics.tck.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${cdi.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>environment-setup</artifactId>
         </dependency>
     </dependencies>
 
@@ -97,10 +109,14 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <!-- In case times out are being missed, try this: -->
-<!--                    <systemPropertyVariables>-->
-<!--                        <org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>2.0</org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>-->
-<!--                    </systemPropertyVariables>-->
+                    <suiteXmlFiles combine.self="override"/>
+                    <dependenciesToScan>
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-api-tck</dependency>
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-rest-tck</dependency>
+                    </dependenciesToScan>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
             <plugin>
@@ -113,9 +129,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>FT version ${microprofile.fault-tolerance.version}</echo>
-                                <echo>FT TCK version ${microprofile.fault-tolerance.tck.version}</echo>
-                                <echo>FT suite ${mptck.suite}</echo>
+                                <echo>Metrics version     ${microprofile.metrics.version}</echo>
+                                <echo>Metrics TCK version ${microprofile.metrics.tck.version}</echo>
                             </target>
                         </configuration>
                     </execution>
@@ -123,36 +138,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>unstable-1.1</id>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</mptck.suite>
-            </properties>
-        </profile>
-        <profile>
-            <id>unstable-2.0</id>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/tck-suite2.0.xml</mptck.suite>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>payara-micro-managed</id>
-            <build>
-                <plugins>
-                    <!-- Configure Payara Micro Runtime -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <environmentVariables>
-                                <EXTRA_MICRO_OPTIONS>--prebootcommandfile ${basedir}/micro-pre-boot-commands.txt</EXTRA_MICRO_OPTIONS>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2020-2021] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -38,50 +38,83 @@
    only if the new code is made subject to such option by the copyright
    holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
-	    <version>1.0</version>
-        <relativePath>../..</relativePath>
+        <version>1.0</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.config</groupId>
+    <groupId>fish.payara.microprofile.openapi</groupId>
     <artifactId>tck-runner</artifactId>
 
-    <name>MicroProfile Config TCK Runner</name>
+    <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- Config Dependencies -->
-        <microprofile.config.version>2.0</microprofile.config.version>
-        <microprofile.config.tck.version>2.0</microprofile.config.tck.version>
+        <!-- Latest version of Microprofile Dependencies set via profiles -->
+        <microprofile.openapi.version>2.0</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>2.0</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <micro.randomPort>false</micro.randomPort>
+
+        <!-- OpenAPI test url -->
+        <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-tck</artifactId>
-            <version>${microprofile.config.tck.version}</version>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-tck</artifactId>
+            <version>${microprofile.openapi.tck.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-api</artifactId>
-            <version>${microprofile.config.version}</version>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
+            <version>${microprofile.openapi.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <!-- 7.4.0 breaks these tests, 7.5+ fixes it -->
+            <version>7.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.81</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee8</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>fish.payara.arquillian</groupId>
-            <artifactId>environment-setup</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <systemProperties>
+                        <test.url>${test.url}</test.url>
+                        <payara.randomHttpPort>false</payara.randomHttpPort>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>payara-server-embedded</id>
+            <properties>
+                <test.url>http://localhost:8181/openapi/</test.url>
+            </properties>
+        </profile>
+    </profiles>
 </project>
