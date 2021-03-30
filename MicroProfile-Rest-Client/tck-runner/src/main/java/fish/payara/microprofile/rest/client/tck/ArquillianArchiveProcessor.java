@@ -56,8 +56,9 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
-    
-    private static final String WIREMOCK = "com.github.tomakehurst:wiremock:2.10.1";
+
+    private static final String WIREMOCK = "com.github.tomakehurst:wiremock:2.27.2";
+    private static final String JUNIT = "junit:junit:4.13.2";
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -66,6 +67,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         }
         WebArchive webArchive = WebArchive.class.cast(archive);
         webArchive.addAsLibraries(lib(WIREMOCK));
+        webArchive.addAsLibraries(lib(JUNIT));
 
         LOG.log(Level.INFO, "Virtually augmented web archive: \n {0}", webArchive.toString(true));
     }

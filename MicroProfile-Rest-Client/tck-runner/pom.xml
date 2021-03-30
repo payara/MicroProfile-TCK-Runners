@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -57,31 +57,39 @@
     <properties>
         <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
         <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
+        <micro.randomPort>false</micro.randomPort>
     </properties>
-    
+
     <build>
         <plugins>
             <plugin>
-                <groupId>uk.co.deliverymind</groupId>
+                <groupId>uk.co.automatictester</groupId>
                 <artifactId>wiremock-maven-plugin</artifactId>
-                <version>2.7.0</version>
+                <version>7.0.0</version>
+                <configuration>
+                    <dir>${project.build.directory}/classes</dir>
+                    <params>--port=8765 --verbose</params>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>process-test-resources</phase>
+                        <id>start-wiremock</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
-                        <configuration>
-                            <dir>${project.build.directory}/classes</dir>
-                            <params>--port=8765 --verbose</params>
-                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-wiremock</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <trimStackTrace>false</trimStackTrace>
                     <dependenciesToScan>
                         <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
                     </dependenciesToScan>
@@ -91,19 +99,10 @@
                     <excludes>
                         <exclude>**/ProxyServerTest.java</exclude>
                     </excludes>
+                    <suiteXmlFiles combine.self="override"/>
                 </configuration>
             </plugin>
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources-glassfish-remote</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
     </build>
 
     <dependencies>
@@ -113,212 +112,63 @@
             <version>${microprofile.rest.client.tck.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee8</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <!-- depending on version of ee8-client, the possibly
+                conflicting rest client implementation is either of these -->
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext.microprofile</groupId>
+                    <artifactId>jersey-mp-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext</groupId>
+                    <artifactId>jersey-mp-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext</groupId>
+                    <artifactId>jersey-microprofile-rest-client</artifactId>
+                </exclusion>
+                <!-- Jersey internals may be incompatible to those needed by rest client -->
+                <exclusion>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.jersey.core</groupId>
+                    <artifactId>jersey-common</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse</groupId>
+                    <artifactId>yasson</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.rest.client</groupId>
+            <artifactId>microprofile-rest-client-api</artifactId>
+            <version>${microprofile.rest.client.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext.microprofile</groupId>
+            <artifactId>jersey-mp-rest-client</artifactId>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
+        <dependency>
+            <groupId>io.smallrye.config</groupId>
+            <artifactId>smallrye-config</artifactId>
+            <version>2.2.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>Payara Community</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{4}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
-                <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
-                <jersey.version>2.30.payara-p4</jersey.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                    <exclusions>
-                        <!-- depending on version of ee8-client, the possibly
-                             conflicting rest client implementation is either of these -->
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-                            <artifactId>jersey-mp-rest-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext</groupId>
-                            <artifactId>jersey-mp-rest-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext</groupId>
-                            <artifactId>jersey-microprofile-rest-client</artifactId>
-                        </exclusion>
-                        <!-- Jersey internals may be incompatible to those needed by rest client -->
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.core</groupId>
-                            <artifactId>jersey-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.core</groupId>
-                            <artifactId>jersey-common</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.eclipse.microprofile.rest.client</groupId>
-                    <artifactId>microprofile-rest-client-api</artifactId>
-                    <version>${microprofile.rest.client.api.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-                    <artifactId>jersey-mp-rest-client</artifactId>
-                    <version>${jersey.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
-                <dependency>
-                    <groupId>io.smallrye</groupId>
-                    <artifactId>smallrye-config</artifactId>
-                    <version>1.3.5</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>Payara Enterprise</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <value>/^[5-9]\.[0-9]{1,2}\.[0-9].*/</value>
-                </property>
-            </activation>
-            <properties>
-                <jersey.version>2.30.payara-p2</jersey.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
-                    <scope>test</scope>
-                    <exclusions>
-                        <!-- depending on version of ee8-client, the possibly
-                             conflicting rest client implementation is either of these -->
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-                            <artifactId>jersey-mp-rest-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext</groupId>
-                            <artifactId>jersey-mp-rest-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.ext</groupId>
-                            <artifactId>jersey-microprofile-rest-client</artifactId>
-                        </exclusion>
-                        <!-- Jersey internals may be incompatible to those needed by rest client -->
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.core</groupId>
-                            <artifactId>jersey-client</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.glassfish.jersey.core</groupId>
-                            <artifactId>jersey-common</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.eclipse.microprofile.rest.client</groupId>
-                    <artifactId>microprofile-rest-client-api</artifactId>
-                    <version>${microprofile.rest.client.api.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-                    <artifactId>jersey-mp-rest-client</artifactId>
-                    <version>${jersey.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
-                <dependency>
-                    <groupId>io.smallrye</groupId>
-                    <artifactId>smallrye-config</artifactId>
-                    <version>1.3.5</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>payara-server-managed</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Copy the Payara artifact into the target directory -->
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                    <!-- Run the integration tests against the remote server -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <environmentVariables>
-                                <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
-                            </environmentVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>payara-server-remote</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <javaEEServer>payara-remote</javaEEServer>
-                            </systemPropertyVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>payara-micro-managed</id>
-
-            <build>
-                <plugins>
-                    <!-- Download Payara Micro and copy to target directory -->
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                    <!-- Configure Payara Micro Runtime -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <environmentVariables>
-                                <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
-                            </environmentVariables>
-                            <systemPropertyVariables>
-                                <arquillian.launch>payara-micro-managed</arquillian.launch>
-                            </systemPropertyVariables>
-                            <excludes>
-                                <exclude>**/ProxyServerTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

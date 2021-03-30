@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-  
-   Copyright (c) [2017-2020] Payara Foundation and/or its affiliates. All rights reserved.
-  
+
+   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
+
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
    and Distribution License("CDDL") (collectively, the "License").  You
@@ -12,20 +12,20 @@
    https://github.com/payara/Payara/blob/master/LICENSE.txt
    See the License for the specific
    language governing permissions and limitations under the License.
-  
+
    When distributing the software, include this License Header Notice in each
    file and include the License file at glassfish/legal/LICENSE.txt.
-  
+
    GPL Classpath Exception:
    The Payara Foundation designates this particular file as subject to the "Classpath"
    exception as provided by the Payara Foundation in the GPL Version 2 section of the License
    file that accompanied this code.
-  
+
    Modifications:
    If applicable, add the following below the License Header, with the fields
    enclosed by brackets [] replaced by your own identifying information:
    "Portions Copyright [year] [name of copyright owner]"
-  
+
    Contributor(s):
    If you wish your version of this file to be governed by only the CDDL or
    only the GPL Version 2, indicate your decision by adding "[Contributor]
@@ -51,7 +51,6 @@
 
     <groupId>fish.payara.microprofile.fault-tolerance</groupId>
     <artifactId>tck-runner</artifactId>
-    <packaging>pom</packaging>
 
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 
@@ -60,10 +59,7 @@
         <microprofile.fault-tolerance.version>3.0</microprofile.fault-tolerance.version>
         <microprofile.fault-tolerance.tck.version>3.0</microprofile.fault-tolerance.tck.version>
         <microprofile.metrics.version>3.0</microprofile.metrics.version>
-        <microprofile.fault-tolerance.tck.suite>tck-suite3.0-stable.xml</microprofile.fault-tolerance.tck.suite>
-
-        <!-- Test Dependencies -->
-        <testng.version>6.9.9</testng.version>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-stable.xml</mptck.suite>
     </properties>
 
     <dependencies>
@@ -88,14 +84,11 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee7</artifactId>
-            <version>${payara.arquillian.container.version}</version>
-            <scope>test</scope>
+            <artifactId>payara-client-ee8</artifactId>
         </dependency>
     </dependencies>
 
@@ -104,9 +97,6 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/resources/${microprofile.fault-tolerance.tck.suite}</suiteXmlFile>
-                    </suiteXmlFiles>
                     <!-- In case times out are being missed, try this: -->
 <!--                    <systemPropertyVariables>-->
 <!--                        <org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>2.0</org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier>-->
@@ -114,9 +104,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.1</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -124,11 +112,11 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <echo>FT version ${microprofile.fault-tolerance.version}</echo>
                                 <echo>FT TCK version ${microprofile.fault-tolerance.tck.version}</echo>
-                                <echo>FT suite ${microprofile.fault-tolerance.tck.suite}</echo>
-                            </tasks>
+                                <echo>FT suite ${mptck.suite}</echo>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
@@ -140,204 +128,27 @@
         <profile>
             <id>unstable-1.1</id>
             <properties>
-                <microprofile.fault-tolerance.tck.suite>no-ext-libs-tck-suite.xml</microprofile.fault-tolerance.tck.suite>
+                <mptck.suite>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</mptck.suite>
             </properties>
         </profile>
         <profile>
             <id>unstable-2.0</id>
             <properties>
-                <microprofile.fault-tolerance.tck.suite>tck-suite2.0.xml</microprofile.fault-tolerance.tck.suite>
+                <mptck.suite>${basedir}/src/test/resources/tck-suite2.0.xml</mptck.suite>
             </properties>
         </profile>
 
         <profile>
-            <id>payara-server-managed</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Copy the Payara artifact into the target directory -->
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
-                        <executions>
-                            <execution>
-                                <id>prepare-payara-server</id>
-                                <phase>pre-integration-test</phase>
-                                <configuration>
-                                    <target>
-                                        <condition property="payara.executable" value="${payara.path}/bin/asadmin.bat"
-                                                   else="${payara.path}/bin/asadmin">
-                                            <os family="windows"/>
-                                        </condition>
-                                        <exec executable="${payara.executable}">
-                                            <arg value="start-domain"/>
-                                        </exec>
-                                        <exec executable="${payara.executable}">
-                                            <arg value="delete-jvm-options"/>
-                                            <arg value="-Xmx512m"/>
-                                        </exec>
-                                        <exec executable="${payara.executable}">
-                                            <arg value="create-jvm-options"/>
-                                            <arg value="-Xmx2g"/>
-                                        </exec>
-                                        <exec executable="${payara.executable}">
-                                            <arg value="stop-domain"/>
-                                        </exec>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Run the integration tests against the remote server -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <environmentVariables>
-                                <GLASSFISH_HOME>${payara.path}</GLASSFISH_HOME>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-
-        <profile>
-            <id>payara-server-remote</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <javaEEServer>payara-remote</javaEEServer>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-
-        <profile>
-            <id>payara-server-remote-ext-libs</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <javaEEServer>payara-remote</javaEEServer>
-                            </systemPropertyVariables>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${basedir}/src/test/resources/tck-suite.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-remote</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-
-        <profile>
             <id>payara-micro-managed</id>
-
             <build>
                 <plugins>
-                    <!-- Download Payara Micro and copy to target directory -->
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
                     <!-- Configure Payara Micro Runtime -->
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <MICRO_JAR>${payara.micro.path}</MICRO_JAR>
                                 <EXTRA_MICRO_OPTIONS>--prebootcommandfile ${basedir}/micro-pre-boot-commands.txt</EXTRA_MICRO_OPTIONS>
                             </environmentVariables>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${basedir}/src/test/resources/${microprofile.fault-tolerance.tck.suite}</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>payara-server-embedded</id>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/resources-glassfish-embedded</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-
-        <profile>
-            <id>single-test</id>
-            <activation>
-                <property>
-                    <name>it.test</name>
-                </property>
-
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <suiteXmlFiles/>
-                            <dependenciesToScan>
-                                <dependencyToScan>
-                                    org.eclipse.microprofile.fault-tolerance:microprofile-fault-tolerance-tck
-                                </dependencyToScan>
-                            </dependenciesToScan>
                         </configuration>
                     </plugin>
                 </plugins>

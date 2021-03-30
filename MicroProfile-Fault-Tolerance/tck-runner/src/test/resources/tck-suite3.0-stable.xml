@@ -1,6 +1,6 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="microprofile-FT-TCK" verbose="2" configfailurepolicy="continue" >
+<suite name="microprofile-FT-TCK" verbose="2" >
 
     <test name="microprofile-FT 3.0 TCK">
         <packages>
@@ -10,7 +10,7 @@
         <!-- excludes -->
         <classes>
             <!-- Unstable -->
-            <!-- 
+            <!--
              -->
 
             <!-- exception is thrown but wrapped, added JUnit tests instead -->

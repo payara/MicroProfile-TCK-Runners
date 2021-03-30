@@ -3,10 +3,12 @@
             xmlns="http://jboss.org/schema/arquillian"
             xsi:schemaLocation="http://jboss.org/schema/arquillian
     http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-  
+
     <container qualifier="payara-micro-managed">
         <configuration>
-            <!-- Required for DefaultConfigSourceOrdinalTest -->
+            <property name="randomHttpPort">${micro.randomPort}</property>
+            <property name="autoBindHttp">${micro.randomPort}</property>
+            <!-- Required for MP-Config / DefaultConfigSourceOrdinalTest -->
             <property name="cmdOptions">
                 -Dconfig_ordinal=120
                 -Dcustomer.hobby=Tennis
@@ -15,4 +17,10 @@
         </configuration>
     </container>
 
-</arquillian> 
+    <container qualifier="payara-embedded">
+        <configuration>
+            <property name="bindHttpPort">8080</property>
+        </configuration>
+    </container>
+
+</arquillian>
