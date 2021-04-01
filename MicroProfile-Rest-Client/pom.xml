@@ -48,7 +48,7 @@
     </parent>
 
     <groupId>fish.payara.microprofile.rest-client</groupId>
-    <artifactId>tck-runner</artifactId>
+    <artifactId>rest-client-tck</artifactId>
     <packaging>jar</packaging>
 
     <name>MicroProfile Rest Client TCK Runner</name>

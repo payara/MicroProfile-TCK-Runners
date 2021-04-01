@@ -47,7 +47,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>tck-runner</artifactId>
+    <artifactId>health-tck</artifactId>
 
     <name>MicroProfile Health TCK Runner</name>
 

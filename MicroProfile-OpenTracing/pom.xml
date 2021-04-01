@@ -48,7 +48,7 @@
     </parent>
 
     <groupId>fish.payara.microprofile.opentracing</groupId>
-    <artifactId>tck-runner</artifactId>
+    <artifactId>opentracing-tck</artifactId>
 
     <name>MicroProfile OpenTracing TCK Runner</name>
 

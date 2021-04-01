@@ -47,7 +47,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>tck-runner</artifactId>
+    <artifactId>jwt-auth-tck</artifactId>
 
     <name>MicroProfile JWT-Auth TCK Runner</name>
 

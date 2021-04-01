@@ -49,7 +49,7 @@
     </parent>
 
     <groupId>fish.payara.microprofile.fault-tolerance</groupId>
-    <artifactId>tck-runner</artifactId>
+    <artifactId>ft-tck</artifactId>
 
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 

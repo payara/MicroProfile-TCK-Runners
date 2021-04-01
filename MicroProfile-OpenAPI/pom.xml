@@ -48,7 +48,7 @@
     </parent>
 
     <groupId>fish.payara.microprofile.openapi</groupId>
-    <artifactId>tck-runner</artifactId>
+    <artifactId>openapi-tck</artifactId>
 
     <name>MicroProfile OpenAPI TCK Runner</name>
 
