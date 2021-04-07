@@ -58,8 +58,8 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all:1.3";
-    private static final String JUNIT_DEP = "junit:junit:4.13.2";
+    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all";
+    private static final String JUNIT_DEP = "junit:junit";
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -67,15 +67,20 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
             return;
         }
         WebArchive webArchive = WebArchive.class.cast(archive);
-        webArchive.addAsLibraries(lib(HAMCREST_ALL));
-        webArchive.addAsLibraries(lib(JUNIT_DEP));
+        try {
+            webArchive.addAsLibraries(lib(HAMCREST_ALL));
+            webArchive.addAsLibraries(lib(JUNIT_DEP));
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "addLibraries exception", e);
+        }
 
         LOG.log(Level.INFO, "Virtually augmented web archive: \n {0}", webArchive.toString(true));
     }
 
-    private File[] lib(String gav) {
-        return Maven.configureResolver().withRemoteRepo("Maven", "https://repo1.maven.org/maven2/", "default")
-                .resolve(gav)
+    private File[] lib(String depspec) {
+        return Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .resolve(depspec)
                 .withoutTransitivity().asFile();
     }
 }

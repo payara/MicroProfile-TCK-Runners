@@ -57,8 +57,8 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String WIREMOCK = "com.github.tomakehurst:wiremock:2.27.2";
-    private static final String JUNIT = "junit:junit:4.13.2";
+    private static final String WIREMOCK = "com.github.tomakehurst:wiremock";
+    private static final String JUNIT = "junit:junit";
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -66,15 +66,20 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
             return;
         }
         WebArchive webArchive = WebArchive.class.cast(archive);
-        webArchive.addAsLibraries(lib(WIREMOCK));
-        webArchive.addAsLibraries(lib(JUNIT));
+        try {
+            webArchive.addAsLibraries(lib(WIREMOCK));
+            webArchive.addAsLibraries(lib(JUNIT));
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "addLibraries exception", e);
+        }
 
         LOG.log(Level.INFO, "Virtually augmented web archive: \n {0}", webArchive.toString(true));
     }
 
-    private File[] lib(String gav) {
+    private File[] lib(String depspec) {
         return Maven.resolver()
-                .resolve(gav)
+                .loadPomFromFile("pom.xml")
+                .resolve(depspec)
                 .withTransitivity().asFile();
     }
 }
