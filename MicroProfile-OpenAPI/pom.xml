@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2020-2021] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -47,39 +47,74 @@
         <version>1.0</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.jwt-auth</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <groupId>fish.payara.microprofile.openapi</groupId>
+    <artifactId>openapi-tck</artifactId>
 
-    <name>MicroProfile JWT-Auth TCK Runner Parent</name>
+    <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- JWT Auth Dependencies -->
-        <microprofile.jwt-auth.version>1.2</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.2</microprofile.jwt-auth.tck.version>
-    </properties>
+        <!-- Latest version of Microprofile Dependencies set via profiles -->
+        <microprofile.openapi.version>2.0</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>2.0</microprofile.openapi.tck.version>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
 
-    <modules>
-        <module>tck-arquillian-extension</module>
-        <module>tck-runner</module>
-    </modules>
+        <!-- OpenAPI test url -->
+        <test.url>http://localhost:8080/openapi/</test.url>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-tck</artifactId>
-            <version>${microprofile.jwt-auth.tck.version}</version>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-tck</artifactId>
+            <version>${microprofile.openapi.tck.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-api</artifactId>
-            <version>${microprofile.jwt-auth.version}</version>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
+            <version>${microprofile.openapi.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.microprofile.jwt</groupId>
-            <artifactId>microprofile-jwt-auth-tck</artifactId>
-            <version>${microprofile.jwt-auth.tck.version}</version>
-            <type>test-jar</type>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <!-- 7.4.0 breaks these tests, 7.5+ fixes it -->
+            <version>7.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.81</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee8</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <systemProperties>
+                        <test.url>${test.url}</test.url>
+                        <payara.randomHttpPort>false</payara.randomHttpPort>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>payara-server-embedded</id>
+            <properties>
+                <test.url>http://localhost:8181/openapi/</test.url>
+            </properties>
+        </profile>
+    </profiles>
 </project>

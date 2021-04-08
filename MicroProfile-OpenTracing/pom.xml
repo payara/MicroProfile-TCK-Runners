@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
+
+   The contents of this file are subject to the terms of either the GNU
+   General Public License Version 2 only ("GPL") or the Common Development
+   and Distribution License("CDDL") (collectively, the "License").  You
+   may not use this file except in compliance with the License.  You can
+   obtain a copy of the License at
+   https://github.com/payara/Payara/blob/master/LICENSE.txt
+   See the License for the specific
+   language governing permissions and limitations under the License.
+
+   When distributing the software, include this License Header Notice in each
+   file and include the License file at glassfish/legal/LICENSE.txt.
+
+   GPL Classpath Exception:
+   The Payara Foundation designates this particular file as subject to the "Classpath"
+   exception as provided by the Payara Foundation in the GPL Version 2 section of the License
+   file that accompanied this code.
+
+   Modifications:
+   If applicable, add the following below the License Header, with the fields
+   enclosed by brackets [] replaced by your own identifying information:
+   "Portions Copyright [year] [name of copyright owner]"
+
+   Contributor(s):
+   If you wish your version of this file to be governed by only the CDDL or
+   only the GPL Version 2, indicate your decision by adding "[Contributor]
+   elects to include this software in this distribution under the [CDDL or GPL
+   Version 2] license."  If you don't indicate a single choice of license, a
+   recipient has the option to distribute your version of this file under
+   either the CDDL, the GPL Version 2 or to extend the choice of license to
+   its licensees as provided above.  However, if you add GPL Version 2 code
+   and therefore, elected the GPL Version 2 license, then the option applies
+   only if the new code is made subject to such option by the copyright
+   holder.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <groupId>fish.payara.microprofile.opentracing</groupId>
+    <artifactId>opentracing-tck</artifactId>
+
+    <name>MicroProfile OpenTracing TCK Runner</name>
+
+    <properties>
+        <!-- OpenTracing Dependencies -->
+        <microprofile.opentracing.version>2.0.payara-p1</microprofile.opentracing.version>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
+        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile.opentracing</groupId>
+            <artifactId>microprofile-opentracing-tck</artifactId>
+            <version>${microprofile.opentracing.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-jackson-provider</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.opentracing</groupId>
+            <artifactId>microprofile-opentracing-api</artifactId>
+            <version>${microprofile.opentracing.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.opentracing</groupId>
+            <artifactId>microprofile-opentracing-tck-rest-client</artifactId>
+            <version>${microprofile.opentracing.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee8</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Workaround:
+             Use an updated version of resteasy client compared to that of the TCK.
+             Using their one (3.1.4) seems to end up with a comparison failure of the HTTP status tag at
+             TestSpan.equals() due to it getting transformed from an Integer to a BigDecimal between the return method
+             of TracerWebService.getTracer() and OpenTracingBaseTests.executeRemoteWebServiceRaw() despite actually
+             being the same number (e.g. 200) -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>3.15.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>3.15.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>start-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>prepare-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="create-system-properties" />
+                                    <arg value="USE_OPENTRACING_MOCK_TRACER=true" />
+                                </exec>
+                                <exec executable="${payara.executable}">
+                                    <arg value="set-requesttracing-configuration" />
+                                    <arg value="--enabled=true" />
+                                    <arg value="--dynamic=true" />
+                                </exec>
+                                <exec executable="${payara.executable}">
+                                    <arg value="set" />
+                                    <arg value="configs.config.server-config.thread-pools.thread-pool.http-thread-pool.max-thread-pool-size=200" />
+                                </exec>
+                                <exec executable="${payara.executable}">
+                                    <arg value="set-payara-executor-service-configuration" />
+                                    <arg value="--threadpoolexecutorcorepoolsize=20" />
+                                    <arg value="--threadpoolexecutormaxpoolsize=100" />
+                                    <arg value="--threadpoolexecutorqueuesize=200" />
+                                    <arg value="--scheduledthreadpoolexecutorcorepoolsize=20" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>windows-profile</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
+            </properties>
+        </profile>
+        <profile>
+            <id>payara-micro-managed</id>
+            <properties>
+                <payara.micro.managed/>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Configure Payara Micro Runtime -->
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <EXTRA_MICRO_OPTIONS>--postbootcommandfile ${basedir}/micro-post-boot-commands.txt --systemproperties tck.properties</EXTRA_MICRO_OPTIONS>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

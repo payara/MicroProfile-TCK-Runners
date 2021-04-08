@@ -42,91 +42,100 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.microprofile.jwt-auth</groupId>
-        <artifactId>parent</artifactId>
+        <groupId>fish.payara.microprofile</groupId>
+        <artifactId>tck-suite-parent</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>jwt-auth-tck</artifactId>
+    <groupId>fish.payara.microprofile.metrics</groupId>
+    <artifactId>metrics-tck</artifactId>
+    <packaging>jar</packaging>
 
-    <name>MicroProfile JWT-Auth TCK Runner</name>
+    <name>MicroProfile Metrics TCK Runner</name>
 
     <properties>
-        <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
+        <!-- Metrics Dependencies -->
+    	<microprofile.metrics.version>3.0</microprofile.metrics.version>
+    	<microprofile.metrics.tck.version>3.0</microprofile.metrics.tck.version>
         <micro.randomPort>false</micro.randomPort>
+
+    	<!-- Other Test Dependencies -->
+    	<cdi.version>2.0.SP1</cdi.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>tck-arquillian-extension</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api</artifactId>
+            <version>${microprofile.metrics.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api-tck</artifactId>
+            <version>${microprofile.metrics.tck.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>fish.payara.microprofile.jwt-auth</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                </exclusion>
-                <!--<exclusion>
-                    <groupId>fish.payara.server.internal.payara-appserver-modules</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                </exclusion>-->
-                <!-- exclude dependency inheritance for server-managed from tck extension -->
-                <exclusion>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wlp-managed-8.5</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jersey.version}</version>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-rest-tck</artifactId>
+            <version>${microprofile.metrics.tck.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>${jersey.version}</version>
-            <scope>test</scope>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${cdi.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee8</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <scope>test</scope>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>environment-setup</artifactId>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>unstable</id>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>payara-micro-managed</id>
-            <build>
-                <plugins>
-                    <!-- Configure Payara Micro Runtime -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <suiteXmlFiles combine.self="override"/>
+                    <dependenciesToScan>
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-api-tck</dependency>
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-rest-tck</dependency>
+                    </dependenciesToScan>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>payara-micro-managed</arquillian.launch>
-                                <mp.jwt.tck.jwks.baseURL>http://localhost:8080/</mp.jwt.tck.jwks.baseURL>
-                                <mp.jwt.tck.pem.baseURL>http://localhost:8080/</mp.jwt.tck.pem.baseURL>
-                            </systemPropertyVariables>
+                            <target>
+                                <echo>Metrics version     ${microprofile.metrics.version}</echo>
+                                <echo>Metrics TCK version ${microprofile.metrics.tck.version}</echo>
+                            </target>
                         </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
