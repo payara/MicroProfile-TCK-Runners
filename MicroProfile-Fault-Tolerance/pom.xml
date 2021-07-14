@@ -58,7 +58,7 @@
         <microprofile.fault-tolerance.version>3.0</microprofile.fault-tolerance.version>
         <microprofile.fault-tolerance.tck.version>3.0</microprofile.fault-tolerance.tck.version>
         <microprofile.metrics.version>3.0</microprofile.metrics.version>
-        <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-stable.xml</mptck.suite>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-all.xml</mptck.suite>
     </properties>
 
     <dependencies>
