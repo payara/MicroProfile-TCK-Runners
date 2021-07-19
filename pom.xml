@@ -65,7 +65,7 @@
         <jersey.version>2.30.payara-p4</jersey.version>
 
         <!-- Payara Dependencies -->
-        <payara.version>5.2021.1</payara.version>
+        <payara.version>5.2021.5-SNAPSHOT</payara.version>
         <payara.home>${mptck.basedir}/target/payara5</payara.home>
         <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
         <micro.randomPort>true</micro.randomPort>

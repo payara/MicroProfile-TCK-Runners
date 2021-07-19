@@ -6,17 +6,6 @@
         <packages>
             <package name="org.eclipse.microprofile.openapi.tck" />
         </packages>
-
-        <!-- Excludes -->
-        <classes>
-            <class name="org.eclipse.microprofile.openapi.tck.ModelConstructionTest">
-                <methods>
-                    <!-- Disabled as I'm not sure this behaviour is expected -->
-                    <!-- See: https://github.com/eclipse/microprofile-open-api/issues/453 -->
-                    <exclude name="openAPITest" />
-                </methods>
-            </class>
-        </classes>
     </test>
 
 </suite>
