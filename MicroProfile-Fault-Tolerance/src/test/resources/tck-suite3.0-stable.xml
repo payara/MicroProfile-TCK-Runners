@@ -14,6 +14,7 @@
              -->
 
             <!-- exception is thrown but wrapped, added JUnit tests instead -->
+            <!-- Fixed from Payara 5.2021.6 and 5.30 onwards - use tck-suite3.0-all -->
             <class name="org.eclipse.microprofile.fault.tolerance.tck.fallbackmethod.FallbackMethodWildcardNegativeTest">
                 <methods><exclude name=".*"></exclude></methods>
             </class>
