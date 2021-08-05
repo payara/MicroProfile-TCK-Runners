@@ -104,7 +104,7 @@
 
     <profiles>
         <profile>
-            <id>unstable</id>
+            <id>full</id>
             <properties>
                 <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
             </properties>
