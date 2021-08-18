@@ -69,6 +69,7 @@
         <payara.home>${mptck.basedir}/target/payara5</payara.home>
         <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
         <micro.randomPort>true</micro.randomPort>
+        <payara_domain>domain1</payara_domain>
     </properties>
 
     <modules>
@@ -157,6 +158,9 @@
         </profile>
         <profile>
             <id>payara-server-remote</id>
+            <properties>
+                <payara.server.remote/>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>

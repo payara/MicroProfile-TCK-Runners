@@ -181,6 +181,21 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>restart-remote-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.executable}">
+                                    <arg value="restart-domain" />
+                                    <arg value="${payara_domain}" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
