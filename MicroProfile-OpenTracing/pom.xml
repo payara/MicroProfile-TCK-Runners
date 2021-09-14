@@ -157,6 +157,12 @@
                                     <arg value="--threadpoolexecutorqueuesize=200" />
                                     <arg value="--scheduledthreadpoolexecutorcorepoolsize=20" />
                                 </exec>
+                                <!--
+                                    Add OpenTracing Mock to classpath. This JAR is just the normal opentracing-mock 
+                                    dependency with the Service Loader file added to it (by cracking it open, adding
+                                    the file, and recreating the jar. This needs updating whenever opentracing gets
+                                    updated (until they add the serviceloader themselves).
+                                --> 
                                 <exec executable="${payara.executable}">
                                     <arg value="add-library" />
                                     <arg value="${basedir}/opentracing-mock-0.33.0-serviceloader.jar" />
