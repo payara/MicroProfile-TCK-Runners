@@ -231,7 +231,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <EXTRA_MICRO_OPTIONS>--postbootcommandfile ${basedir}/micro-post-boot-commands.txt --systemproperties tck.properties --addlib ${basedir}/opentracing-mock-0.33.0-serviceloader.jar</EXTRA_MICRO_OPTIONS>
+                                <EXTRA_MICRO_OPTIONS>--postbootcommandfile ${basedir}/micro-post-boot-commands.txt --systemproperties tck.properties --addlibs ${basedir}/opentracing-mock-0.33.0-serviceloader.jar</EXTRA_MICRO_OPTIONS>
                             </environmentVariables>
                         </configuration>
                     </plugin>
