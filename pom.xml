@@ -58,11 +58,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Arquillian Dependencies -->
-        <payara.arquillian.container.version>2.4.4</payara.arquillian.container.version>
+        <payara.arquillian.container.version>2.4.5</payara.arquillian.container.version>
 
         <!-- Embedded Dependencies -->
         <tyrus.version>1.17.payara-p1</tyrus.version>
-        <jersey.version>2.30.payara-p4</jersey.version>
+        <jersey.version>2.34.payara-p1</jersey.version>
 
         <!-- Payara Dependencies -->
         <payara.version>5.2021.5-SNAPSHOT</payara.version>
@@ -357,7 +357,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.7.0.Alpha9</version>
+                <version>1.7.0.Alpha10</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
