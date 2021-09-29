@@ -54,7 +54,7 @@
 
     <properties>
         <!-- OpenTracing Dependencies -->
-        <microprofile.opentracing.version>2.0.payara-p1</microprofile.opentracing.version>
+        <microprofile.opentracing.version>2.0.payara-p2</microprofile.opentracing.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
@@ -65,16 +65,6 @@
             <artifactId>microprofile-opentracing-tck</artifactId>
             <version>${microprofile.opentracing.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-jackson-provider</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
@@ -93,23 +83,10 @@
             <artifactId>payara-client-ee8</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Workaround:
-             Use an updated version of resteasy client compared to that of the TCK.
-             Using their one (3.1.4) seems to end up with a comparison failure of the HTTP status tag at
-             TestSpan.equals() due to it getting transformed from an Integer to a BigDecimal between the return method
-             of TracerWebService.getTracer() and OpenTracingBaseTests.executeRemoteWebServiceRaw() despite actually
-             being the same number (e.g. 200) -->
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>3.15.1.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
-            <version>3.15.1.Final</version>
-            <scope>test</scope>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-binding</artifactId>
+            <version>${jersey.version}</version>
         </dependency>
     </dependencies>
 
