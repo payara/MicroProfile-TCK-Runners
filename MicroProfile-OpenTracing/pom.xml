@@ -54,7 +54,7 @@
 
     <properties>
         <!-- OpenTracing Dependencies -->
-        <microprofile.opentracing.version>2.0.payara-p2</microprofile.opentracing.version>
+        <microprofile.opentracing.version>2.0</microprofile.opentracing.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
