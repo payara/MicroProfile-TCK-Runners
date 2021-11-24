@@ -38,30 +38,50 @@
    only if the new code is made subject to such option by the copyright
    holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.microprofile</groupId>
-        <artifactId>tck-suite-parent</artifactId>
+        <groupId>fish.payara.microprofile.rest-client.tck-runner</groupId>
+        <artifactId>parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.rest-client</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>default</artifactId>
+    <packaging>jar</packaging>
 
-    <name>MicroProfile Rest Client TCK Runner - Parent</name>
+    <name>MicroProfile Rest Client TCK Runner - Default</name>
+    <description>Runs the MicroProfile Rest Client TCK using Default Jersey Client Connector (No Proxy Support)
+    </description>
 
-    <properties>
-        <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
-        <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
-    </properties>
 
-    <modules>
-        <module>apache-httpclient-connector</module>
-        <module>arquillian-extension</module>
-        <module>tck-runners</module>
-    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <dependenciesToScan>
+                                <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck
+                                </dependency>
+                            </dependenciesToScan>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/ProxyServerTest.java</exclude>
+                            </excludes>
+                            <suiteXmlFiles combine.self="override"/>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

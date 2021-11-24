@@ -38,30 +38,19 @@
    only if the new code is made subject to such option by the copyright
    holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fish.payara.microprofile</groupId>
-        <artifactId>tck-suite-parent</artifactId>
+        <groupId>fish.payara.microprofile.rest-client</groupId>
+        <artifactId>parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.rest-client</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>tck-arquillian-extension</artifactId>
+    <packaging>jar</packaging>
 
-    <name>MicroProfile Rest Client TCK Runner - Parent</name>
-
-    <properties>
-        <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
-        <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
-    </properties>
-
-    <modules>
-        <module>apache-httpclient-connector</module>
-        <module>arquillian-extension</module>
-        <module>tck-runners</module>
-    </modules>
+    <name>MicroProfile Rest Client TCK Runner - Arquillian Extension</name>
 
 </project>
