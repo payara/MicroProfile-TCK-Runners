@@ -60,7 +60,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <payara.version>5.2020.5</payara.version>
         <jersey.version>2.34.payara-p2-SNAPSHOT</jersey.version>
     </properties>
 
@@ -292,13 +291,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>enterprise</id>
-            <properties>
-                <payara.version>5.27.0</payara.version>
-            </properties>
-        </profile>
-    </profiles>
+    
 </project>
