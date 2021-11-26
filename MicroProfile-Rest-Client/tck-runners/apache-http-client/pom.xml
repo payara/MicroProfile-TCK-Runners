@@ -56,6 +56,10 @@
     </description>
 
     <properties>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
+        <apache.httpcore.version>4.4.14</apache.httpcore.version>
+        <apache.commons.logging.version>1.2</apache.commons.logging.version>
+
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
