@@ -54,6 +54,7 @@
     <properties>
         <microprofile.health.tck.version>3.1</microprofile.health.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
+        <jackson.version>2.12.4</jackson.version>
     </properties>
 
     <dependencies>
@@ -87,6 +88,13 @@
                     <artifactId>arquillian-payara-server-4-managed</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- Required for JDK 17, but should probably have been present anyway -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
