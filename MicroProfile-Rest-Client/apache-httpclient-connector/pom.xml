@@ -59,8 +59,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <jersey.version>2.34.payara-p2-SNAPSHOT</jersey.version>
     </properties>
 
     <dependencies>
