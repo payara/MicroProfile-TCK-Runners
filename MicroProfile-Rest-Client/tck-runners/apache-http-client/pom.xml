@@ -131,6 +131,10 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
+                Copy required libraries into Payara, could also be done via add-library asadmin command but this way
+                doesn't require us to start payara-managed first (since said command requires a running server).
+            -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -165,6 +169,7 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <!-- Restart Payara Server for library changes to take effect -->
                     <execution>
                         <id>restart-remote-payara-server</id>
                         <phase>pre-integration-test</phase>
@@ -180,6 +185,7 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <!-- Remove added libraries from Payara, since these may affect other tests -->
                     <execution>
                         <id>remove-apache-httpclient-libraries</id>
                         <phase>post-integration-test</phase>
@@ -206,6 +212,7 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <!-- Restart Payara Server for library changes to take effect -->
                     <execution>
                         <id>restart-remote-payara-server-(post)</id>
                         <phase>post-integration-test</phase>
