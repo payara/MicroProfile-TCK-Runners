@@ -44,130 +44,24 @@
     <parent>
         <groupId>fish.payara.microprofile</groupId>
         <artifactId>tck-suite-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>fish.payara.microprofile.rest-client</groupId>
-    <artifactId>rest-client-tck</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
 
-    <name>MicroProfile Rest Client TCK Runner</name>
+    <name>MicroProfile Rest Client TCK Runner - Parent</name>
 
     <properties>
         <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
         <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
-        <micro.randomPort>false</micro.randomPort>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>uk.co.automatictester</groupId>
-                <artifactId>wiremock-maven-plugin</artifactId>
-                <version>7.0.0</version>
-                <configuration>
-                    <dir>${project.build.directory}/classes</dir>
-                    <params>--port=8765 --verbose</params>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start-wiremock</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-wiremock</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <dependenciesToScan>
-                        <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
-                    </dependenciesToScan>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/ProxyServerTest.java</exclude>
-                    </excludes>
-                    <suiteXmlFiles combine.self="override"/>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>apache-httpclient-connector</module>
+        <module>arquillian-extension</module>
+        <module>tck-runners</module>
+    </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile.rest.client</groupId>
-            <artifactId>microprofile-rest-client-tck</artifactId>
-            <version>${microprofile.rest.client.tck.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee8</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <!-- depending on version of ee8-client, the possibly
-                conflicting rest client implementation is either of these -->
-                <exclusion>
-                    <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-                    <artifactId>jersey-mp-rest-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.glassfish.jersey.ext</groupId>
-                    <artifactId>jersey-mp-rest-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.glassfish.jersey.ext</groupId>
-                    <artifactId>jersey-microprofile-rest-client</artifactId>
-                </exclusion>
-                <!-- Jersey internals may be incompatible to those needed by rest client -->
-                <exclusion>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-common</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse</groupId>
-                    <artifactId>yasson</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.rest.client</groupId>
-            <artifactId>microprofile-rest-client-api</artifactId>
-            <version>${microprofile.rest.client.api.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.ext.microprofile</groupId>
-            <artifactId>jersey-mp-rest-client</artifactId>
-            <version>${jersey.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
-        <dependency>
-            <groupId>io.smallrye.config</groupId>
-            <artifactId>smallrye-config</artifactId>
-            <version>2.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>
