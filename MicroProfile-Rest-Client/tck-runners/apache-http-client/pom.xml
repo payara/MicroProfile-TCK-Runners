@@ -131,37 +131,18 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-                Copy required libraries into Payara, could also be done via add-library asadmin command but this way
-                doesn't require us to start payara-managed first (since said command requires a running server).
-            -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
+                    <!-- Start Payara Server Managed to add libraries -->
                     <execution>
-                        <id>add-apache-httpclient-libraries</id>
+                        <id>start-managed-payara-server-pre</id>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <target unless="payara.micro.managed">
-                                <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/httpclient-osgi-${apache.httpclient.version}.jar"/>
-                                    <arg value="${payara.home}/glassfish/modules/"/>
-                                </exec>
-                                <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/httpcore-osgi-${apache.httpcore.version}.jar"/>
-                                    <arg value="${payara.home}/glassfish/modules/"/>
-                                </exec>
-                                <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/commons-logging-${apache.commons.logging.version}.jar"/>
-                                    <arg value="${payara.home}/glassfish/modules/"/>
-                                </exec>
-                                <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/jersey-apache-connector-${jersey.version}.jar"/>
-                                    <arg value="${payara.home}/glassfish/modules/"/>
-                                </exec>
-                                <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/apache-httpclient-connector-${project.version}.jar"/>
-                                    <arg value="${payara.home}/glassfish/modules/"/>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain"/>
+                                    <arg value="${payara_domain}"/>
                                 </exec>
                             </target>
                         </configuration>
@@ -169,7 +150,42 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
-                    <!-- Restart Payara Server for library changes to take effect -->
+                    <execution>
+                        <id>add-apache-httpclient-libraries</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="add-library"/>
+                                    <arg value="${project.build.directory}/dependency/httpclient-osgi-${apache.httpclient.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/httpcore-osgi-${apache.httpcore.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/commons-logging-${apache.commons.logging.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/apache-httpclient-connector-${project.version}.jar"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Stop Payara Server Managed for library changes to take effect (starts again later) -->
+                    <execution>
+                        <id>stop-managed-payara-server-pre</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Restart Remote Payara Server for library changes to take effect -->
                     <execution>
                         <id>restart-remote-payara-server</id>
                         <phase>pre-integration-test</phase>
@@ -185,26 +201,51 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <!-- Start Payara Server Managed to remove libraries -->
+                    <execution>
+                        <id>start-managed-payara-server-post</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                     <!-- Remove added libraries from Payara, since these may affect other tests -->
                     <execution>
                         <id>remove-apache-httpclient-libraries</id>
                         <phase>post-integration-test</phase>
                         <configuration>
                             <target unless="payara.micro.managed">
-                                <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/httpclient-osgi-${apache.httpclient.version}.jar"/>
+                                <exec executable="${payara.executable}">
+                                    <arg value="remove-library"/>
+                                    <arg value="httpclient-osgi-${apache.httpclient.version}.jar"/>
+                                    <arg value="httpcore-osgi-${apache.httpcore.version}.jar"/>
+                                    <arg value="commons-logging-${apache.commons.logging.version}.jar"/>
+                                    <arg value="jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="apache-httpclient-connector-${project.version}.jar"/>
                                 </exec>
-                                <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/httpcore-osgi-${apache.httpcore.version}.jar"/>
-                                </exec>
-                                <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/commons-logging-${apache.commons.logging.version}.jar"/>
-                                </exec>
-                                <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/jersey-apache-connector-${jersey.version}.jar"/>
-                                </exec>
-                                <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/apache-httpclient-connector-${project.version}.jar"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Stop Payara Server Managed for library changes to take effect -->
+                    <execution>
+                        <id>stop-managed-payara-server-post</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain"/>
+                                    <arg value="${payara_domain}"/>
                                 </exec>
                             </target>
                         </configuration>
