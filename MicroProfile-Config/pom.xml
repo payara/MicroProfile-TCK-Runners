@@ -59,6 +59,9 @@
         <microprofile.config.tck.version>3.0</microprofile.config.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <micro.randomPort>false</micro.randomPort>
+        
+    	<!-- Other Test Dependencies -->
+    	<cdi.version>4.0.0.Alpha1</cdi.version>
     </properties>
 
     <dependencies>
@@ -81,6 +84,12 @@
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>environment-setup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${cdi.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
