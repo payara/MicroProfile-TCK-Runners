@@ -58,15 +58,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Arquillian Dependencies -->
-        <payara.arquillian.container.version>2.4.5</payara.arquillian.container.version>
+        <version.arquillian>1.7.0.Alpha10</version.arquillian>
+        <payara.arquillian.container.version>3.0.alpha2</payara.arquillian.container.version>
 
         <!-- Embedded Dependencies -->
-        <tyrus.version>1.17.payara-p1</tyrus.version>
-        <jersey.version>2.34.payara-p2</jersey.version>
+        <tyrus.version>2.0.0</tyrus.version>
+        <jersey.version>3.0.3</jersey.version>
+        <cdi.version>4.0.0.Alpha1</cdi.version>
+        <jaxb.version>4.0.0-RC2</jaxb.version>
 
         <!-- Payara Dependencies -->
-        <payara.version>5.2021.5-SNAPSHOT</payara.version>
-        <payara.home>${mptck.basedir}/target/payara5</payara.home>
+        <payara.version>6.2021.1.Alpha2-SNAPSHOT</payara.version>
+        <payara.home>${mptck.basedir}/target/payara6</payara.home>
         <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
         <micro.randomPort>true</micro.randomPort>
         <payara_domain>domain1</payara_domain>
@@ -114,6 +117,17 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${cdi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
     </dependencies>
 
@@ -252,9 +266,9 @@
                     <optional>true</optional>
                 </dependency>
                 <dependency>
-                    <groupId>javax</groupId>
-                    <artifactId>javaee-api</artifactId>
-                    <version>8.0.1</version>
+                    <groupId>jakarta.platform</groupId>
+                    <artifactId>jakarta.jakartaee-api</artifactId>
+                    <version>9.1.0</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -265,7 +279,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.json</artifactId>
+                    <artifactId>jakarta.json</artifactId>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -294,12 +308,12 @@
                 <dependency>
                     <groupId>jakarta.xml.bind</groupId>
                     <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>2.3.3</version>
+                    <version>4.0.0-RC2</version>
                 </dependency>
                 <dependency>
                     <groupId>jakarta.activation</groupId>
                     <artifactId>jakarta.activation-api</artifactId>
-                    <version>1.2.2</version>
+                    <version>2.1.0-RC1</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -357,7 +371,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.7.0.Alpha10</version>
+                <version>${version.arquillian}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -375,13 +389,13 @@
             </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
-                <artifactId>javax.json</artifactId>
-                <version>1.1.4</version>
+                <artifactId>jakarta.json</artifactId>
+                <version>2.0.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
-                <artifactId>payara-client-ee8</artifactId>
+                <artifactId>payara-client-ee9</artifactId>
                 <version>${payara.arquillian.container.version}</version>
                 <scope>test</scope>
                 <exclusions>
