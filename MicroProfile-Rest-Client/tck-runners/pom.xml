@@ -56,8 +56,7 @@
 
     <properties>
         <micro.randomPort>false</micro.randomPort>
-
-        <smallrye-config.version>2.2.0</smallrye-config.version>
+        <smallrye-config.version>2.7.0</smallrye-config.version>
     </properties>
 
     <modules>
@@ -109,7 +108,7 @@
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee8</artifactId>
+            <artifactId>payara-client-ee9</artifactId>
             <scope>test</scope>
             <exclusions>
                 <!-- depending on version of ee8-client, the possibly
@@ -156,9 +155,9 @@
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
         <dependency>
             <groupId>io.smallrye.config</groupId>
-            <artifactId>smallrye-config</artifactId>
-            <version>${smallrye-config.version}</version>
-            <scope>provided</scope>
+            <artifactId>smallrye-config-repackaged</artifactId>
+            <classifier>jakartaee9</classifier>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>fish.payara.microprofile.rest-client</groupId>
@@ -167,5 +166,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
 </project>
