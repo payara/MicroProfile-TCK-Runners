@@ -54,8 +54,8 @@
 
     <properties>
         <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>2.0</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>2.0</microprofile.openapi.tck.version>
+        <microprofile.openapi.version>3.0</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>3.0</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
 
         <!-- OpenAPI test url -->
@@ -90,7 +90,7 @@
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee8</artifactId>
+            <artifactId>payara-client-ee9</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
