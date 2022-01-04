@@ -63,7 +63,7 @@
 
         <!-- Embedded Dependencies -->
         <tyrus.version>2.0.0</tyrus.version>
-        <jersey.version>3.0.3</jersey.version>
+        <jersey.version>3.0.3.payara-p1</jersey.version>
         <cdi.version>4.0.0.Alpha1</cdi.version>
         <jaxb.version>4.0.0-RC2</jaxb.version>
 
