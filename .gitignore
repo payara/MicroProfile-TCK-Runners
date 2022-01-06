@@ -4,3 +4,5 @@
 .factorypath
 .settings/
 *.iml
+.idea/
+*.bak

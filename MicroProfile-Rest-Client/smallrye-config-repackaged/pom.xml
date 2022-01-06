@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>org.eclipse.transformer</groupId>
                 <artifactId>org.eclipse.transformer.maven</artifactId>
-                <version>0.2.5</version>
+                <version>0.2.6</version>
                 <configuration>
                     <classifier>jakartaee9</classifier>
                 </configuration>
