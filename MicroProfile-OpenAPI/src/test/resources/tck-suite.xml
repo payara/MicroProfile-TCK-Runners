@@ -2,7 +2,7 @@
 
 <suite name="microprofile-openapi-TCK" verbose="2" configfailurepolicy="continue" >
 
-    <test name="microprofile-openapi 2.0 TCK">
+    <test name="microprofile-openapi 3.0 TCK">
         <packages>
             <package name="org.eclipse.microprofile.openapi.tck" />
         </packages>
