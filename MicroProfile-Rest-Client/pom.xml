@@ -59,9 +59,25 @@
     </properties>
 
     <modules>
-        <module>apache-httpclient-connector</module>
         <module>arquillian-extension</module>
         <module>tck-runners</module>
     </modules>
+
+
+    <profiles>
+        <!-- Skip Apache on Windows - remove-library command doesn't work on Windows -->
+        <profile>
+            <id>linux-profile</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+
+            <modules>
+                <module>apache-httpclient-connector</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

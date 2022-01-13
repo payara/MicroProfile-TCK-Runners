@@ -62,7 +62,6 @@
 
     <modules>
         <module>default</module>
-        <module>apache-http-client</module>
     </modules>
 
     <build>
@@ -185,6 +184,20 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <!-- Skip Apache on Windows - remove-library command doesn't work on Windows -->
+        <profile>
+            <id>linux-profile</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+
+            <modules>
+                <module>apache-http-client</module>
+            </modules>
         </profile>
     </profiles>
 </project>
