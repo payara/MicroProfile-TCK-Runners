@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+
+   The contents of this file are subject to the terms of either the GNU
+   General Public License Version 2 only ("GPL") or the Common Development
+   and Distribution License("CDDL") (collectively, the "License").  You
+   may not use this file except in compliance with the License.  You can
+   obtain a copy of the License at
+   https://github.com/payara/Payara/blob/master/LICENSE.txt
+   See the License for the specific
+   language governing permissions and limitations under the License.
+
+   When distributing the software, include this License Header Notice in each
+   file and include the License file at glassfish/legal/LICENSE.txt.
+
+   GPL Classpath Exception:
+   The Payara Foundation designates this particular file as subject to the "Classpath"
+   exception as provided by the Payara Foundation in the GPL Version 2 section of the License
+   file that accompanied this code.
+
+   Modifications:
+   If applicable, add the following below the License Header, with the fields
+   enclosed by brackets [] replaced by your own identifying information:
+   "Portions Copyright [year] [name of copyright owner]"
+
+   Contributor(s):
+   If you wish your version of this file to be governed by only the CDDL or
+   only the GPL Version 2, indicate your decision by adding "[Contributor]
+   elects to include this software in this distribution under the [CDDL or GPL
+   Version 2] license."  If you don't indicate a single choice of license, a
+   recipient has the option to distribute your version of this file under
+   either the CDDL, the GPL Version 2 or to extend the choice of license to
+   its licensees as provided above.  However, if you add GPL Version 2 code
+   and therefore, elected the GPL Version 2 license, then the option applies
+   only if the new code is made subject to such option by the copyright
+   holder.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fish.payara.microprofile.rest-client.tck-runner</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>apache-http-client</artifactId>
+    <packaging>jar</packaging>
+
+    <name>MicroProfile Rest Client TCK Runner - Apache HTTP Client</name>
+    <description>Runs the MicroProfile Rest Client TCK using Apache HTTP Client as the Jersey Client Connector
+    </description>
+
+    <properties>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
+        <apache.httpcore.version>4.4.14</apache.httpcore.version>
+        <apache.commons.logging.version>1.2</apache.commons.logging.version>
+
+        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
+    </properties>
+
+    <!-- Add as dependency to allow -am and -amd to pick up that they need compiling as dependants -->
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.microprofile.rest-client</groupId>
+            <artifactId>apache-httpclient-connector</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.httpcomponents</groupId>
+                                    <artifactId>httpclient-osgi</artifactId>
+                                    <version>${apache.httpclient.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.httpcomponents</groupId>
+                                    <artifactId>httpcore-osgi</artifactId>
+                                    <version>${apache.httpcore.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>commons-logging</groupId>
+                                    <artifactId>commons-logging</artifactId>
+                                    <version>${apache.commons.logging.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.glassfish.jersey.connectors</groupId>
+                                    <artifactId>jersey-apache-connector</artifactId>
+                                    <version>${jersey.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>fish.payara.microprofile.rest-client</groupId>
+                                    <artifactId>apache-httpclient-connector</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>glassfish-jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <!-- Start Payara Server Managed to add libraries -->
+                    <execution>
+                        <id>start-managed-payara-server-pre</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>add-apache-httpclient-libraries</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="add-library"/>
+                                    <arg value="${project.build.directory}/dependency/httpclient-osgi-${apache.httpclient.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/httpcore-osgi-${apache.httpcore.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/commons-logging-${apache.commons.logging.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/apache-httpclient-connector-${project.version}.jar"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Stop Payara Server Managed for library changes to take effect (starts again later) -->
+                    <execution>
+                        <id>stop-managed-payara-server-pre</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Restart Remote Payara Server for library changes to take effect -->
+                    <execution>
+                        <id>restart-remote-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.executable}">
+                                    <arg value="restart-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Start Payara Server Managed to remove libraries -->
+                    <execution>
+                        <id>start-managed-payara-server-post</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Remove added libraries from Payara, since these may affect other tests -->
+                    <execution>
+                        <id>remove-apache-httpclient-libraries</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="remove-library"/>
+                                    <arg value="httpclient-osgi-${apache.httpclient.version}.jar"/>
+                                    <arg value="httpcore-osgi-${apache.httpcore.version}.jar"/>
+                                    <arg value="commons-logging-${apache.commons.logging.version}.jar"/>
+                                    <arg value="jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="apache-httpclient-connector-${project.version}.jar"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Stop Payara Server Managed for library changes to take effect -->
+                    <execution>
+                        <id>stop-managed-payara-server-post</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- Restart Payara Server for library changes to take effect -->
+                    <execution>
+                        <id>restart-remote-payara-server-(post)</id>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.executable}">
+                                    <arg value="restart-domain"/>
+                                    <arg value="${payara_domain}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Change asadmin executable for Windows -->
+        <profile>
+            <id>windows-profile</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
+            </properties>
+        </profile>
+
+        <!-- Skip all but Payara Server profiles -->
+        <profile>
+            <id>payara-micro-managed</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <skipTests>true</skipTests>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>payara-micro-remote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <skipTests>true</skipTests>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>payara-server-embedded</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <skipTests>true</skipTests>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Test selection -->
+        <profile>
+            <id>all</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <dependenciesToScan>
+                                        <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck
+                                        </dependency>
+                                    </dependenciesToScan>
+                                    <includes>
+                                        <include>**/*Test.java</include>
+                                    </includes>
+                                    <suiteXmlFiles combine.self="override"/>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>proxy-tests-only</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <dependenciesToScan>
+                                        <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck
+                                        </dependency>
+                                    </dependenciesToScan>
+                                    <includes>
+                                        <include>**/ProxyServerTest.java</include>
+                                    </includes>
+                                    <suiteXmlFiles combine.self="override"/>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

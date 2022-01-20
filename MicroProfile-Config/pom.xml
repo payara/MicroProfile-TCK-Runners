@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -38,7 +38,8 @@
    only if the new code is made subject to such option by the copyright
    holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -47,27 +48,59 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.health</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <groupId>fish.payara.microprofile.config</groupId>
+    <artifactId>config-tck</artifactId>
 
-    <name>MicroProfile Health TCK Runner Parent</name>
+    <name>MicroProfile Config TCK Runner</name>
 
     <properties>
-        <microprofile.health.version>3.1</microprofile.health.version>
+        <!-- Config Dependencies -->
+        <microprofile.config.version>2.0</microprofile.config.version>
+        <microprofile.config.tck.version>2.0</microprofile.config.tck.version>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
+        <micro.randomPort>false</micro.randomPort>
     </properties>
-
-    <modules>
-        <module>tck-arquillian-extension</module>
-        <module>tck-runner</module>
-    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.health</groupId>
-            <artifactId>microprofile-health-api</artifactId>
-            <version>${microprofile.health.version}</version>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-tck</artifactId>
+            <version>${microprofile.config.tck.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <version>${microprofile.config.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>environment-setup</artifactId>
+        </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>jdk17</id>
+            <activation>
+                <jdk>17</jdk>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <argLine>--add-opens=java.base/java.util=ALL-UNNAMED</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

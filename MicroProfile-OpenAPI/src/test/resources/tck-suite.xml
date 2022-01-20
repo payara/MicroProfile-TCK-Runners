@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-openapi-TCK" verbose="2" configfailurepolicy="continue" >
+
+    <test name="microprofile-openapi 2.0 TCK">
+        <packages>
+            <package name="org.eclipse.microprofile.openapi.tck" />
+        </packages>
+    </test>
+
+</suite>

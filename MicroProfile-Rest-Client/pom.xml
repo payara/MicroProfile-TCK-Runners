@@ -47,27 +47,37 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.health</groupId>
+    <groupId>fish.payara.microprofile.rest-client</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
 
-    <name>MicroProfile Health TCK Runner Parent</name>
+    <name>MicroProfile Rest Client TCK Runner - Parent</name>
 
     <properties>
-        <microprofile.health.version>3.1</microprofile.health.version>
+        <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
+        <microprofile.rest.client.api.version>2.0</microprofile.rest.client.api.version>
     </properties>
 
     <modules>
-        <module>tck-arquillian-extension</module>
-        <module>tck-runner</module>
+        <module>arquillian-extension</module>
+        <module>tck-runners</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile.health</groupId>
-            <artifactId>microprofile-health-api</artifactId>
-            <version>${microprofile.health.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+
+    <profiles>
+        <!-- Skip Apache on Windows - remove-library command doesn't work on Windows -->
+        <profile>
+            <id>linux-profile</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+
+            <modules>
+                <module>apache-httpclient-connector</module>
+            </modules>
+        </profile>
+    </profiles>
+
 </project>

@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-FT-TCK" verbose="2" >
+
+    <test name="microprofile-FT 3.0 TCK">
+        <packages>
+            <package name="org.eclipse.microprofile.fault.tolerance.tck.*" />
+        </packages>
+    </test>
+
+</suite>

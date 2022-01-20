@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-opentracing-TCK" verbose="2" configfailurepolicy="continue" >
+    <test name="microprofile-opentracing 2.0 TCK">
+        <packages>
+            <package name="org.eclipse.microprofile.opentracing.tck.*"/>
+        </packages>
+    </test>
+</suite>
