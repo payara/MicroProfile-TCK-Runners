@@ -121,10 +121,6 @@
                         <configuration>
                             <target unless="payara.micro.managed">
                                 <exec executable="${payara.executable}">
-                                    <arg value="create-system-properties" />
-                                    <arg value="USE_OPENTRACING_MOCK_TRACER=true" />
-                                </exec>
-                                <exec executable="${payara.executable}">
                                     <arg value="set-requesttracing-configuration" />
                                     <arg value="--enabled=true" />
                                     <arg value="--dynamic=true" />
