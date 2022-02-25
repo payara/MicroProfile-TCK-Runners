@@ -120,6 +120,13 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target unless="payara.micro.managed">
+                                <!-- 
+                                    Older versions of Payara used to bundle the opentracing-mock library into the server, 
+                                    and use this USE_OPENTRACING_MOCK_TRACER property to determine whether to use it or 
+                                    not. More recent versions of Payara have removed this functionality and instead use 
+                                    ServiceLoader to determine which OpenTracing impl to use. It is kept here however in 
+                                    case you wish to run this TCK against an older version of Payara.
+                                 -->
                                 <exec executable="${payara.executable}">
                                     <arg value="create-system-properties" />
                                     <arg value="USE_OPENTRACING_MOCK_TRACER=true" />
