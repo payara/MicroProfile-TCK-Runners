@@ -20,6 +20,7 @@
     <container qualifier="payara-embedded">
         <configuration>
             <property name="bindHttpPort">8080</property>
+            <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
 
