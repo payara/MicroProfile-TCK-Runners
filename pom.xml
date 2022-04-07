@@ -167,6 +167,14 @@
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
                     </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>payara-server-managed</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
