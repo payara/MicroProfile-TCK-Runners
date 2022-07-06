@@ -61,6 +61,7 @@
 
     	<!-- Other Test Dependencies -->
     	<cdi.version>2.0.SP1</cdi.version>
+        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
     <dependencies>
@@ -134,6 +135,68 @@
                             </target>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>start-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>prepare-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="set" />
+                                    <arg value="configs.config.server-config.network-config.protocols.protocol.http-listener-1.http.trace-enabled=true" />
+                                </exec>
+                                <exec executable="${payara.executable}">
+                                    <arg value="set" />
+                                    <arg value="configs.config.server-config.network-config.protocols.protocol.http-listener-2.http.trace-enabled=true" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>restart-remote-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.executable}">
+                                    <arg value="restart-domain" />
+                                    <arg value="${payara_domain}" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -156,6 +219,17 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>windows-profile</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
+            </properties>
         </profile>
     </profiles>
 </project>
