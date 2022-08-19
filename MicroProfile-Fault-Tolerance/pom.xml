@@ -55,8 +55,8 @@
 
     <properties>
         <!-- Defaults for API and TCK dependencies - latest version -->
-        <microprofile.fault-tolerance.version>4.0.payara-p1</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>4.0.payara-p1</microprofile.fault-tolerance.tck.version>
+        <microprofile.fault-tolerance.version>4.0.payara-p2</microprofile.fault-tolerance.version>
+        <microprofile.fault-tolerance.tck.version>4.0.payara-p2</microprofile.fault-tolerance.tck.version>
         <microprofile.metrics.version>3.0</microprofile.metrics.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-all.xml</mptck.suite>
     </properties>
