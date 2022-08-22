@@ -55,7 +55,7 @@
     <properties>
         <!-- OpenTracing Dependencies -->
         <microprofile.opentracing.version>3.0</microprofile.opentracing.version>
-        <microprofile.config.version>3.0.1.payara-p2</microprofile.config.version>
+        <microprofile.config.version>3.0</microprofile.config.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
@@ -93,18 +93,6 @@
             <artifactId>microprofile-config-api</artifactId>
             <version>${microprofile.config.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.opentracing</groupId>
-            <artifactId>microprofile-opentracing-api</artifactId>
-            <version>3.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
