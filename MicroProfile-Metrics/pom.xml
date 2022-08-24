@@ -55,8 +55,8 @@
 
     <properties>
         <!-- Metrics Dependencies -->
-        <microprofile.metrics.version>4.0</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>4.0</microprofile.metrics.tck.version>
+        <microprofile.metrics.version>4.0.1</microprofile.metrics.version>
+        <microprofile.metrics.tck.version>4.0.1</microprofile.metrics.tck.version>
         <micro.randomPort>false</micro.randomPort>
 
         <!-- Other Test Dependencies -->

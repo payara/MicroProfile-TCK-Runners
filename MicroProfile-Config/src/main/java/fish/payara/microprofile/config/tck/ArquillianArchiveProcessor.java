@@ -70,6 +70,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         try {
             webArchive.addAsLibraries(lib(HAMCREST_ALL));
             webArchive.addAsLibraries(lib(JUNIT_DEP));
+            webArchive.addAsWebInfResource("beans.xml", "beans.xml");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "addLibraries exception", e);
         }
