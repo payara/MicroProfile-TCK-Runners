@@ -37,23 +37,24 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.writer;
+package fish.payara.microprofile.metrics.tck;
 
-import org.glassfish.jersey.internal.spi.AutoDiscoverable;
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
-import org.jboss.arquillian.test.spi.TestClass;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.arquillian.core.spi.LoadableExtension;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author ariekiswanto
  */
-public class ApplicationArchiveProcessorImpl implements ApplicationArchiveProcessor {
+public class ArquillianExtension implements LoadableExtension {
+
+    private static final Logger LOG = Logger.getLogger(ArquillianExtension.class.getName());
+
     @Override
-    public void process(Archive<?> archive, TestClass testClass) {
-        WebArchive webArchive = WebArchive.class.cast(archive);
-        webArchive.addClass(AutoDiscoverableImpl.class)
-                .addClass(MessageBodyWriterProvider.class)
-                .addAsServiceProvider(AutoDiscoverable.class, AutoDiscoverableImpl.class);
+    public void register(ExtensionBuilder extensionBuilder) {
+        LOG.log(Level.INFO, "\n Registered Payara TCK ArquillianExtension \n");
+        extensionBuilder.service(ApplicationArchiveProcessor.class, ApplicationArchiveProcessorImpl.class);
     }
 }
