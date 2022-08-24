@@ -26,7 +26,7 @@ public class ApplicationArchiveProcessorImpl implements ApplicationArchiveProces
                 ArchiveAsset asset = (ArchiveAsset) content.getValue().getAsset();
                 for(Map.Entry<ArchivePath, Node> contentArchive : asset.getArchive().getContent().entrySet()) {
                     if(contentArchive.getKey().get().contains("META-INF/beans.xml")) {
-                        LOG.log(Level.INFO, "Virtually augmented content archive: \n {0}");
+                        LOG.log(Level.INFO, "Virtually augmented content archive \n");
                         JavaArchive javaArchive = JavaArchive.class.cast(asset.getArchive());
                         javaArchive.delete(contentArchive.getKey());
                         javaArchive.addAsManifestResource("beans.xml", "beans.xml");
