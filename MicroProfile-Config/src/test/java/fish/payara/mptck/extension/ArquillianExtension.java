@@ -37,51 +37,25 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.microprofile.config.tck;
+package fish.payara.mptck.extension;
 
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
-import org.jboss.arquillian.test.spi.TestClass;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.arquillian.core.spi.LoadableExtension;
 
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * This archive processor adds the Hamcrest matcher and JUnit Assert classes
- * to each archive being created by the MP-Config TCK.
- *
- */
-public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
+public class ArquillianExtension implements LoadableExtension {
 
-    private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
-
-    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all";
-    private static final String JUNIT_DEP = "junit:junit";
+    private static final Logger LOG = Logger.getLogger(ArquillianExtension.class.getName());
 
     @Override
-    public void process(Archive<?> archive, TestClass testClass) {
-        if (!(archive instanceof WebArchive)) {
-            return;
-        }
-        WebArchive webArchive = WebArchive.class.cast(archive);
-        try {
-            webArchive.addAsLibraries(lib(HAMCREST_ALL));
-            webArchive.addAsLibraries(lib(JUNIT_DEP));
-            webArchive.addAsWebInfResource("beans.xml", "beans.xml");
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "addLibraries exception", e);
-        }
+    public void register(ExtensionBuilder extensionBuilder) {
+        LOG.log(Level.INFO, "\n Registered Payara TCK ArquillianExtension \n");
+        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class)
+                .observer(LifecycleExecutor.class);
 
-        LOG.log(Level.INFO, "Virtually augmented web archive: \n {0}", webArchive.toString(true));
+
     }
 
-    private File[] lib(String depspec) {
-        return Maven.resolver()
-                .loadPomFromFile("pom.xml")
-                .resolve(depspec)
-                .withoutTransitivity().asFile();
-    }
 }
