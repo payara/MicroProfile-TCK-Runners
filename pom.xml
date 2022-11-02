@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2020] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2018-2022] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -145,36 +145,6 @@
                     <optional>true</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Copy the Payara artifact into the target directory -->
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <inherited>true</inherited>
-                            <executions>
-                                <execution>
-                                    <phase>process-test-resources</phase>
-                                    <goals>
-                                        <goal>unpack</goal>
-                                    </goals>
-                                    <configuration>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>fish.payara.distributions</groupId>
-                                                <artifactId>payara</artifactId>
-                                                <version>${payara.version}</version>
-                                                <type>zip</type>
-                                                <overWrite>true</overWrite>
-                                            </artifactItem>
-                                        </artifactItems>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
         </profile>
         <profile>
             <id>payara-server-remote</id>
@@ -300,6 +270,79 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>full-distribution</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Copy the Payara artifact into the target directory -->
+                        <plugin>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <phase>process-test-resources</phase>
+                                    <goals>
+                                        <goal>unpack</goal>
+                                    </goals>
+                                    <configuration>
+                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
+                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
+                                        <artifactItems>
+                                            <artifactItem>
+                                                <groupId>fish.payara.distributions</groupId>
+                                                <artifactId>payara</artifactId>
+                                                <version>${payara.version}</version>
+                                                <type>zip</type>
+                                                <overWrite>false</overWrite>
+                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
+                                            </artifactItem>
+                                        </artifactItems>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>web-distribution</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Copy the Payara artifact into the target directory -->
+                        <plugin>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <phase>process-test-resources</phase>
+                                    <goals>
+                                        <goal>unpack</goal>
+                                    </goals>
+                                    <configuration>
+                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
+                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
+                                        <artifactItems>
+                                            <artifactItem>
+                                                <groupId>fish.payara.distributions</groupId>
+                                                <artifactId>payara-web</artifactId>
+                                                <version>${payara.version}</version>
+                                                <type>zip</type>
+                                                <overWrite>false</overWrite>
+                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
+                                            </artifactItem>
+                                        </artifactItems>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
     </profiles>
 
     <dependencyManagement>
@@ -334,6 +377,27 @@
                         <goals>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <version>0.3.1</version>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>directory-of</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <property>mptck.basedir</property>
+                            <project>
+                                <groupId>fish.payara.microprofile</groupId>
+                                <artifactId>tck-suite-parent</artifactId>
+                            </project>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
