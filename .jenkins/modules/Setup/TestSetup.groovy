@@ -8,3 +8,16 @@ def groupId = (getDistributionName().equals('micro')) ? 'fish.payara.extras' : '
 def fileExtension = (getDistributionName().equals('micro')) ? 'jar' : 'zip'
 sh "mv ${distributionName}.${fileExtension} ${distributionName}-${payaraVersion}.${fileExtension}"
 sh "mvn install:install-file -DgroupId=${groupId} -DartifactId=${distributionName} -Dversion=${payaraVersion} -Dpackaging=${fileExtension} -Dfile=${pwd()}/${distributionName}-${params.payaraVersion}.${fileExtension}"
+
+def getDistributionName() {
+    switch (CFG.params.distribution) {
+        case 'full':
+            return 'payara'
+        case 'web':
+            return 'payara-web'
+        case 'micro':
+            return 'payara-micro'
+        default:
+            return ''
+    }
+}
