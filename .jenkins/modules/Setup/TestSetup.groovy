@@ -1,7 +1,6 @@
 #!groovy
-echo "Grabbing Payara Artifact"
-// Grab Payara artifacts from given job
-copyArtifacts(projectName: CFG.buildProject, selector: specific("${CFG.buildNumber}"));
+echo "Copying Payara Artifact"
+copyArtifacts(projectName: "${env.JOB_NAME}", selector: specific("${env.BUILD_NUMBER}"));
 def payaraVersion = CFG.params.payaraVersion
 def distributionName = "${getDistributionName()}"
 def groupId = (getDistributionName().equals('micro')) ? 'fish.payara.extras' : 'fish.payara.distributions'
