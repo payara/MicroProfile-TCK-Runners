@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ee.jakarta.tck.jsonp.api.jsonarraytests.ClientTests
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 2.866 s - in ee.jakarta.tck.jsonp.api.jsonarraytests.ClientTests
