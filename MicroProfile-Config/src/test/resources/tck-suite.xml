@@ -7,7 +7,7 @@
             <class name="fish.payara.mptck.setup.SetupIT"/>
         </classes>
     </test>
-    <test name="microprofile-config 3.0.1 TCK">
+    <test name="microprofile-config 3.0.2 TCK">
         <packages>
             <package name="org.eclipse.microprofile.config.tck.*">
                 <exclude name="org.eclipse.microprofile.config.tck.broken"/>
