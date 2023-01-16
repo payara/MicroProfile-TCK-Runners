@@ -168,5 +168,60 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>payara-micro-remote</id>
+            <build>
+                <plugins>
+                    <!-- Configure Payara Micro Runtime -->
+                    <plugin>
+                        <groupId>fish.payara.maven.plugins</groupId>
+                        <artifactId>payara-micro-maven-plugin</artifactId>
+                        <version>1.0.6</version>
+                        <executions>
+                            <!-- Restart Payara micro with additional property -->
+                            <execution>
+                                <id>stop-test-instance</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>restart-test-instance-properties</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <daemon>true</daemon>
+                                    <deployWar>false</deployWar>
+                                    <commandLineOptions>
+                                        <option>
+                                            <key>--deploy</key>
+                                            <value>${project.build.directory}/dependency/payara-micro-deployer.war</value>
+                                        </option>
+                                        <option>
+                                            <key>--nocluster</key>
+                                        </option>
+                                        <option>
+                                            <key>--logToFile</key>
+                                            <value>${project.build.directory}/payara-micro.log</value>
+                                        </option>
+                                        <option>
+                                            <key>--prebootcommandfile</key>
+                                            <value>${basedir}/micro-pre-boot-commands.txt</value>
+                                        </option>
+                                    </commandLineOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <!-- Exclude some tests failing with Payara Micro -->
+                <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-stable.xml</mptck.suite>
+            </properties> 
+        </profile>
     </profiles>
 </project>
