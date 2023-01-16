@@ -55,8 +55,8 @@
 
     <properties>
         <!-- Config Dependencies -->
-        <microprofile.config.version>3.0.1</microprofile.config.version>
-        <microprofile.config.tck.version>3.0.1</microprofile.config.tck.version>
+        <microprofile.config.version>3.0.2</microprofile.config.version>
+        <microprofile.config.tck.version>3.0.2</microprofile.config.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <micro.randomPort>false</micro.randomPort>
         
