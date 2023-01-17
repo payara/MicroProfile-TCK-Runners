@@ -60,7 +60,7 @@
         <micro.randomPort>false</micro.randomPort>
 
         <!-- Other Test Dependencies -->
-        <cdi.version>4.0.0.Alpha1</cdi.version>
+        <cdi.version>4.0.1</cdi.version>
         <jaxb.version>4.0.0-RC2</jaxb.version>
     </properties>
 
