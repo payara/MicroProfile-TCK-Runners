@@ -54,8 +54,8 @@
     <name>MicroProfile Rest Client TCK Runner - Parent</name>
 
     <properties>
-        <microprofile.rest.client.tck.version>3.0</microprofile.rest.client.tck.version>
-        <microprofile.rest.client.api.version>3.0</microprofile.rest.client.api.version>
+        <microprofile.rest.client.tck.version>3.0.1</microprofile.rest.client.tck.version>
+        <microprofile.rest.client.api.version>3.0.1</microprofile.rest.client.api.version>
     </properties>
 
     <modules>
