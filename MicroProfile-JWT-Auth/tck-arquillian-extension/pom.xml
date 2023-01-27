@@ -69,7 +69,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.glassfish</groupId>
+            <groupId>org.eclipse.parsson</groupId>
             <artifactId>jakarta.json</artifactId>
         </dependency>
     </dependencies>
