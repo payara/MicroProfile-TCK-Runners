@@ -79,7 +79,6 @@
             <class name="org.eclipse.microprofile.jwt.tck.config.TokenAsCookieTest" />
             <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.EmptyTokenTest" />
             <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.jwe.RolesAllowedSignEncryptTest" />
-            <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.jwe.RolesAllowedSignEncryptRsaOaepTest" />
             <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.jwe.RolesAllowedSignEncryptRsaOaep256Test" />
             <class name="org.eclipse.microprofile.jwt.tck.container.jaxrs.jwe.DecryptKeyAlgorithmDefaultTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.jwe.PrivateKeyAsPEMClasspathTest" />
