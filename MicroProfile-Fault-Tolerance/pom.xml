@@ -176,7 +176,7 @@
                     <plugin>
                         <groupId>fish.payara.maven.plugins</groupId>
                         <artifactId>payara-micro-maven-plugin</artifactId>
-                        <version>1.0.6</version>
+                        <version>${payara.micro.maven.plugin.version}</version>
                         <executions>
                             <!-- Restart Payara micro with additional property -->
                             <execution>
@@ -213,6 +213,13 @@
                                         </option>
                                     </commandLineOptions>
                                 </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-test-instance-properties</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>

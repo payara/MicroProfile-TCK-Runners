@@ -240,7 +240,7 @@
                     <plugin>
                         <groupId>fish.payara.maven.plugins</groupId>
                         <artifactId>payara-micro-maven-plugin</artifactId>
-                        <version>1.0.6</version>
+                        <version>${payara.micro.maven.plugin.version}</version>
                         <executions>
                             <!-- Restart Payara micro with additional library -->
                             <execution>
@@ -286,37 +286,12 @@
                                     </commandLineOptions>
                                 </configuration>
                             </execution>
-                            <!-- Restart Payara micro without additional library for next test suite -->
                             <execution>
                                 <id>stop-test-instance-mock</id>
                                 <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
-                            </execution>
-                            <execution>
-                                <id>restart-test-instance</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                                <configuration>
-                                    <daemon>true</daemon>
-                                    <deployWar>false</deployWar>
-                                    <commandLineOptions>
-                                        <option>
-                                            <key>--deploy</key>
-                                            <value>${project.build.directory}/dependency/payara-micro-deployer.war</value>
-                                        </option>
-                                        <option>
-                                            <key>--nocluster</key>
-                                        </option>
-                                        <option>
-                                            <key>--logToFile</key>
-                                            <value>${project.build.directory}/payara-micro.log</value>
-                                        </option>
-                                    </commandLineOptions>
-                                </configuration>
                             </execution>
                         </executions>
                         <configuration>
