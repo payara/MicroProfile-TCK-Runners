@@ -297,7 +297,7 @@
                     <plugin>
                         <groupId>fish.payara.maven.plugins</groupId>
                         <artifactId>payara-micro-maven-plugin</artifactId>
-                        <version>1.0.6</version>
+                        <version>${payara.micro.maven.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>start-test-instance</id>
