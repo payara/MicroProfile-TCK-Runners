@@ -80,11 +80,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee9</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
@@ -105,6 +100,34 @@
             <artifactId>microprofile-opentracing-api</artifactId>
             <version>3.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.opentracing</groupId>
+            <artifactId>opentracing-mock</artifactId>
+            <version>0.33.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk-trace</artifactId>
+            <scope>provided</scope>
+            <version>1.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk-extension-autoconfigure-spi</artifactId>
+            <version>1.22.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -147,16 +170,6 @@
                                     <arg value="--threadpoolexecutormaxpoolsize=100" />
                                     <arg value="--threadpoolexecutorqueuesize=200" />
                                     <arg value="--scheduledthreadpoolexecutorcorepoolsize=20" />
-                                </exec>
-                                <!--
-                                    Add OpenTracing Mock to classpath. This JAR is just the normal opentracing-mock 
-                                    dependency with the Service Loader file added to it (by cracking it open, adding
-                                    the file, and recreating the jar. This needs updating whenever opentracing gets
-                                    updated (until they add the serviceloader themselves).
-                                --> 
-                                <exec executable="${payara.executable}">
-                                    <arg value="add-library" />
-                                    <arg value="${basedir}/opentracing-mock-0.33.0-serviceloader.jar" />
                                 </exec>
                             </target>
                         </configuration>
@@ -222,7 +235,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
-                                <EXTRA_MICRO_OPTIONS>--postbootcommandfile ${basedir}/micro-post-boot-commands.txt --systemproperties tck.properties --addlibs ${basedir}/opentracing-mock-0.33.0-serviceloader.jar</EXTRA_MICRO_OPTIONS>
+                                <EXTRA_MICRO_OPTIONS>--postbootcommandfile ${basedir}/micro-post-boot-commands.txt --systemproperties tck.properties</EXTRA_MICRO_OPTIONS>
                             </environmentVariables>
                         </configuration>
                     </plugin>
