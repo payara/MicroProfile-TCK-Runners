@@ -54,6 +54,8 @@
     <name>MicroProfile Config TCK Runner</name>
 
     <properties>
+        <!-- workaround for deployment exception traslation bugs in current release -->
+        <payara.arquillian.container.version>3.0.alpha3</payara.arquillian.container.version>
         <!-- Config Dependencies -->
         <microprofile.config.version>3.0.2</microprofile.config.version>
         <microprofile.config.tck.version>3.0.2</microprofile.config.tck.version>
@@ -82,6 +84,7 @@
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee9</artifactId>
         </dependency>
+
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>environment-setup</artifactId>
