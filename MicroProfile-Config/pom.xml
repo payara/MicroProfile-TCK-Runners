@@ -117,7 +117,7 @@
                         <id>prepare-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <target unless="payara.micro.managed">
+                            <target unless="payara.micro">
                                 <exec executable="${payara.executable}">
                                     <arg value="create-system-properties" />
                                     <arg value="config_ordinal=120:customer.hobby=Tennis:mp.tck.prop.dummy=dummy" />
@@ -177,7 +177,7 @@
         <profile>
             <id>payara-micro-managed</id>
             <properties>
-                <payara.micro.managed/>
+                <payara.micro/>
             </properties>
             <build>
                 <plugins>
@@ -189,6 +189,67 @@
                                 <EXTRA_MICRO_OPTIONS>--systemproperties ${basedir}/src/test/resources/system-properties.properties</EXTRA_MICRO_OPTIONS>
                             </environmentVariables>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>payara-micro-remote</id>
+            <properties>
+                <payara.micro/>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Configure Payara Micro Runtime -->
+                    <plugin>
+                        <groupId>fish.payara.maven.plugins</groupId>
+                        <artifactId>payara-micro-maven-plugin</artifactId>
+                        <version>${payara.micro.maven.plugin.version}</version>
+                        <executions>
+                            <!-- Restart Payara micro with additional property -->
+                            <execution>
+                                <id>stop-test-instance</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>restart-test-instance-properties</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <daemon>true</daemon>
+                                    <deployWar>false</deployWar>
+                                    <commandLineOptions>
+                                        <option>
+                                            <key>--deploy</key>
+                                            <value>${project.build.directory}/dependency/payara-micro-deployer.war</value>
+                                        </option>
+                                        <option>
+                                            <key>--nocluster</key>
+                                        </option>
+                                        <option>
+                                            <key>--logToFile</key>
+                                            <value>${project.build.directory}/payara-micro.log</value>
+                                        </option>
+                                        <option>
+                                            <key>--systemproperties</key>
+                                            <value>${basedir}/src/test/resources/system-properties.properties</value>
+                                        </option>
+                                    </commandLineOptions>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-test-instance-properties</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
