@@ -57,6 +57,8 @@
         <!-- JWT Auth Dependencies -->
         <microprofile.jwt-auth.version>2.1</microprofile.jwt-auth.version>
         <microprofile.jwt-auth.tck.version>2.1</microprofile.jwt-auth.tck.version>
+        <!-- Full profile doesn't work with Alpha14, NPE in  ContainerEventController.lookup -->
+        <version.arquillian>1.7.0.Alpha13</version.arquillian>
     </properties>
 
     <modules>
@@ -82,4 +84,16 @@
             <type>test-jar</type>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- We cannot use TestNG 7.6.0 and newer with arquillian less that Alpha14 -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.5</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
