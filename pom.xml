@@ -460,7 +460,8 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>7.7.1</version>
+                <!-- Version 7.5+ requires slf4j-api, which is not in payara-web or micro -->
+                <version>7.4.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
