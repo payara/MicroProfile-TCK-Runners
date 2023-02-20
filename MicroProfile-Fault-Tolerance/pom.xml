@@ -54,6 +54,8 @@
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 
     <properties>
+        <!-- workaround for deployment exception traslation bugs in current release -->
+        <payara.arquillian.container.version>3.0.alpha3</payara.arquillian.container.version>
         <!-- Defaults for API and TCK dependencies - latest version -->
         <microprofile.fault-tolerance.version>4.0.2</microprofile.fault-tolerance.version>
         <microprofile.fault-tolerance.tck.version>4.0.2</microprofile.fault-tolerance.tck.version>

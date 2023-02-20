@@ -55,13 +55,13 @@
 
     <properties>
         <!-- Metrics Dependencies -->
-        <microprofile.metrics.version>4.0.1</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>4.0.1</microprofile.metrics.tck.version>
+        <microprofile.metrics.version>5.0.0</microprofile.metrics.version>
+        <microprofile.metrics.tck.version>5.0.0</microprofile.metrics.tck.version>
         <micro.randomPort>false</micro.randomPort>
 
         <!-- Other Test Dependencies -->
         <cdi.version>4.0.1</cdi.version>
-        <jaxb.version>4.0.0-RC2</jaxb.version>
+        <jaxb.version>4.0.0</jaxb.version>
     </properties>
 
     <dependencies>
@@ -88,6 +88,18 @@
             <artifactId>microprofile-metrics-rest-tck</artifactId>
             <version>${microprofile.metrics.tck.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.rest-assured</groupId>
+                    <artifactId>rest-assured</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
@@ -95,11 +107,7 @@
             <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
             <artifactId>payara-client-ee9</artifactId>
