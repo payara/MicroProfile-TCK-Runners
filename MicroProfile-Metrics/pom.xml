@@ -55,8 +55,8 @@
 
     <properties>
         <!-- Metrics Dependencies -->
-        <microprofile.metrics.version>4.0.1</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>4.0.1</microprofile.metrics.tck.version>
+        <microprofile.metrics.version>5.0.0</microprofile.metrics.version>
+        <microprofile.metrics.tck.version>5.0.0</microprofile.metrics.tck.version>
         <micro.randomPort>false</micro.randomPort>
 
         <!-- Other Test Dependencies -->
@@ -96,6 +96,12 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-optional-tck</artifactId>
+            <version>${microprofile.metrics.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>5.2.0</version>
@@ -127,10 +133,14 @@
                     <dependenciesToScan>
                         <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-api-tck</dependency>
                         <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-rest-tck</dependency>
+                        <dependency>org.eclipse.microprofile.metrics:microprofile-metrics-optional-tck</dependency>
                     </dependenciesToScan>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>**/MpMetricOptionalTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
