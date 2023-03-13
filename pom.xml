@@ -83,8 +83,8 @@
         <module>MicroProfile-Health</module>
         <module>MicroProfile-Config</module>
         <module>MicroProfile-OpenAPI</module>
-        <!-- not part of main aggregator, we don't pass the TCK yet -->
-        <!--<module>MicroProfile-OpenTelemetry-Tracing</module>-->
+        <module>MicroProfile-OpenTelemetry-Tracing</module>
+        <module>MicroProfile-OpenTracing</module>
     </modules>
 
     <dependencies>
