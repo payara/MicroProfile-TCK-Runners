@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2020-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2020-2023] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -57,7 +57,8 @@
         <microprofile.openapi.version>3.1</microprofile.openapi.version>
         <microprofile.openapi.tck.version>3.1.payara-p1</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-
+        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
+        
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
@@ -102,6 +103,69 @@
 
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>start-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="start-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>prepare-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="set" />
+                                    <arg value="configs.config.server-config.network-config.network-listeners.network-listener.http-listener-2.enabled=true" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.executable}">
+                                    <arg value="stop-domain" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>restart-remote-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.executable}">
+                                    <arg value="restart-domain" />
+                                    <arg value="${payara_domain}" />
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
