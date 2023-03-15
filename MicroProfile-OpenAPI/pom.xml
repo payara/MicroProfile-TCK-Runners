@@ -54,8 +54,8 @@
 
     <properties>
         <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>3.0</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>3.0</microprofile.openapi.tck.version>
+        <microprofile.openapi.version>3.1</microprofile.openapi.version>
+        <microprofile.openapi.tck.version>3.1.payara-p1</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
 
         <!-- OpenAPI test url -->
