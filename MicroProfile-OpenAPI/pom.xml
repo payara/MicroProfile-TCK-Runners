@@ -89,6 +89,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
             <version>1.81</version>
@@ -127,7 +131,7 @@
                             <target unless="payara.micro.managed">
                                 <exec executable="${payara.executable}">
                                     <arg value="set" />
-                                    <arg value="configs.config.server-config.network-config.network-listeners.network-listener.http-listener-2.enabled=true" />
+                                    <arg value="configs.config.server-config.network-config.network-listeners.network-listener.http-listener-2.enabled=false" />
                                 </exec>
                             </target>
                         </configuration>
