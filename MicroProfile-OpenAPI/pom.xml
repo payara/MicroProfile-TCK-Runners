@@ -189,5 +189,16 @@
                 <test.url>http://localhost:8181/openapi/</test.url>
             </properties>
         </profile>
+        <profile>
+            <id>windows-profile</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
+            </properties>
+        </profile>
     </profiles>
 </project>
