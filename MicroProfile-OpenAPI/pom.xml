@@ -190,6 +190,12 @@
             </properties>
         </profile>
         <profile>
+            <id>payara-micro-managed</id>
+            <properties>
+                <payara.micro.managed/>
+            </properties>
+        </profile>
+        <profile>
             <id>windows-profile</id>
             <activation>
                 <os>
