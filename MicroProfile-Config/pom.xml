@@ -54,8 +54,6 @@
     <name>MicroProfile Config TCK Runner</name>
 
     <properties>
-        <!-- workaround for deployment exception traslation bugs in current release -->
-        <payara.arquillian.container.version>3.0.alpha3</payara.arquillian.container.version>
         <!-- Config Dependencies -->
         <microprofile.config.version>3.0.2</microprofile.config.version>
         <microprofile.config.tck.version>3.0.2</microprofile.config.tck.version>
