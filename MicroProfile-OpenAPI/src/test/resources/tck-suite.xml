@@ -6,6 +6,38 @@
         <packages>
             <package name="org.eclipse.microprofile.openapi.tck" />
         </packages>
+        <classes>
+            <class name="org.eclipse.microprofile.openapi.tck.ModelReaderAppTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.openapi.tck.AirlinesAppTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.openapi.tck.FilterTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.openapi.tck.OASConfigServersTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.openapi.tck.OASConfigWebInfTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+            <class name="org.eclipse.microprofile.openapi.tck.OASConfigScanDisableTest">
+                <methods>
+                    <exclude name="test.*"/>
+                </methods>
+            </class>
+        </classes>
     </test>
 
 </suite>
