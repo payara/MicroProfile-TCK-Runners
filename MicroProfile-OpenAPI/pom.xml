@@ -79,7 +79,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <!-- 7.4.0 breaks these tests, 7.5+ fixes it -->
-            <version>7.3.0</version>
+            <version>7.7.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
