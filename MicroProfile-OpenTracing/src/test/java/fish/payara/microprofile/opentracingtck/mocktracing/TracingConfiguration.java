@@ -60,7 +60,8 @@ public class TracingConfiguration implements ConfigSourceProvider {
 
     private final static Map<String,String> props = Map.of("otel.sdk.disabled", "false",
             "otel.traces.exporter","opentracing-mock",
-            "otel.bsp.schedule.delay","10");
+            "otel.bsp.schedule.delay","10",
+            "payara.telemetry.span-convention", "opentracing-class-method");
 
     private enum MapSource implements ConfigSource {
         INSTANCE;
