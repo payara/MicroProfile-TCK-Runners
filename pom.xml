@@ -58,7 +58,7 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <!-- Arquillian Dependencies -->
-        <version.arquillian>1.7.0.Alpha14</version.arquillian>
+        <version.arquillian>1.7.0.Final</version.arquillian>
         <payara.arquillian.container.version>3.0.alpha8</payara.arquillian.container.version>
 
         <!-- Embedded Dependencies -->
@@ -461,7 +461,7 @@
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <!-- Version 7.5+ requires slf4j-api, which is not in payara-web or micro -->
-                <version>7.4.0</version>
+                <version>7.5.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
