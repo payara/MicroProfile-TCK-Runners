@@ -69,6 +69,10 @@
             <artifactId>microprofile-config-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.microprofile.rest.client</groupId>
+            <artifactId>microprofile-rest-client-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>test</scope>
@@ -86,7 +90,7 @@
     </dependencies>
 
     <properties>
-        <microprofile.telemetry.version>1.0</microprofile.telemetry.version>
+        <microprofile.telemetry.version>1.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
