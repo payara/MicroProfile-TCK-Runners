@@ -40,13 +40,21 @@
   ~  holder.
   ~
   -->
-<suite name="microprofile-opentracing-TCK" verbose="2" configfailurepolicy="continue" >
 
-    <test name="microprofile-telemetry 1.0 TCK">
+<suite name="MicroProfile Telemetry Tracing TCK" verbose="2" configfailurepolicy="continue" >
+    <test name="telemetry-tracing-tests" verbose="10">
+        <groups>
+            <run>
+                <!-- Exclude B3 and Jaeger propagation tests-->
+                <exclude name="optional-tests"/>
+            </run>
+        </groups>
         <packages>
-            <package name="org.eclipse.microprofile.telemetry.tracing.tck.*">
-            </package>
+            <package name="org.eclipse.microprofile.telemetry.tracing.tck.*" />
         </packages>
+        <!-- Uncomment to run a single test -->
+<!--        <classes>-->
+<!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
+<!--        </classes>-->
     </test>
-
 </suite>

@@ -80,7 +80,7 @@ public class MockTracerExporter implements SpanExporter {
     private static void waitForNextExport() {
 
         long delay = TimeUnit.MILLISECONDS.toNanos(20);
-        for (int missed = 0; missed < 2; ) {
+        for (int missed = 0; missed < 4; ) {
             synchronized (mockTracer) {
                 try {
                     long nanos = System.nanoTime();
