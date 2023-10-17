@@ -90,7 +90,7 @@
     </dependencies>
 
     <properties>
-        <microprofile.telemetry.version>1.1-RC3</microprofile.telemetry.version>
+        <microprofile.telemetry.version>1.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
