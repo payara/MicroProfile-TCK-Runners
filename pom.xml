@@ -407,11 +407,11 @@
     <repositories>
         <repository>
             <id>payara-staging</id>
-            <url>https://nexus.payara.fish/content/repositories/payara-staging/</url>
+            <url>https://nexus.dev.payara.fish/content/repositories/payara-staging/</url>
         </repository>
         <repository>
             <id>payara-patches</id>
-            <url>https://nexus.payara.fish/content/repositories/payara-patches/</url>
+            <url>https://nexus.dev.payara.fish/content/repositories/payara-patches/</url>
         </repository>
         <repository>
             <id>eclipse.microprofile</id>
