@@ -89,4 +89,16 @@
             </exclusions>
         </dependency>
     </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>Jdk17+</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <properties>
+                <mptck.suite>${basedir}/src/test/resources/tck-suite-jdk17.xml</mptck.suite>
+            </properties>
+        </profile>
+    </profiles>
 </project>
