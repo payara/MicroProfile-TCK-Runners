@@ -90,6 +90,7 @@
         </dependency>
     </dependencies>
     
+    <!-- 1 TCK fails in MP Health 4.0.1 with jdk17+, so we exclude it. See https://github.com/eclipse/microprofile-health/issues/324 -->
     <profiles>
         <profile>
             <id>Jdk17+</id>
