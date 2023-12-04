@@ -89,4 +89,17 @@
             </exclusions>
         </dependency>
     </dependencies>
+    
+    <!-- 1 TCK fails in MP Health 4.0.1 with jdk17+, so we exclude it. See https://github.com/eclipse/microprofile-health/issues/324 -->
+    <profiles>
+        <profile>
+            <id>Jdk17+</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <properties>
+                <mptck.suite>${basedir}/src/test/resources/tck-suite-jdk17.xml</mptck.suite>
+            </properties>
+        </profile>
+    </profiles>
 </project>
