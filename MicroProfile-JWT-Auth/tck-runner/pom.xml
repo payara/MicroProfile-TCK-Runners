@@ -128,5 +128,25 @@
                 </plugins>
             </build>
         </profile>
+        
+        <!-- One test fails with jdk19 (and above), because AES KeyGenerator has changed its default size from 128 to 256. 
+        This is fixed in Microprofile-JWT-Auth 2.1, but Enterprise 5 uses Microprofile-JWT-Auth 1.2.2, so the test needs an extra configuration
+        See https://github.com/eclipse/microprofile-jwt-auth/issues/295 -->                 
+        <profile>
+            <id>jdk19+</id>
+            <activation>
+                <jdk>[19,)</jdk>
+            </activation>            
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <argLine>-Djdk.security.defaultKeySize=AES:128</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
