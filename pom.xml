@@ -68,7 +68,7 @@
         <payara.version>5.2021.5-SNAPSHOT</payara.version>
         <payara.home>${mptck.basedir}/target/payara5</payara.home>
         <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
-        <micro.randomPort>true</micro.randomPort>
+        <micro.randomPort>false</micro.randomPort>
         <payara_domain>domain1</payara_domain>
     </properties>
 
