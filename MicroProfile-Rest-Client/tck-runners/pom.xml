@@ -57,7 +57,7 @@
     <properties>
         <micro.randomPort>false</micro.randomPort>
 
-        <smallrye-config.version>2.2.0</smallrye-config.version>
+        <smallrye-config.version>2.7.0</smallrye-config.version>
     </properties>
 
     <modules>
