@@ -121,7 +121,7 @@
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-sdk-trace</artifactId>
             <scope>provided</scope>
-            <version>1.22.0</version>
+            <version>1.41.0</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
