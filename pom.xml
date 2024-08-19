@@ -599,7 +599,7 @@
                 <!-- Configure failsafe plugin to run integration tests -->
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.4.0</version>
                     <executions>
                         <execution>
                             <phase>integration-test</phase>
