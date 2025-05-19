@@ -4,7 +4,7 @@
 
     <test name="microprofile-openapi 3.0 TCK">
         <packages>
-            <package name="org.eclipse.microprofile.openapi.tck" />
+            <package name="org.eclipse.microprofile.openapi.tck.*" />
         </packages>
     </test>
 
