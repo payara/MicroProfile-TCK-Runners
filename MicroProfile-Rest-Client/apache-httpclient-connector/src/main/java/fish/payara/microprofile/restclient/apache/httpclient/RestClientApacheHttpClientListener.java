@@ -42,13 +42,13 @@ package fish.payara.microprofile.restclient.apache.httpclient;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.eclipse.microprofile.rest.client.spi.RestClientListener;
-import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider;
 
 public class RestClientApacheHttpClientListener implements RestClientListener {
 
     @Override
     public void onNewClient(Class<?> aClass, RestClientBuilder restClientBuilder) {
-        restClientBuilder.register(new ApacheConnectorProvider());
+        restClientBuilder.register(new Apache5ConnectorProvider());
     }
 
 }

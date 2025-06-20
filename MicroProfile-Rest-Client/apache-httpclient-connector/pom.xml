@@ -69,7 +69,7 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.connectors</groupId>
-            <artifactId>jersey-apache-connector</artifactId>
+            <artifactId>jersey-apache5-connector</artifactId>
             <version>${jersey.version}</version>
         </dependency>
     </dependencies>
