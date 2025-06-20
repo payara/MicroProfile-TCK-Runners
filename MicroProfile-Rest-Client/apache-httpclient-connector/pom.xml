@@ -212,7 +212,7 @@
             <plugin>
                 <groupId>org.glassfish.hk2</groupId>
                 <artifactId>hk2-inhabitant-generator</artifactId>
-                <version>2.6.1.payara-p1</version>
+                <version>4.0.0-M2.payara-p2</version>
                 <executions>
                     <execution>
                         <goals>
