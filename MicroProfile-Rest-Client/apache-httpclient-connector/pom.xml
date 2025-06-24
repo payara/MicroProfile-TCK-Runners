@@ -59,18 +59,39 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <httpclient5.version>5.2.1</httpclient5.version>
     </properties>
 
     <dependencies>
+        <!-- MicroProfile Rest Client -->
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
             <version>${microprofile.rest.client.api.version}</version>
         </dependency>
+
+        <!-- Jersey with Apache HTTP Client -->
         <dependency>
             <groupId>org.glassfish.jersey.connectors</groupId>
             <artifactId>jersey-apache5-connector</artifactId>
             <version>${jersey.version}</version>
+        </dependency>
+
+        <!-- Apache HTTP Client 5 (Jakarta EE 9+) -->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>${httpclient5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5</artifactId>
+            <version>${httpclient5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5-h2</artifactId>
+            <version>${httpclient5.version}</version>
         </dependency>
     </dependencies>
 
@@ -309,5 +330,4 @@
             </plugin>
         </plugins>
     </build>
-    
 </project>
