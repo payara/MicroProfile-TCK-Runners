@@ -55,21 +55,25 @@
     <name>MicroProfile Rest Client Apache HTTP Client Connector</name>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <httpclient5.version>5.2.1</httpclient5.version>
     </properties>
 
     <dependencies>
+        <!-- MicroProfile Rest Client -->
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
             <version>${microprofile.rest.client.api.version}</version>
         </dependency>
+
+        <!-- Jersey with Apache HTTP Client -->
         <dependency>
             <groupId>org.glassfish.jersey.connectors</groupId>
-            <artifactId>jersey-apache-connector</artifactId>
+            <artifactId>jersey-apache5-connector</artifactId>
             <version>${jersey.version}</version>
         </dependency>
     </dependencies>
@@ -212,7 +216,7 @@
             <plugin>
                 <groupId>org.glassfish.hk2</groupId>
                 <artifactId>hk2-inhabitant-generator</artifactId>
-                <version>2.6.1.payara-p1</version>
+                <version>4.0.0-M2.payara-p2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -309,5 +313,4 @@
             </plugin>
         </plugins>
     </build>
-    
 </project>

@@ -116,7 +116,7 @@
 
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee9</artifactId>
+            <artifactId>payara-client-ee11</artifactId>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
@@ -162,7 +162,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>Jdk17+</id>

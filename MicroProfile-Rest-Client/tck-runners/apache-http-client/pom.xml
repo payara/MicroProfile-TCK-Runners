@@ -56,8 +56,8 @@
     </description>
 
     <properties>
-        <apache.httpclient.version>4.5.13</apache.httpclient.version>
-        <apache.httpcore.version>4.4.14</apache.httpcore.version>
+        <apache.httpclient.version>4.5.14</apache.httpclient.version>
+        <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.commons.logging.version>1.2</apache.commons.logging.version>
 
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
@@ -112,7 +112,7 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.glassfish.jersey.connectors</groupId>
-                                    <artifactId>jersey-apache-connector</artifactId>
+                                    <artifactId>jersey-apache5-connector</artifactId>
                                     <version>${jersey.version}</version>
                                     <type>jar</type>
                                     <overWrite>true</overWrite>
@@ -156,7 +156,7 @@
                                     <arg value="${payara.home}/glassfish/modules/"/>
                                 </exec>
                                 <exec executable="cp">
-                                    <arg value="${project.build.directory}/dependency/jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="${project.build.directory}/dependency/jersey-apache5-connector-${jersey.version}.jar"/>
                                     <arg value="${payara.home}/glassfish/modules/"/>
                                 </exec>
                                 <exec executable="cp">
@@ -201,7 +201,7 @@
                                     <arg value="${payara.home}/glassfish/modules/commons-logging-${apache.commons.logging.version}.jar"/>
                                 </exec>
                                 <exec executable="rm">
-                                    <arg value="${payara.home}/glassfish/modules/jersey-apache-connector-${jersey.version}.jar"/>
+                                    <arg value="${payara.home}/glassfish/modules/jersey-apache5-connector-${jersey.version}.jar"/>
                                 </exec>
                                 <exec executable="rm">
                                     <arg value="${payara.home}/glassfish/modules/apache-httpclient-connector-${project.version}.jar"/>
