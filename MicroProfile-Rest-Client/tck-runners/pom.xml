@@ -61,7 +61,8 @@
 
     <modules>
         <module>default</module>
-        <module>apache-http-client</module>
+        <!-- FISH-11628 Disabled temporarily
+        <module>apache-http-client</module>-->
     </modules>
 
     <build>
