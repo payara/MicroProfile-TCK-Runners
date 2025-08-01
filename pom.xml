@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2018-2025] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -99,14 +99,17 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-test-spi</artifactId>
+            <version>${version.arquillian}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.core</groupId>
             <artifactId>arquillian-core-spi</artifactId>
+            <version>${version.arquillian}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-test-impl-base</artifactId>
+            <version>${version.arquillian}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -116,6 +119,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-container-spi</artifactId>
+            <version>${version.arquillian}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -476,13 +480,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
