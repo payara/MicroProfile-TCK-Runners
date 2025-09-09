@@ -59,7 +59,6 @@
     </properties>
 
     <modules>
-        <module>apache-httpclient-connector</module>
         <module>arquillian-extension</module>
         <module>smallrye-config-repackaged</module>
         <module>tck-runners</module>
