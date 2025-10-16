@@ -68,9 +68,10 @@
         <jaxb.version>4.0.4</jaxb.version>
 
         <!-- Payara Dependencies -->
-        <payara.version>6.2025.10-SNAPSHOT</payara.version>
+        <payara.version>6.32.0-SNAPSHOT</payara.version>
         <payara.home>${mptck.basedir}/target/payara6</payara.home>
-        <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
+        <payara.micro.distribution.suffix></payara.micro.distribution.suffix>
+        <payara.microJar>${mptck.basedir}/target/payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</payara.microJar>
         <micro.randomPort>true</micro.randomPort>
         <payara_domain>domain1</payara_domain>
     </properties>
@@ -215,12 +216,12 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.extras</groupId>
-                                            <artifactId>payara-micro</artifactId>
+                                            <artifactId>payara-micro${payara.micro.distribution.suffix}</artifactId>
                                             <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <type>jar</type>
                                             <outputDirectory>${mptck.basedir}/target/</outputDirectory>
-                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
+                                            <destFileName>payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
