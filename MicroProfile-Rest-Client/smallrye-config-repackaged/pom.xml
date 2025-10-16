@@ -16,6 +16,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
@@ -149,6 +150,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.4.2</version>
                         <executions>
                             <execution>
                                 <id>create-empty-javadoc-jar</id>
