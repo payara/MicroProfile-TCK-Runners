@@ -65,7 +65,7 @@
 
         <!-- Payara Properties -->
         <payara.version>6.32.0-SNAPSHOT</payara.version>
-        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.home>
+        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.home>
         <payara.server.distribution.suffix></payara.server.distribution.suffix>
         <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
         <payara.embedded.distribution.suffix>-all</payara.embedded.distribution.suffix>
@@ -489,6 +489,26 @@
         <plugins>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>selectively-disable-tests</id>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>skipITs</name>
+                            <value>${project.artifactId}</value>
+                            <regex>(tck-suite-parent)|(parent)|(tck-arquillian-extension)</regex>
+                            <replacement>true</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
