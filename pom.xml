@@ -240,6 +240,12 @@
             </build>
         </profile>
         <profile>
+            <id>payara-micro-platform</id>
+            <properties>
+                <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
+            </properties>
+        </profile>
+        <profile>
             <id>payara-micro-remote</id>
             <dependencies>
                 <dependency>
