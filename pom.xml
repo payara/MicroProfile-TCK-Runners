@@ -64,7 +64,7 @@
         <jersey.version>3.1.11.payara-p1</jersey.version>
 
         <!-- Payara Properties -->
-        <payara.version>6.32.0-SNAPSHOT</payara.version>
+        <payara.version>6.2025.10-SNAPSHOT</payara.version>
         <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.home>
         <payara.server.distribution.suffix></payara.server.distribution.suffix>
         <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
