@@ -149,7 +149,6 @@
         <dependency>
             <groupId>org.glassfish.jersey.ext.microprofile</groupId>
             <artifactId>jersey-mp-rest-client</artifactId>
-            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
