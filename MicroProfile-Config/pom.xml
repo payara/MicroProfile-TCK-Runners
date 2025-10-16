@@ -61,7 +61,6 @@
         <micro.randomPort>false</micro.randomPort>
         
     	<!-- Other Test Dependencies -->
-    	<cdi.version>4.0.1</cdi.version>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
@@ -90,7 +89,6 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -61,11 +61,7 @@
         <version.arquillian>1.7.2.Final</version.arquillian>
         <payara.arquillian.container.version>3.1</payara.arquillian.container.version>
 
-        <!-- Embedded Dependencies -->
-        <tyrus.version>2.1.5.payara-p2</tyrus.version>
         <jersey.version>3.1.11.payara-p1</jersey.version>
-        <cdi.version>4.0.1</cdi.version>
-        <jaxb.version>4.0.4</jaxb.version>
 
         <!-- Payara Dependencies -->
         <payara.version>6.32.0-SNAPSHOT</payara.version>
@@ -124,13 +120,15 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
     </dependencies>
 
@@ -299,22 +297,6 @@
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-client</artifactId>
                     <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jdk11</id>
-            <activation>
-                <jdk>11</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>jakarta.activation</groupId>
-                    <artifactId>jakarta.activation-api</artifactId>
                 </dependency>
             </dependencies>
         </profile>
