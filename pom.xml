@@ -136,19 +136,6 @@
     <!-- Profile specific dependencies -->
     <profiles>
         <profile>
-            <id>payara5plus</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <!-- not payara 4 -->
-                    <value>/(?!4).+/</value>
-                </property>
-            </activation>
-            <modules>
-                <module>MicroProfile-OpenTracing</module>
-            </modules>
-        </profile>
-        <profile>
             <id>payara-server-managed</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
