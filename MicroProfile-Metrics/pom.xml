@@ -57,7 +57,7 @@
         <!-- Metrics Dependencies -->
         <microprofile.metrics.version>5.1.0.payara-p1</microprofile.metrics.version>
         <microprofile.metrics.tck.version>5.1.0.payara-p1</microprofile.metrics.tck.version>
-        <micro.randomPort>false</micro.randomPort>
+        <micro.random.port>false</micro.random.port>
     </properties>
 
     <dependencies>

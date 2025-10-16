@@ -70,7 +70,7 @@
         <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
         <payara.embedded.distribution.suffix>-all</payara.embedded.distribution.suffix>
         <payara.micro.jar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</payara.micro.jar>
-        <micro.randomPort>true</micro.randomPort>
+        <micro.random.port>false</micro.random.port>
         <payara.domain>domain1</payara.domain>
 
         <!-- Control Properties -->
@@ -282,7 +282,7 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-micro-managed</arquillian.launch>
-                                <micro.randomPort>${micro.randomPort}</micro.randomPort>
+                                <micro.random.port>${micro.random.port}</micro.random.port>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -357,6 +357,7 @@
             <id>parallel</id>
             <properties>
                 <thread.count>4</thread.count>
+                <micro.random.port>true</micro.random.port>
             </properties>
             <build>
                 <pluginManagement>

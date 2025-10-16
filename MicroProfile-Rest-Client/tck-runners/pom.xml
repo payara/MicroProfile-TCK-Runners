@@ -55,7 +55,7 @@
     <name>MicroProfile Rest Client TCK Runners - Parent</name>
 
     <properties>
-        <micro.randomPort>false</micro.randomPort>
+        <micro.random.port>false</micro.random.port>
         <smallrye-config.version>2.7.0</smallrye-config.version>
     </properties>
 
