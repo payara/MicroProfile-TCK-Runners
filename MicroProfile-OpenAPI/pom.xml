@@ -160,7 +160,7 @@
                             <target if="payara.server.remote">
                                 <exec executable="${payara.executable}">
                                     <arg value="restart-domain" />
-                                    <arg value="${payara_domain}" />
+                                    <arg value="${payara.domain}" />
                                 </exec>
                             </target>
                         </configuration>

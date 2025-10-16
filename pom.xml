@@ -63,13 +63,20 @@
 
         <jersey.version>3.1.11.payara-p1</jersey.version>
 
-        <!-- Payara Dependencies -->
+        <!-- Payara Properties -->
         <payara.version>6.32.0-SNAPSHOT</payara.version>
-        <payara.home>${mptck.basedir}/target/payara6</payara.home>
-        <payara.micro.distribution.suffix></payara.micro.distribution.suffix>
-        <payara.microJar>${mptck.basedir}/target/payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</payara.microJar>
+        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.home>
+        <payara.server.distribution.suffix></payara.server.distribution.suffix>
+        <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
+        <payara.embedded.distribution.suffix>-all</payara.embedded.distribution.suffix>
+        <payara.micro.jar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</payara.micro.jar>
         <micro.randomPort>true</micro.randomPort>
-        <payara_domain>domain1</payara_domain>
+        <payara.domain>domain1</payara.domain>
+
+        <!-- Control Properties -->
+        <skipTests>false</skipTests>
+        <skipConfig>${skipTests}</skipConfig>
+        <skipServerStartStop>${skipTests}</skipServerStartStop>
     </properties>
 
     <modules>
@@ -149,6 +156,11 @@
                     <version>${payara.arquillian.container.version}</version>
                     <optional>true</optional>
                 </dependency>
+                <dependency>
+                    <groupId>fish.payara.distributions</groupId>
+                    <artifactId>payara${payara.server.distribution.suffix}</artifactId>
+                    <type>zip</type>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -160,6 +172,51 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-server-managed</arquillian.launch>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-server</id>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <skip>${skipConfig}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>fish.payara.distributions</groupId>
+                                            <artifactId>payara${payara.server.distribution.suffix}</artifactId>
+                                            <version>${payara.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>${maven.multiModuleProjectDirectory}${file.separator}target</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <payara.home>${payara.home}</payara.home>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <payara.home>${payara.home}</payara.home>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -218,7 +275,7 @@
                                             <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <type>jar</type>
-                                            <outputDirectory>${mptck.basedir}/target/</outputDirectory>
+                                            <outputDirectory>${maven.multiModuleProjectDirectory}/target/</outputDirectory>
                                             <destFileName>payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
@@ -239,9 +296,11 @@
             </build>
         </profile>
         <profile>
-            <id>payara-micro-platform</id>
+            <id>web</id>
             <properties>
-                <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
+                <payara.server.distribution.suffix>-web</payara.server.distribution.suffix>
+                <payara.micro.distribution.suffix></payara.micro.distribution.suffix>
+                <payara.embedded.distribution.suffix>-web</payara.embedded.distribution.suffix>
             </properties>
         </profile>
         <profile>
@@ -274,7 +333,7 @@
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
+                    <artifactId>payara-embedded${payara.embedded.distribution.suffix}</artifactId>
                     <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
@@ -342,79 +401,6 @@
                                     </property>
                                 </properties>
                             </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>full-distribution</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Copy the Payara artifact into the target directory -->
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>process-test-resources</phase>
-                                    <goals>
-                                        <goal>unpack</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>fish.payara.distributions</groupId>
-                                                <artifactId>payara</artifactId>
-                                                <version>${payara.version}</version>
-                                                <type>zip</type>
-                                                <overWrite>false</overWrite>
-                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                            </artifactItem>
-                                        </artifactItems>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>web-distribution</id>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Copy the Payara artifact into the target directory -->
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>process-test-resources</phase>
-                                    <goals>
-                                        <goal>unpack</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>fish.payara.distributions</groupId>
-                                                <artifactId>payara-web</artifactId>
-                                                <version>${payara.version}</version>
-                                                <type>zip</type>
-                                                <overWrite>false</overWrite>
-                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                            </artifactItem>
-                                        </artifactItems>
-                                    </configuration>
-                                </execution>
-                            </executions>
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -525,47 +511,6 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.commonjava.maven.plugins</groupId>
-                <artifactId>directory-maven-plugin</artifactId>
-                <version>0.3.1</version>
-                <executions>
-                    <execution>
-                        <id>directories</id>
-                        <goals>
-                            <goal>directory-of</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <property>mptck.basedir</property>
-                            <project>
-                                <groupId>fish.payara.microprofile</groupId>
-                                <artifactId>tck-suite-parent</artifactId>
-                            </project>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>selectively-disable-tests</id>
-                        <goals>
-                            <goal>regex-property</goal>
-                        </goals>
-                        <configuration>
-                            <name>skipITs</name>
-                            <value>${project.artifactId}</value>
-                            <regex>(tck-suite-parent)|(parent)|(tck-arquillian-extension)</regex>
-                            <replacement>true</replacement>
-                            <failIfNoMatch>false</failIfNoMatch>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -592,8 +537,8 @@
                     <configuration>
                         <systemPropertyVariables>
                             <payara.home>${payara.home}</payara.home>
-                            <payara.microJar>${payara.microJar}</payara.microJar>
-                            <arquillian.xml>${mptck.basedir}/src/test/resources/arquillian.xml</arquillian.xml>
+                            <payara.microJar>${payara.micro.jar}</payara.microJar>
+                            <arquillian.xml>${maven.multiModuleProjectDirectory}/src/test/resources/arquillian.xml</arquillian.xml>
                         </systemPropertyVariables>
                         <suiteXmlFiles>
                             <file>${mptck.suite}</file>
