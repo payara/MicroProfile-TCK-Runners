@@ -64,7 +64,7 @@
         <jersey.version>3.1.11.payara-p1</jersey.version>
 
         <!-- Payara Properties -->
-        <payara.version>6.2025.10-SNAPSHOT</payara.version>
+        <payara.version>6.32.0-SNAPSHOT</payara.version>
         <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.home>
         <payara.server.distribution.suffix></payara.server.distribution.suffix>
         <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
@@ -165,13 +165,11 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
-                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-server-managed</arquillian.launch>
+                                <payara.home>${payara.home}</payara.home>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -206,14 +204,7 @@
 
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <payara.home>${payara.home}</payara.home>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.5.4</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <payara.home>${payara.home}</payara.home>
