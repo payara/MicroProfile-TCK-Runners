@@ -59,7 +59,7 @@
 
         <!-- Arquillian Dependencies -->
         <version.arquillian>1.7.0.Alpha14</version.arquillian>
-        <payara.arquillian.container.version>3.0.alpha8</payara.arquillian.container.version>
+        <payara.arquillian.container.version>3.1</payara.arquillian.container.version>
 
         <!-- Embedded Dependencies -->
         <tyrus.version>2.1.5.payara-p2</tyrus.version>
