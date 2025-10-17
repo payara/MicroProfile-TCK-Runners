@@ -57,11 +57,7 @@
         <!-- Metrics Dependencies -->
         <microprofile.metrics.version>5.1.0.payara-p1</microprofile.metrics.version>
         <microprofile.metrics.tck.version>5.1.0.payara-p1</microprofile.metrics.tck.version>
-        <micro.randomPort>false</micro.randomPort>
-
-        <!-- Other Test Dependencies -->
-        <cdi.version>4.0.1</cdi.version>
-        <jaxb.version>4.0.0</jaxb.version>
+        <micro.random.port>false</micro.random.port>
     </properties>
 
     <dependencies>
@@ -110,7 +106,6 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
 

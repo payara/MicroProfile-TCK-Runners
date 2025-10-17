@@ -55,7 +55,7 @@
     <name>MicroProfile Rest Client TCK Runners - Parent</name>
 
     <properties>
-        <micro.randomPort>false</micro.randomPort>
+        <micro.random.port>false</micro.random.port>
         <smallrye-config.version>2.7.0</smallrye-config.version>
     </properties>
 
@@ -149,7 +149,6 @@
         <dependency>
             <groupId>org.glassfish.jersey.ext.microprofile</groupId>
             <artifactId>jersey-mp-rest-client</artifactId>
-            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->

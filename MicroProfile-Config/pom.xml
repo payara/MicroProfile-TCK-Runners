@@ -58,10 +58,9 @@
         <microprofile.config.version>3.1</microprofile.config.version>
         <microprofile.config.tck.version>3.1</microprofile.config.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <micro.randomPort>false</micro.randomPort>
+        <micro.random.port>false</micro.random.port>
         
     	<!-- Other Test Dependencies -->
-    	<cdi.version>4.0.1</cdi.version>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
@@ -90,7 +89,6 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -150,7 +148,7 @@
                             <target if="payara.server.remote">
                                 <exec executable="${payara.executable}">
                                     <arg value="restart-domain" />
-                                    <arg value="${payara_domain}" />
+                                    <arg value="${payara.domain}" />
                                 </exec>
                             </target>
                         </configuration>

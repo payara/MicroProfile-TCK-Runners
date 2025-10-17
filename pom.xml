@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2018-2025 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -58,21 +58,28 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <!-- Arquillian Dependencies -->
-        <version.arquillian>1.7.0.Alpha14</version.arquillian>
-        <payara.arquillian.container.version>3.0.alpha8</payara.arquillian.container.version>
+        <version.arquillian>1.7.2.Final</version.arquillian>
+        <payara.arquillian.container.version>3.1</payara.arquillian.container.version>
 
-        <!-- Embedded Dependencies -->
-        <tyrus.version>2.1.5.payara-p2</tyrus.version>
         <jersey.version>3.1.11.payara-p1</jersey.version>
-        <cdi.version>4.0.1</cdi.version>
-        <jaxb.version>4.0.0</jaxb.version>
 
-        <!-- Payara Dependencies -->
+        <!-- Payara Properties -->
         <payara.version>6.2025.10-SNAPSHOT</payara.version>
-        <payara.home>${mptck.basedir}/target/payara6</payara.home>
-        <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
-        <micro.randomPort>true</micro.randomPort>
-        <payara_domain>domain1</payara_domain>
+        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.home>
+        <payara.server.distribution.suffix></payara.server.distribution.suffix>
+        <payara.micro.distribution.suffix>-platform</payara.micro.distribution.suffix>
+        <payara.embedded.distribution.suffix>-all</payara.embedded.distribution.suffix>
+        <payara.micro.jar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</payara.micro.jar>
+        <micro.random.port>false</micro.random.port>
+        <payara.domain>domain1</payara.domain>
+
+        <!-- Control Properties -->
+        <skipTests>false</skipTests>
+        <skipConfig>${skipTests}</skipConfig>
+        <skipServerStartStop>${skipTests}</skipServerStartStop>
+
+        <payara-nexus-staging.repo.releases.enabled>false</payara-nexus-staging.repo.releases.enabled>
+        <payara-nexus-staging.repo.snapshots.enabled>false</payara-nexus-staging.repo.snapshots.enabled>
     </properties>
 
     <modules>
@@ -118,36 +125,25 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>1.7.30</version>
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
     </dependencies>
 
     <!-- Profile specific dependencies -->
     <profiles>
-        <profile>
-            <id>payara5plus</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <!-- not payara 4 -->
-                    <value>/(?!4).+/</value>
-                </property>
-            </activation>
-            <modules>
-                <module>MicroProfile-OpenTracing</module>
-            </modules>
-        </profile>
         <profile>
             <id>payara-server-managed</id>
             <activation>
@@ -163,17 +159,58 @@
                     <version>${payara.arquillian.container.version}</version>
                     <optional>true</optional>
                 </dependency>
+                <dependency>
+                    <groupId>fish.payara.distributions</groupId>
+                    <artifactId>payara${payara.server.distribution.suffix}</artifactId>
+                    <type>zip</type>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                    </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-server-managed</arquillian.launch>
+                                <payara.home>${payara.home}</payara.home>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-server</id>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <skip>${skipConfig}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>fish.payara.distributions</groupId>
+                                            <artifactId>payara${payara.server.distribution.suffix}</artifactId>
+                                            <version>${payara.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>${maven.multiModuleProjectDirectory}${file.separator}target</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.5.4</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <payara.home>${payara.home}</payara.home>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -228,12 +265,12 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.extras</groupId>
-                                            <artifactId>payara-micro</artifactId>
+                                            <artifactId>payara-micro${payara.micro.distribution.suffix}</artifactId>
                                             <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <type>jar</type>
-                                            <outputDirectory>${mptck.basedir}/target/</outputDirectory>
-                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
+                                            <outputDirectory>${maven.multiModuleProjectDirectory}/target/</outputDirectory>
+                                            <destFileName>payara-micro${payara.micro.distribution.suffix}-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -245,12 +282,20 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-micro-managed</arquillian.launch>
-                                <micro.randomPort>${micro.randomPort}</micro.randomPort>
+                                <micro.random.port>${micro.random.port}</micro.random.port>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>web</id>
+            <properties>
+                <payara.server.distribution.suffix>-web</payara.server.distribution.suffix>
+                <payara.micro.distribution.suffix></payara.micro.distribution.suffix>
+                <payara.embedded.distribution.suffix>-web</payara.embedded.distribution.suffix>
+            </properties>
         </profile>
         <profile>
             <id>payara-micro-remote</id>
@@ -282,12 +327,12 @@
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
+                    <artifactId>payara-embedded${payara.embedded.distribution.suffix}</artifactId>
                     <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.glassfish</groupId>
+                    <groupId>org.eclipse.parsson</groupId>
                     <artifactId>jakarta.json</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -309,27 +354,10 @@
             </dependencies>
         </profile>
         <profile>
-            <id>jdk11</id>
-            <activation>
-                <jdk>11</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>4.0.0-RC2</version>
-                </dependency>
-                <dependency>
-                    <groupId>jakarta.activation</groupId>
-                    <artifactId>jakarta.activation-api</artifactId>
-                    <version>2.1.0-RC1</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>parallel</id>
             <properties>
                 <thread.count>4</thread.count>
+                <micro.random.port>true</micro.random.port>
             </properties>
             <build>
                 <pluginManagement>
@@ -373,79 +401,6 @@
                 </pluginManagement>
             </build>
         </profile>
-        <profile>
-            <id>full-distribution</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Copy the Payara artifact into the target directory -->
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>process-test-resources</phase>
-                                    <goals>
-                                        <goal>unpack</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>fish.payara.distributions</groupId>
-                                                <artifactId>payara</artifactId>
-                                                <version>${payara.version}</version>
-                                                <type>zip</type>
-                                                <overWrite>false</overWrite>
-                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                            </artifactItem>
-                                        </artifactItems>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>web-distribution</id>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <!-- Copy the Payara artifact into the target directory -->
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>process-test-resources</phase>
-                                    <goals>
-                                        <goal>unpack</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                        <markersDirectory>${mptck.basedir}/target/dependency-maven-plugin-markers</markersDirectory>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>fish.payara.distributions</groupId>
-                                                <artifactId>payara-web</artifactId>
-                                                <version>${payara.version}</version>
-                                                <type>zip</type>
-                                                <overWrite>false</overWrite>
-                                                <outputDirectory>${mptck.basedir}/target</outputDirectory>
-                                            </artifactItem>
-                                        </artifactItems>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
     </profiles>
 
     <dependencyManagement>
@@ -473,18 +428,6 @@
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
                 <artifactId>payara-client-ee9</artifactId>
-                <version>${payara.arquillian.container.version}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse</groupId>
-                        <artifactId>yasson</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>fish.payara.arquillian</groupId>
-                <artifactId>payara-client-ee7</artifactId>
                 <version>${payara.arquillian.container.version}</version>
                 <scope>test</scope>
                 <exclusions>
@@ -552,27 +495,6 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.commonjava.maven.plugins</groupId>
-                <artifactId>directory-maven-plugin</artifactId>
-                <version>0.3.1</version>
-                <executions>
-                    <execution>
-                        <id>directories</id>
-                        <goals>
-                            <goal>directory-of</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <property>mptck.basedir</property>
-                            <project>
-                                <groupId>fish.payara.microprofile</groupId>
-                                <artifactId>tck-suite-parent</artifactId>
-                            </project>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>3.2.0</version>
@@ -599,7 +521,7 @@
                 <!-- Configure failsafe plugin to run integration tests -->
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.5.4</version>
                     <executions>
                         <execution>
                             <phase>integration-test</phase>
@@ -618,8 +540,8 @@
                     <configuration>
                         <systemPropertyVariables>
                             <payara.home>${payara.home}</payara.home>
-                            <payara.microJar>${payara.microJar}</payara.microJar>
-                            <arquillian.xml>${mptck.basedir}/src/test/resources/arquillian.xml</arquillian.xml>
+                            <payara.microJar>${payara.micro.jar}</payara.microJar>
+                            <arquillian.xml>${maven.multiModuleProjectDirectory}/src/test/resources/arquillian.xml</arquillian.xml>
                         </systemPropertyVariables>
                         <suiteXmlFiles>
                             <file>${mptck.suite}</file>
@@ -639,10 +561,33 @@
         </pluginManagement>
     </build>
 
+
     <repositories>
+        <!-- Try Maven central first, not last, which happens when omitted here -->
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSSRH Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>payara-nexus-artifacts</id>
-            <name>Payara Nexus Artifacts</name>
             <url>https://nexus.dev.payara.fish/repository/payara-artifacts</url>
             <releases>
                 <enabled>true</enabled>
@@ -651,5 +596,111 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>payara-nexus-enterprise-artifacts</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise-artifacts-private</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-enterprise-distributions</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-enterprise-snapshots</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise-snapshots-private</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-snapshots</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-staging</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-staging</url>
+            <releases>
+                <enabled>${payara-nexus-staging.repo.releases.enabled}</enabled>
+            </releases>
+            <snapshots>
+                <enabled>${payara-nexus-staging.repo.snapshots.enabled}</enabled>
+            </snapshots>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <!-- Try Maven central first, not last, which happens when omitted here -->
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSSRH Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-artifacts</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-artifacts</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-snapshots</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-staging</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-staging</url>
+            <releases>
+                <enabled>${payara-nexus-staging.repo.releases.enabled}</enabled>
+            </releases>
+            <snapshots>
+                <enabled>${payara-nexus-staging.repo.snapshots.enabled}</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

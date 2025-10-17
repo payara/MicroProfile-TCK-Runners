@@ -6,8 +6,8 @@
 
     <container qualifier="payara-micro-managed">
         <configuration>
-            <property name="randomHttpPort">${micro.randomPort}</property>
-            <property name="autoBindHttp">${micro.randomPort}</property>
+            <property name="randomHttpPort">${micro.random.port}</property>
+            <property name="autoBindHttp">${micro.random.port}</property>
             <!-- Required for MP-Config / DefaultConfigSourceOrdinalTest -->
             <property name="cmdOptions">
                 -Dconfig_ordinal=120
