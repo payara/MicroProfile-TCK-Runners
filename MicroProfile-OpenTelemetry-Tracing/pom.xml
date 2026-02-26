@@ -55,7 +55,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.telemetry.tracing</groupId>
+            <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-tracing-tck</artifactId>
             <version>${microprofile.telemetry.version}</version>
             <scope>test</scope>
@@ -63,6 +63,10 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
@@ -90,7 +94,7 @@
     </dependencies>
 
     <properties>
-        <microprofile.telemetry.version>1.1</microprofile.telemetry.version>
+        <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 

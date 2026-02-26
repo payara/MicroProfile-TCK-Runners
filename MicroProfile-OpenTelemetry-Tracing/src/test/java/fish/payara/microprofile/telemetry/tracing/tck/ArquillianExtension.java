@@ -59,6 +59,10 @@ import java.util.Set;
  * @author ariekiswanto
  */
 public class ArquillianExtension implements LoadableExtension {
+    
+    private static final String EXECUTOR_PROPERTY = "telemetry.tck.executor";
+    private static final String PATH = "META-INF/microprofile-telemetry-tck.properties";
+    
     @Override
     public void register(ExtensionBuilder extensionBuilder) {
         extensionBuilder.service(ApplicationArchiveProcessor.class, ApplicationArchiveProcessorImpl.class);
@@ -75,7 +79,9 @@ public class ArquillianExtension implements LoadableExtension {
             webArchive
                     // OpenTelemetry setup
                     .addAsServiceProvider(ConfigSource.class, SpanNaming.class)
-                    .addClass(SpanNaming.class);
+                    .addClass(SpanNaming.class)
+                    .addClass(PayaraExecutor.class)
+                    .addAsResource(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName(), PATH);
         }
     }
 
