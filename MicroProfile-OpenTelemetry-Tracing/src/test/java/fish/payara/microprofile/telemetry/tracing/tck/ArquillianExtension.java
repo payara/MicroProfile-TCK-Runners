@@ -2,7 +2,7 @@
  *
  *  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- *  Copyright (c) 2023 Payara Foundation and/or its affiliates. All rights reserved.
+ *  Copyright (c) 2023-2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  *  The contents of this file are subject to the terms of either the GNU
  *  General Public License Version 2 only ("GPL") or the Common Development
@@ -41,15 +41,12 @@
  */
 package fish.payara.microprofile.telemetry.tracing.tck;
 
-import io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSpanExporterProvider;
-import jakarta.enterprise.inject.spi.Extension;
 import org.eclipse.microprofile.config.spi.ConfigSource;
-import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
-import org.glassfish.jersey.internal.spi.AutoDiscoverable;
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import java.util.Map;
@@ -79,9 +76,9 @@ public class ArquillianExtension implements LoadableExtension {
             webArchive
                     // OpenTelemetry setup
                     .addAsServiceProvider(ConfigSource.class, SpanNaming.class)
+                    .addPackages(true, "fish.payara.microprofile.telemetry.tracing.tck")
                     .addClass(SpanNaming.class)
-                    .addClass(PayaraExecutor.class)
-                    .addAsResource(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName(), PATH);
+                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH);
         }
     }
 
