@@ -98,5 +98,16 @@
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <mptelemetry.tck.log.file.path>${payara.home}/glassfish/domains/domain1/logs/server.log</mptelemetry.tck.log.file.path>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
