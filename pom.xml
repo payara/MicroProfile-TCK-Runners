@@ -152,20 +152,6 @@
                 <payara-nexus-staging.repo.snapshots.enabled>true</payara-nexus-staging.repo.snapshots.enabled>
             </properties>
         </profile>
-
-        <profile>
-            <id>payara5plus</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <!-- not payara 4 -->
-                    <value>/(?!4).+/</value>
-                </property>
-            </activation>
-            <modules>
-                <module>MicroProfile-OpenTracing</module>
-            </modules>
-        </profile>
         <profile>
             <id>payara-server-managed</id>
             <activation>
