@@ -89,7 +89,6 @@
         <module>MicroProfile-Config</module>
         <module>MicroProfile-OpenAPI</module>
         <module>MicroProfile-OpenTelemetry-Tracing</module>
-        <module>MicroProfile-OpenTracing</module>
     </modules>
 
     <dependencies>
