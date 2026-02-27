@@ -109,6 +109,9 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
+                    <environmentVariables>
+                        <EXTRA_MICRO_OPTIONS>--systemproperties ${basedir}/src/test/resources/system-properties.properties</EXTRA_MICRO_OPTIONS>
+                    </environmentVariables>
                     <systemPropertyVariables>
                         <mptelemetry.tck.log.file.path>${payara.home}/glassfish/domains/domain1/logs/server.log</mptelemetry.tck.log.file.path>
                     </systemPropertyVariables>
