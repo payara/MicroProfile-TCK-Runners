@@ -104,8 +104,8 @@
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
         <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
-
-    <build>
+<!-- Disabling config until we fix the format error we currently have for telemetry logging-->
+    <!--build>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -142,5 +142,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build-->
 </project>
