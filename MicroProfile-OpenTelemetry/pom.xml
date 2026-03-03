@@ -61,12 +61,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.microprofile.telemetry</groupId>
-            <artifactId>microprofile-telemetry-logs-tck</artifactId>
-            <version>${microprofile.telemetry.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
         </dependency>
@@ -98,45 +92,5 @@
     <properties>
         <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
-<!-- Disabling config until we fix the format error we currently have for telemetry logging-->
-    <!--build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>start-payara-server</id>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <target>
-                                <exec executable="${payara.executable}">
-                                    <arg value="start-domain" />
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>prepare-payara-server</id>
-                        <phase>pre-integration-test</phase>
-                        <configuration>
-                            <target>
-                                <exec executable="${payara.executable}">
-                                    <arg value="create-system-properties" />
-                                    <arg value="mptelemetry.tck.log.file.path=${payara.home}/glassfish/domains/domain1/logs/server.log" />
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build-->
 </project>
