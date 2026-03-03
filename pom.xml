@@ -88,7 +88,7 @@
         <module>MicroProfile-Health</module>
         <module>MicroProfile-Config</module>
         <module>MicroProfile-OpenAPI</module>
-        <module>MicroProfile-OpenTelemetry-Tracing</module>
+        <module>MicroProfile-OpenTelemetry</module>
     </modules>
 
     <dependencies>
