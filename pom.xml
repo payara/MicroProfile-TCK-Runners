@@ -88,8 +88,7 @@
         <module>MicroProfile-Health</module>
         <module>MicroProfile-Config</module>
         <module>MicroProfile-OpenAPI</module>
-        <module>MicroProfile-OpenTelemetry-Tracing</module>
-        <module>MicroProfile-OpenTracing</module>
+        <module>MicroProfile-OpenTelemetry</module>
     </modules>
 
     <dependencies>
@@ -152,20 +151,6 @@
                 <payara-nexus-staging.repo.releases.enabled>true</payara-nexus-staging.repo.releases.enabled>
                 <payara-nexus-staging.repo.snapshots.enabled>true</payara-nexus-staging.repo.snapshots.enabled>
             </properties>
-        </profile>
-
-        <profile>
-            <id>payara5plus</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <!-- not payara 4 -->
-                    <value>/(?!4).+/</value>
-                </property>
-            </activation>
-            <modules>
-                <module>MicroProfile-OpenTracing</module>
-            </modules>
         </profile>
         <profile>
             <id>payara-server-managed</id>

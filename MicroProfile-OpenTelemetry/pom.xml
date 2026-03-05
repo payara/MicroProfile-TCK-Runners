@@ -3,7 +3,7 @@
   ~
   ~  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
   ~
-  ~  Copyright (c) 2023 Payara Foundation and/or its affiliates. All rights reserved.
+  ~  Copyright (c) 2023-2026 Payara Foundation and/or its affiliates. All rights reserved.
   ~
   ~  The contents of this file are subject to the terms of either the GNU
   ~  General Public License Version 2 only ("GPL") or the Common Development
@@ -51,11 +51,11 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>MicroProfile-OpenTelemetry-Tracing</artifactId>
+    <artifactId>MicroProfile-OpenTelemetry</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile.telemetry.tracing</groupId>
+            <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-tracing-tck</artifactId>
             <version>${microprofile.telemetry.version}</version>
             <scope>test</scope>
@@ -90,9 +90,7 @@
     </dependencies>
 
     <properties>
-        <microprofile.telemetry.version>1.1</microprofile.telemetry.version>
+        <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
-
-
 </project>

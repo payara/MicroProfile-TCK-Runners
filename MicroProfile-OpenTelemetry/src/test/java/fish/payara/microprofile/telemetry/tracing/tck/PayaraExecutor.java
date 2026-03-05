@@ -2,7 +2,7 @@
  *
  *  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- *  Copyright (c) 2023 Payara Foundation and/or its affiliates. All rights reserved.
+ *  Copyright (c) 2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  *  The contents of this file are subject to the terms of either the GNU
  *  General Public License Version 2 only ("GPL") or the Common Development
@@ -39,19 +39,28 @@
  *  holder.
  *
  */
-package fish.payara.microprofile.opentracingtck;
+package fish.payara.microprofile.telemetry.tracing.tck;
 
-import jakarta.ws.rs.core.FeatureContext;
-import org.glassfish.jersey.internal.spi.AutoDiscoverable;
+import jakarta.enterprise.concurrent.ManagedExecutorService;
+import java.util.concurrent.Executor;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-/**
- * @author ariekiswanto
- */
-public class TracerJsonSerializationAutoDiscoverable implements AutoDiscoverable {
+public class PayaraExecutor implements Executor {
+
+    public static final Logger logger = Logger.getLogger(PayaraExecutor.class.getName());
 
     @Override
-    public void configure(FeatureContext featureContext) {
-        featureContext.register(MessageBodyWriterProvider.class);
+    public void execute(Runnable command) {
+        InitialContext ctx = null;
+        try {
+            ctx = new InitialContext();
+            ManagedExecutorService managedExecutorService = (ManagedExecutorService) ctx.lookup("java:comp/DefaultManagedExecutorService");
+            managedExecutorService.execute(command);
+        } catch (NamingException e) {
+            logger.severe("Exception thrown by trying to get resource" + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
-
 }

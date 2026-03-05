@@ -2,7 +2,7 @@
  *
  *  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- *  Copyright (c) 2023 Payara Foundation and/or its affiliates. All rights reserved.
+ *  Copyright (c) 2023-2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  *  The contents of this file are subject to the terms of either the GNU
  *  General Public License Version 2 only ("GPL") or the Common Development
@@ -39,26 +39,27 @@
  *  holder.
  *
  */
-package fish.payara.microprofile.opentracingtck;
+package fish.payara.microprofile.telemetry.tracing.tck;
 
-import fish.payara.microprofile.opentracingtck.mocktracing.MockTracerExporter;
-import fish.payara.microprofile.opentracingtck.mocktracing.TracerInjectionDiversion;
-import fish.payara.microprofile.opentracingtck.mocktracing.TracingConfiguration;
-import io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSpanExporterProvider;
-import io.opentracing.mock.MockTracer;
-import jakarta.enterprise.inject.spi.Extension;
-import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
-import org.glassfish.jersey.internal.spi.AutoDiscoverable;
+import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ariekiswanto
  */
 public class ArquillianExtension implements LoadableExtension {
+    
+    private static final String EXECUTOR_PROPERTY = "telemetry.tck.executor";
+    private static final String PATH = "META-INF/microprofile-telemetry-tck.properties";
+    
     @Override
     public void register(ExtensionBuilder extensionBuilder) {
         extensionBuilder.service(ApplicationArchiveProcessor.class, ApplicationArchiveProcessorImpl.class);
@@ -72,17 +73,38 @@ public class ArquillianExtension implements LoadableExtension {
         public void process(Archive<?> archive, TestClass testClass) {
             WebArchive webArchive = WebArchive.class.cast(archive);
             // json serialization of traces
-            webArchive.addClass(TracerJsonSerializationAutoDiscoverable.class)
-                    .addClass(MessageBodyWriterProvider.class)
-                    .addAsServiceProvider(AutoDiscoverable.class, TracerJsonSerializationAutoDiscoverable.class)
-                    // mock tracer
-                    .addPackage(MockTracer.class.getPackage())
-                    // CDI injection diversion
-                    .addAsServiceProvider(Extension.class, TracerInjectionDiversion.class)
-                    .addPackage(TracerInjectionDiversion.class.getPackage())
+            webArchive
                     // OpenTelemetry setup
-                    .addAsServiceProvider(ConfigurableSpanExporterProvider.class, MockTracerExporter.Provider.class)
-                    .addAsServiceProvider(ConfigSourceProvider.class, TracingConfiguration.class);
+                    .addAsServiceProvider(ConfigSource.class, SpanNaming.class)
+                    .addPackages(true, "fish.payara.microprofile.telemetry.tracing.tck")
+                    .addClass(SpanNaming.class)
+                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH);
+        }
+    }
+
+    /**
+     * OpenTelemetry 1.13-compatible span naming needs to be followed for TCK 1.0, but not for TCK 1.1, this can be removed with MP 7.0 support
+     */
+    public static class SpanNaming implements ConfigSource {
+        private final static Map<String,String> properties = Map.of("payara.telemetry.span-convention", "OpenTelemetry-1.13");
+        @Override
+        public Set<String> getPropertyNames() {
+            return properties.keySet();
+        }
+
+        @Override
+        public String getValue(String s) {
+            return properties.get(s);
+        }
+
+        @Override
+        public String getName() {
+            return "MP TCK Span Naming configuration";
+        }
+
+        @Override
+        public Map<String, String> getProperties() {
+            return properties;
         }
     }
 }
