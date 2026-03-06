@@ -41,12 +41,11 @@
   ~
   -->
 
-<suite name="MicroProfile Telemetry Tracing TCK" verbose="2" configfailurepolicy="continue" >
-    <test name="telemetry-tracing-tests" verbose="10">
+<suite name="MicroProfile Telemetry Tracing TCK" verbose="10" configfailurepolicy="continue" >
+    <test name="telemetry-tracing-tck-tests" verbose="10">
         <groups>
             <run>
-                <!-- Exclude B3 and Jaeger propagation tests-->
-                <exclude name="optional-tests"/>
+                <exclude name="optional-tests"></exclude>
             </run>
         </groups>
         <packages>
@@ -57,4 +56,19 @@
 <!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
 <!--        </classes>-->
     </test>
+    <test name="telemetry-logs-tck-tests" verbose="10">
+        <groups>
+            <run>
+                <exclude name="optional-tests"></exclude>
+            </run>
+        </groups>
+        <packages>
+            <package name="org.eclipse.microprofile.telemetry.logs.tck.application.*"/>
+        </packages>
+        <!-- Uncomment to run a single test -->
+        <!--        <classes>-->
+        <!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
+        <!--        </classes>-->
+    </test>
+    
 </suite>
