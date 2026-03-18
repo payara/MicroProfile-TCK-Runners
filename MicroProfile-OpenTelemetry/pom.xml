@@ -50,6 +50,8 @@
         <artifactId>tck-suite-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
+    
+    <packaging>jar</packaging>
 
     <artifactId>MicroProfile-OpenTelemetry</artifactId>
 
@@ -57,6 +59,12 @@
         <dependency>
             <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-tracing-tck</artifactId>
+            <version>${microprofile.telemetry.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.telemetry</groupId>
+            <artifactId>microprofile-telemetry-logs-tck</artifactId>
             <version>${microprofile.telemetry.version}</version>
             <scope>test</scope>
         </dependency>
@@ -89,8 +97,157 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>create-directory</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}lib${file.separator}ext"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-jar-to-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}lib${file.separator}ext</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>${project.build.finalName}.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>start-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
+                            <executable>${payara.executable}</executable>
+                            <arguments>
+                                <argument>start-domain</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setting-log-file-location</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
+                            <executable>${payara.executable}</executable>
+                            <arguments>
+                                <argument>create-system-properties</argument>
+                                <argument>mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}logs${file.separator}server.log</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setting-custom-log-formatter</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
+                            <executable>${payara.executable}</executable>
+                            <arguments>
+                                <argument>set-log-file-format</argument>
+                                <argument>--target</argument>
+                                <argument>server</argument>
+                                <argument>fish.payara.microprofile.telemetry.tck.CustomLoggerFormatter</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>restart-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
+                            <executable>${payara.executable}</executable>
+                            <arguments>
+                                <argument>restart-domain</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-server</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
+                            <executable>${payara.executable}</executable>
+                            <arguments>
+                                <argument>stop-domain</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>windows-profile</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <payara.executable>${payara.home}${file.separator}bin${file.separator}asadmin.bat</payara.executable>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
+        <payara.executable>./asadmin</payara.executable>
     </properties>
 </project>
