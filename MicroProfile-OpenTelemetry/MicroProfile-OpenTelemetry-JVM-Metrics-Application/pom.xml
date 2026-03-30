@@ -47,11 +47,11 @@
 
     <parent>
         <groupId>fish.payara.microprofile.telemetry</groupId>
-        <artifactId>MicroProfile-OpenTelemetry</artifactId>
+        <artifactId>microprofile-opentelemetry-tck-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>MicroProfile-OpenTelemetry-JVM-Metrics-Application</artifactId>
+    <artifactId>microprofile-opentelemetry-jvm-metrics-application</artifactId>
     <name>MicroProfile-OpenTelemetry-JVM-Metrics-Application</name>
     
     <packaging>jar</packaging>
