@@ -46,13 +46,13 @@
   <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fish.payara.microprofile.telemetry</groupId>
-        <artifactId>MicroProfile-OpenTelemetry</artifactId>
+        <artifactId>microprofile-opentelemetry-tck-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
     <packaging>jar</packaging>
     
-    <artifactId>MicroProfile-OpenTelemetry-Tracing-Logging</artifactId>
+    <artifactId>microprofile-opentelemetry-tracing-logging</artifactId>
     <name>MicroProfile-OpenTelemetry-Tracing-Logging</name>
     
     <dependencies>
@@ -90,7 +90,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <mkdir dir="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}lib${file.separator}ext"/>
+                                <mkdir dir="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}lib${file.separator}ext"/>
                             </target>
                         </configuration>
                     </execution>
@@ -108,7 +108,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}lib${file.separator}ext</outputDirectory>
+                            <outputDirectory>${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}lib${file.separator}ext</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
@@ -133,7 +133,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
                                 <argument>start-domain</argument>
@@ -147,11 +146,12 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
-                                <argument>create-system-properties</argument>
-                                <argument>mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}domain1${file.separator}logs${file.separator}server.log</argument>
+                                <argument>create-system-property</argument>
+                                <argument>--target</argument>
+                                <argument>server</argument>
+                                <argument>mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}logs${file.separator}server.log</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -162,7 +162,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
                                 <argument>set-log-file-format</argument>
@@ -179,7 +178,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
                                 <argument>restart-domain</argument>
@@ -193,7 +191,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
                                 <argument>set-log-file-format</argument>
@@ -210,7 +207,6 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>${payara.home}${file.separator}bin</workingDirectory>
                             <executable>${payara.executable}</executable>
                             <arguments>
                                 <argument>stop-domain</argument>
