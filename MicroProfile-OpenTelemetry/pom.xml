@@ -54,7 +54,7 @@
     <packaging>pom</packaging>
     
     <groupId>fish.payara.microprofile.telemetry</groupId>
-    <artifactId>microprofile-opentelemetry-tck-parent</artifactId>
+    <artifactId>parent</artifactId>
 
     <properties>
         <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
