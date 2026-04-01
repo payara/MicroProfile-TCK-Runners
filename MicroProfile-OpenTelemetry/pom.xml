@@ -54,12 +54,11 @@
     <packaging>pom</packaging>
     
     <groupId>fish.payara.microprofile.telemetry</groupId>
-    <artifactId>microprofile-opentelemetry-tck-parent</artifactId>
+    <artifactId>parent</artifactId>
 
     <properties>
         <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <payara.executable>${payara.home}${file.separator}bin${file.separator}asadmin</payara.executable>
     </properties>
 
     <dependencies>
@@ -92,18 +91,4 @@
         <module>microprofile-opentelemetry-jvm-metrics-runtime</module>
         <module>microprofile-opentelemetry-jvm-metrics-application</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>windows-profile</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <payara.executable>${payara.home}${file.separator}bin${file.separator}asadmin.bat</payara.executable>
-            </properties>
-        </profile>
-    </profiles>
 </project>

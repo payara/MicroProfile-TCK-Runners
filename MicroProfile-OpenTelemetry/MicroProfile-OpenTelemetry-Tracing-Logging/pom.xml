@@ -46,7 +46,7 @@
   <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fish.payara.microprofile.telemetry</groupId>
-        <artifactId>microprofile-opentelemetry-tck-parent</artifactId>
+        <artifactId>parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
@@ -75,31 +75,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.5.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>create-directory</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}lib${file.separator}ext"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>copy-jar-to-server</id>
@@ -108,7 +87,8 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}lib${file.separator}ext</outputDirectory>
+                            <skip>${skipConfig}</skip>
+                            <outputDirectory>${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}lib${file.separator}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
@@ -124,7 +104,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.6.3</version>
                 <executions>
                     <execution>
                         <id>start-server</id>
@@ -133,9 +112,25 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipServerStart}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
                                 <argument>start-domain</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-jar-to-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipConfig}</skip>
+                            <executable>${payara.asadmin}</executable>
+                            <arguments>
+                                <argument>add-library</argument>
+                                <argument>${project.build.directory}${file.separator}${project.build.finalName}.jar</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -146,12 +141,13 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipConfig}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
                                 <argument>create-system-property</argument>
                                 <argument>--target</argument>
                                 <argument>server</argument>
-                                <argument>mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara_domain}${file.separator}logs${file.separator}server.log</argument>
+                                <argument>mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}logs${file.separator}server.log</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -162,7 +158,8 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipConfig}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
                                 <argument>set-log-file-format</argument>
                                 <argument>--target</argument>
@@ -178,9 +175,10 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipServerRestart}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
-                                <argument>restart-domain</argument>
+                                <argument>${serverRestartCommand}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -191,7 +189,8 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipTestConfigCleanup}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
                                 <argument>set-log-file-format</argument>
                                 <argument>--target</argument>
@@ -201,15 +200,31 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>stop-server</id>
+                        <id>remove-jar-from-server</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${payara.executable}</executable>
+                            <skip>${skipTestConfigCleanup}</skip>
+                            <executable>${payara.asadmin}</executable>
                             <arguments>
-                                <argument>stop-domain</argument>
+                                <argument>remove-library</argument>
+                                <argument>${project.build.finalName}.jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>restart-server-post-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipServerRestart}</skip>
+                            <executable>${payara.asadmin}</executable>
+                            <arguments>
+                                <argument>${serverRestartCommand}</argument>
                             </arguments>
                         </configuration>
                     </execution>
