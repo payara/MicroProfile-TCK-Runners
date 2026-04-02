@@ -68,213 +68,135 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>start-server</id>
+                        <id>start-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipServerStart}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>start-domain</argument>
-                                <argument>${payara.domain.name}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>setting-log-file-location</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
                             <skip>${skipConfig}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>
-                                    mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}logs${file.separator}server.log
-                                </argument>
-                            </arguments>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="start-domain" />
+                                    <arg value="${payara.domain.name}" />
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>setting-runtime-property-otel-sdk-disabled</id>
+                        <id>prepare-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
                             <skip>${skipConfig}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>otel.sdk.disabled=false</argument>
-                            </arguments>
+                            <target unless="payara.micro.managed">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="mptelemetry.tck.log.file.path=${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}logs${file.separator}server.log" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.sdk.disabled=false" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.metrics.exporter=logging" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.traces.exporter=none" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.logs.exporter=none" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="create-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.metric.export.interval=3000" />
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>setting-runtime-property-otel-metrics-exporter</id>
+                        <id>stop-managed-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>otel.metrics.exporter=logging</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>setting-runtime-property-otel-traces-exporter</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>otel.traces.exporter=none</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>setting-runtime-property-otel-logs-exporter</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
                             <skip>${skipConfig}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>otel.logs.exporter=none</argument>
-                            </arguments>
+                            <target if="payara.server.managed">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="stop-domain" />
+                                    <arg value="${payara.domain.name}" />
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>setting-runtime-property-otel-metric-export-interval</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipConfig}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>create-system-property</argument>
-                                <argument>--target</argument>
-                                <argument>server</argument>
-                                <argument>otel.metric.export.interval=3000</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>restart-server</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipServerRestart}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>${serverRestartCommand}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>removing-runtime-property-otel-sdk-disabled</id>
+                        <id>cleanup-remote-payara-server</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
                             <skip>${skipTestConfigCleanup}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>delete-system-property</argument>
-                                <argument>otel.sdk.disabled</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>removing-runtime-property-otel-metrics-exporter</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipTestConfigCleanup}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>delete-system-property</argument>
-                                <argument>otel.metrics.exporter</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>removing-runtime-property-otel-traces-exporter</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipTestConfigCleanup}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>delete-system-property</argument>
-                                <argument>otel.traces.exporter</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>removing-runtime-property-otel-logs-exporter</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipTestConfigCleanup}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>delete-system-property</argument>
-                                <argument>otel.logs.exporter</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>removing-runtime-property-otel-metric-export-interval</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipTestConfigCleanup}</skip>
-                            <executable>${payara.asadmin}</executable>
-                            <arguments>
-                                <argument>delete-system-property</argument>
-                                <argument>otel.metric.export.interval</argument>
-                            </arguments>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="mptelemetry.tck.log.file.path" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.sdk.disabled" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.metrics.exporter" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.traces.exporter" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.logs.exporter" />
+                                </exec>
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="delete-system-property" />
+                                    <arg value="--target" />
+                                    <arg value="server" />
+                                    <arg value="otel.metric.export.interval" />
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>

@@ -76,9 +76,6 @@
         <!-- Control properties -->
         <skipTests>false</skipTests>
         <skipConfig>${skipTests}</skipConfig> <!-- Whether to skip applying server config during pre-integration-test phase -->
-        <skipServerStart>${skipTests}</skipServerStart> <!-- Whether to skip starting the server before applying config during pre-integration-test phase -->
-        <skipServerRestart>${skipTests}</skipServerRestart> <!-- Whether to skip restarting the server after applying config during pre-integration-test phase -->
-        <serverRestartCommand>stop-domain</serverRestartCommand> <!-- The command to used to restart the domain during pre-integration-test phase -->
         <skipTestConfigCleanup>${skipConfig}</skipTestConfigCleanup> <!-- Whether to skip cleaning up any config applied to the server for a test after executing it -->
         <script.extension></script.extension> <!-- Default empty for Unix-like systems -->
         <payara.asadmin>${payara.home}${file.separator}glassfish${file.separator}bin${file.separator}asadmin${script.extension}</payara.asadmin>
@@ -308,9 +305,6 @@
             <id>payara-server-remote</id>
             <properties>
                 <payara.server.remote/>
-                <skipServerStart>true</skipServerStart> <!-- Whether to skip starting the server before applying config during pre-integration-test phase -->
-                <skipServerRestart>false</skipServerRestart> <!-- Whether to skip restarting the server after applying config during pre-integration-test phase -->
-                <serverRestartCommand>restart-domain</serverRestartCommand> <!-- The command to used to restart the domain during pre-integration-test phase -->
             </properties>
             <dependencies>
                 <dependency>
