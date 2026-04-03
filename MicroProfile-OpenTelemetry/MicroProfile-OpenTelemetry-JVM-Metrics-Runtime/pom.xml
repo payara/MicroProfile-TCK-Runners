@@ -152,6 +152,21 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>restart-remote-payara-server</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="restart-domain" />
+                                    <arg value="${payara.domain.name}" />
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>cleanup-remote-payara-server</id>
                         <phase>post-integration-test</phase>
                         <goals>
@@ -195,6 +210,21 @@
                                     <arg value="--target" />
                                     <arg value="server" />
                                     <arg value="otel.metric.export.interval" />
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>restart-after-cleanup-remote-payara-server</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target if="payara.server.remote">
+                                <exec executable="${payara.asadmin}">
+                                    <arg value="restart-domain" />
+                                    <arg value="${payara.domain.name}" />
                                 </exec>
                             </target>
                         </configuration>
