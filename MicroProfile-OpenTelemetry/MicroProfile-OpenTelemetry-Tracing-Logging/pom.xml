@@ -184,7 +184,6 @@
                                     <arg value="set-log-file-format" />
                                     <arg value="--target" />
                                     <arg value="server" />
-                                    <arg value="ODL" />
                                 </exec>
                                 <exec executable="${payara.asadmin}">
                                     <arg value="stop-domain" />
