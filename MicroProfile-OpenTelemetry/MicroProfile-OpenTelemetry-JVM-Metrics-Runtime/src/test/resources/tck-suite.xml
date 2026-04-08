@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <!--
   ~
   ~  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
@@ -41,54 +41,19 @@
   ~
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>fish.payara.microprofile</groupId>
-        <artifactId>tck-suite-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
-    
-    <packaging>pom</packaging>
-    
-    <groupId>fish.payara.microprofile.telemetry</groupId>
-    <artifactId>parent</artifactId>
-
-    <properties>
-        <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
-        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-web-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.rest.client</groupId>
-            <artifactId>microprofile-rest-client-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <modules>
-        <module>microprofile-opentelemetry-tracing-logging</module>
-        <module>microprofile-opentelemetry-jvm-metrics-runtime</module>
-        <module>microprofile-opentelemetry-jvm-metrics-application</module>
-    </modules>
-</project>
+<suite name="MicroProfile Telemetry Metrics TCK" verbose="10" configfailurepolicy="continue" >
+    <test name="telemetry-metrics-jvm-runtime-tests" verbose="10">
+        <groups>
+            <run>
+                <exclude name="optional-tests"></exclude>
+            </run>
+        </groups>
+        <packages>
+            <package name="org.eclipse.microprofile.telemetry.metrics.tck.jvm.*" />
+        </packages>
+        <!-- Uncomment to run a single test -->
+        <!--        <classes>-->
+        <!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
+        <!--        </classes>-->
+    </test>
+</suite>

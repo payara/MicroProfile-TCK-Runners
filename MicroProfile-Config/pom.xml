@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2017-2023] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -58,11 +58,9 @@
         <microprofile.config.version>3.1</microprofile.config.version>
         <microprofile.config.tck.version>3.1</microprofile.config.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <micro.randomPort>false</micro.randomPort>
 
     	<!-- Other Test Dependencies -->
     	<cdi.version>4.0.1</cdi.version>
-        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
     <dependencies>
@@ -105,7 +103,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="start-domain" />
                                 </exec>
                             </target>
@@ -119,7 +117,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target unless="payara.micro.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="create-system-properties" />
                                     <arg value="config_ordinal=120:customer.hobby=Tennis:mp.tck.prop.dummy=dummy" />
                                 </exec>
@@ -134,7 +132,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="stop-domain" />
                                 </exec>
                             </target>
@@ -148,9 +146,9 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.remote">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain" />
-                                    <arg value="${payara_domain}" />
+                                    <arg value="${payara.domain.name}" />
                                 </exec>
                             </target>
                         </configuration>
@@ -164,17 +162,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>windows-profile</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
-            </properties>
-        </profile>
         <profile>
             <id>payara-micro-managed</id>
             <properties>

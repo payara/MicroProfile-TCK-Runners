@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2025] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2018-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -59,8 +59,6 @@
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.commons.logging.version>1.2</apache.commons.logging.version>
-
-        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
     <build>
@@ -153,9 +151,9 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.remote">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain"/>
-                                    <arg value="${payara_domain}"/>
+                                    <arg value="${payara.domain.name}"/>
                                 </exec>
                             </target>
                         </configuration>
@@ -193,9 +191,9 @@
                         <phase>post-integration-test</phase>
                         <configuration>
                             <target if="payara.server.remote">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain"/>
-                                    <arg value="${payara_domain}"/>
+                                    <arg value="${payara.domain.name}"/>
                                 </exec>
                             </target>
                         </configuration>
@@ -209,19 +207,6 @@
     </build>
 
     <profiles>
-        <!-- Change asadmin executable for Windows -->
-        <profile>
-            <id>windows-profile</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
-            </properties>
-        </profile>
-
         <!-- Skip all but Payara Server profiles -->
         <profile>
             <id>payara-micro-managed</id>

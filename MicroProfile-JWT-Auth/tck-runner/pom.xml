@@ -53,7 +53,6 @@
 
     <properties>
         <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
-        <micro.randomPort>false</micro.randomPort>
     </properties>
 
     <dependencies>
