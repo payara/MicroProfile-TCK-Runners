@@ -494,7 +494,6 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <!-- Version 7.5+ requires slf4j-api, which is not in payara-web or micro -->
                 <version>7.12.0</version>
                 <scope>test</scope>
             </dependency>
