@@ -204,7 +204,7 @@
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
-                                <phase>process-test-resources</phase>
+                                <phase>pre-integration-test</phase>
                                 <configuration>
                                     <skip>${skipConfig}</skip>
                                     <artifactItems>
@@ -575,9 +575,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.commonjava.maven.plugins</groupId>
                 <artifactId>directory-maven-plugin</artifactId>
