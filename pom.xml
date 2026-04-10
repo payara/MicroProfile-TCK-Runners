@@ -494,8 +494,13 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <!-- Version 7.5+ requires slf4j-api, which is not in payara-web or micro -->
-                <version>7.4.0</version>
+                <version>7.12.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.16</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -570,9 +575,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.commonjava.maven.plugins</groupId>
                 <artifactId>directory-maven-plugin</artifactId>
