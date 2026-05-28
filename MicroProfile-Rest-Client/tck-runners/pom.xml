@@ -136,6 +136,11 @@
             <artifactId>jersey-mp-rest-client</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
         <dependency>
             <groupId>io.smallrye.config</groupId>
