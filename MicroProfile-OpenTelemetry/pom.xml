@@ -87,8 +87,8 @@
     </dependencies>
 
     <modules>
-        <module>microprofile-opentelemetry-tracing-logging</module>
-        <module>microprofile-opentelemetry-jvm-metrics-runtime</module>
-        <module>microprofile-opentelemetry-jvm-metrics-application</module>
+        <module>MicroProfile-OpenTelemetry-Tracing-Logging</module>
+        <module>MicroProfile-OpenTelemetry-JVM-Metrics-Runtime</module>
+        <module>MicroProfile-OpenTelemetry-JVM-Metrics-Application</module>
     </modules>
 </project>
