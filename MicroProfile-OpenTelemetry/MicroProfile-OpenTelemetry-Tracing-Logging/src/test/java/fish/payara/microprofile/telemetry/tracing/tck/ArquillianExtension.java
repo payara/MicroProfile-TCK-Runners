@@ -41,6 +41,7 @@
  */
 package fish.payara.microprofile.telemetry.tracing.tck;
 
+import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
@@ -76,7 +77,9 @@ public class ArquillianExtension implements LoadableExtension {
             webArchive
                     // OpenTelemetry setup
                     .addPackages(true, "fish.payara.microprofile.telemetry.tracing.tck")
-                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH);
+                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH)
+                    // Drop Payara's concurrent waiting spans so TCK exact-count assertions are unaffected
+                    .addAsServiceProvider(AutoConfigurationCustomizerProvider.class, ConcurrentSpanFilter.class);
         }
     }
 
