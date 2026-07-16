@@ -47,9 +47,14 @@ import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArch
 import org.jboss.arquillian.core.spi.LoadableExtension;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePath;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.Node;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -74,12 +79,31 @@ public class ArquillianExtension implements LoadableExtension {
         public void process(Archive<?> archive, TestClass testClass) {
             WebArchive webArchive = WebArchive.class.cast(archive);
             // json serialization of traces
+            // OpenTelemetry setup
             webArchive
-                    // OpenTelemetry setup
                     .addPackages(true, "fish.payara.microprofile.telemetry.tracing.tck")
-                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH)
-                    // Drop Payara's concurrent waiting spans so TCK exact-count assertions are unaffected
-                    .addAsServiceProvider(AutoConfigurationCustomizerProvider.class, ConcurrentSpanFilter.class);
+                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH);
+            // Drop Payara's concurrent waiting spans so TCK exact-count assertions are unaffected.
+            // Append to any existing service file rather than replacing it, so that test-supplied
+            // providers (e.g. CustomizerSpiTest's TestCustomizer) are not overwritten.
+            appendServiceProvider(webArchive, AutoConfigurationCustomizerProvider.class, ConcurrentSpanFilter.class);
+        }
+
+        private static void appendServiceProvider(WebArchive archive, Class<?> serviceType, Class<?> implementation) {
+            ArchivePath path = ArchivePaths.create("WEB-INF/classes/META-INF/services/" + serviceType.getName());
+            String existing = "";
+            Node node = archive.get(path);
+            if (node != null && node.getAsset() != null) {
+                try (InputStream is = node.getAsset().openStream()) {
+                    existing = new String(is.readAllBytes()).trim();
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to read existing service file " + path, e);
+                }
+            }
+            String combined = existing.isEmpty()
+                    ? implementation.getName()
+                    : existing + "\n" + implementation.getName();
+            archive.add(new StringAsset(combined), path);
         }
     }
 

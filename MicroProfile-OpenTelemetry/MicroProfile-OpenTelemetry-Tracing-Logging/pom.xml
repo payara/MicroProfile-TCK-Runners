@@ -157,6 +157,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>${skipConfig}</skip>
                             <target if="payara.server.remote">
                                 <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain" />
