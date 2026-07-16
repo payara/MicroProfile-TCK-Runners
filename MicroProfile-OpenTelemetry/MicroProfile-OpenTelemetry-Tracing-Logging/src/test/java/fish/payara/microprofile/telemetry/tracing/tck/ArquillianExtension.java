@@ -41,6 +41,7 @@
  */
 package fish.payara.microprofile.telemetry.tracing.tck;
 
+import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
@@ -75,36 +76,11 @@ public class ArquillianExtension implements LoadableExtension {
             // json serialization of traces
             webArchive
                     // OpenTelemetry setup
-                    .addAsServiceProvider(ConfigSource.class, SpanNaming.class)
                     .addPackages(true, "fish.payara.microprofile.telemetry.tracing.tck")
-                    .addClass(SpanNaming.class)
-                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH);
+                    .addAsResource(new StringAsset(EXECUTOR_PROPERTY + "=" + PayaraExecutor.class.getName()), PATH)
+                    // Drop Payara's concurrent waiting spans so TCK exact-count assertions are unaffected
+                    .addAsServiceProvider(AutoConfigurationCustomizerProvider.class, ConcurrentSpanFilter.class);
         }
     }
 
-    /**
-     * OpenTelemetry 1.13-compatible span naming needs to be followed for TCK 1.0, but not for TCK 1.1, this can be removed with MP 7.0 support
-     */
-    public static class SpanNaming implements ConfigSource {
-        private final static Map<String,String> properties = Map.of("payara.telemetry.span-convention", "OpenTelemetry-1.13");
-        @Override
-        public Set<String> getPropertyNames() {
-            return properties.keySet();
-        }
-
-        @Override
-        public String getValue(String s) {
-            return properties.get(s);
-        }
-
-        @Override
-        public String getName() {
-            return "MP TCK Span Naming configuration";
-        }
-
-        @Override
-        public Map<String, String> getProperties() {
-            return properties;
-        }
-    }
 }
