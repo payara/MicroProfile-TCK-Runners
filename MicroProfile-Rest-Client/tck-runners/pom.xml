@@ -57,7 +57,31 @@
     <properties>
         <micro.randomPort>false</micro.randomPort>
         <smallrye-config.version>2.7.0</smallrye-config.version>
+        <slf4j.version>1.7.36</slf4j.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Rest Client 4.0 TCK (via microprofile-tck-bom 3.4) was compiled against TestNG 7.8.0,
+                 which added boxed-Integer overloads of Assert.assertEquals. Override 7.4.0 from root pom
+                 only for this module; SLF4J (required by TestNG 7.8+) is added explicitly below. -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <modules>
         <module>default</module>
@@ -156,6 +180,16 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
             <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->

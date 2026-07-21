@@ -52,6 +52,19 @@
 
     <name>MicroProfile OpenAPI TCK Runner</name>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- OpenAPI 4.1 TCK (via microprofile-tck-bom 3.4) was compiled against TestNG 7.8.0,
+                 which added boxed-Boolean overloads of Assert.assertEquals. Override 7.4.0 from root pom.
+                 SLF4J (required by TestNG 7.8+) is provided by SLF4JDeploymentAppender at test runtime. -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.8.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <properties>
         <!-- Latest version of Microprofile Dependencies set via profiles -->
         <microprofile.openapi.version>4.1</microprofile.openapi.version>

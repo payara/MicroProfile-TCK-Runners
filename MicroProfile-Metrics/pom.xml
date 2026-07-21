@@ -53,6 +53,19 @@
 
     <name>MicroProfile Metrics TCK Runner</name>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Metrics 5.1.0 TCK (via microprofile-tck-bom 3.2) was compiled against TestNG 7.8.0,
+                 which added boxed-type overloads of Assert.assertEquals. Override 7.4.0 from root pom.
+                 SLF4J (required by TestNG 7.8+) is added to the WAR via ApplicationArchiveProcessorImpl. -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.8.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <properties>
         <!-- Metrics Dependencies -->
         <microprofile.metrics.version>5.1.0.payara-p1</microprofile.metrics.version>

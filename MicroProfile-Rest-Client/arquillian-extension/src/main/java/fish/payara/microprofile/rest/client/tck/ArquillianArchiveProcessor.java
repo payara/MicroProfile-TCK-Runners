@@ -59,6 +59,8 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final String WIREMOCK = "com.github.tomakehurst:wiremock";
     private static final String JUNIT = "junit:junit";
+    private static final String SLF4J_API = "org.slf4j:slf4j-api";
+    private static final String SLF4J_NOP = "org.slf4j:slf4j-nop";
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -69,6 +71,8 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         try {
             webArchive.addAsLibraries(lib(WIREMOCK));
             webArchive.addAsLibraries(lib(JUNIT));
+            webArchive.addAsLibraries(lib(SLF4J_API));
+            webArchive.addAsLibraries(lib(SLF4J_NOP));
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "addLibraries exception", e);
         }
