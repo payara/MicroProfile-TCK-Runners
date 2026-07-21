@@ -73,6 +73,15 @@
         <payara.microJar>${mptck.basedir}/target/payara-micro-${payara.version}.jar</payara.microJar>
         <micro.randomPort>true</micro.randomPort>
         <payara_domain>domain1</payara_domain>
+
+        <!-- Control properties -->
+        <skipTests>false</skipTests>
+        <skipConfig>${skipTests}</skipConfig>
+        <skipTestConfigCleanup>${skipConfig}</skipTestConfigCleanup>
+        <script.extension></script.extension>
+        <payara.asadmin>${payara.home}${file.separator}glassfish${file.separator}bin${file.separator}asadmin${script.extension}</payara.asadmin>
+        <payara.domain.name>domain1</payara.domain.name>
+        <payara.server.artifact>payara</payara.server.artifact>
     </properties>
 
     <modules>
@@ -83,8 +92,7 @@
         <module>MicroProfile-Health</module>
         <module>MicroProfile-Config</module>
         <module>MicroProfile-OpenAPI</module>
-        <module>MicroProfile-OpenTelemetry-Tracing</module>
-        <module>MicroProfile-OpenTracing</module>
+        <module>MicroProfile-OpenTelemetry</module>
     </modules>
 
     <dependencies>
@@ -135,19 +143,6 @@
 
     <!-- Profile specific dependencies -->
     <profiles>
-        <profile>
-            <id>payara5plus</id>
-            <activation>
-                <property>
-                    <name>payara.version</name>
-                    <!-- not payara 4 -->
-                    <value>/(?!4).+/</value>
-                </property>
-            </activation>
-            <modules>
-                <module>MicroProfile-OpenTracing</module>
-            </modules>
-        </profile>
         <profile>
             <id>payara-server-managed</id>
             <activation>
@@ -309,24 +304,6 @@
             </dependencies>
         </profile>
         <profile>
-            <id>jdk11</id>
-            <activation>
-                <jdk>11</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>4.0.0-RC2</version>
-                </dependency>
-                <dependency>
-                    <groupId>jakarta.activation</groupId>
-                    <artifactId>jakarta.activation-api</artifactId>
-                    <version>2.1.0-RC1</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>parallel</id>
             <properties>
                 <thread.count>4</thread.count>
@@ -349,6 +326,17 @@
                     </plugins>
                 </pluginManagement>
             </build>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>.bat</script.extension>
+            </properties>
         </profile>
         <profile>
             <id>verbose</id>
@@ -461,7 +449,7 @@
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <!-- Version 7.5+ requires slf4j-api, which is not in payara-web or micro -->
-                <version>7.4.0</version>
+                <version>7.12.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -503,7 +491,7 @@
             <dependency>
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock</artifactId>
-                <version>2.27.2</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.hamcrest</groupId>
@@ -599,7 +587,7 @@
                 <!-- Configure failsafe plugin to run integration tests -->
                 <plugin>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.5.3</version>
                     <executions>
                         <execution>
                             <phase>integration-test</phase>
@@ -628,12 +616,32 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <!-- Up-to-date compiler plugin -->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.6.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.5.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
