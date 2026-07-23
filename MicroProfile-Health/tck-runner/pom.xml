@@ -97,6 +97,14 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
     <!-- 1 TCK fails in MP Health 4.0.1 with jdk17+, so we exclude it. See https://github.com/eclipse/microprofile-health/issues/324 -->
     <profiles>
         <profile>
