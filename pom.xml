@@ -55,7 +55,7 @@
 
         <!-- MicroProfile TCK Versions -->
         <microprofile.config.tck.version>3.1.1</microprofile.config.tck.version>
-        <microprofile.metrics.tck.version>5.1.2</microprofile.metrics.tck.version>
+        <microprofile.metrics.tck.version>5.1.0</microprofile.metrics.tck.version>
         <microprofile.fault-tolerance.tck.version>4.1.2</microprofile.fault-tolerance.tck.version>
         <microprofile.health.tck.version>4.0.1</microprofile.health.tck.version>
         <microprofile.jwt-auth.tck.version>2.1</microprofile.jwt-auth.tck.version>
