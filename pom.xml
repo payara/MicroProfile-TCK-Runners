@@ -82,7 +82,7 @@
         <build.helper.maven.plugin.version>3.6.1</build.helper.maven.plugin.version>
         <exec.maven.plugin.version>3.6.3</exec.maven.plugin.version>
         <awaitility.version>4.3.0</awaitility.version>
-        <rest.assured.version>6.0.1</rest.assured.version>
+        <rest.assured.version>5.5.7</rest.assured.version>
         <jcommander.version>1.82</jcommander.version>
 
         <!-- Payara Dependencies -->
