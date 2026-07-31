@@ -86,7 +86,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-optional-tck</artifactId>
-            <version>${microprofile.metrics.version}</version>
+            <version>${microprofile.metrics.tck.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
