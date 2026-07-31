@@ -85,7 +85,7 @@
         <skipTests>false</skipTests>
         <skipConfig>${skipTests}</skipConfig> <!-- Whether to skip applying server config during pre-integration-test phase -->
         <skipTestConfigCleanup>${skipConfig}</skipTestConfigCleanup> <!-- Whether to skip cleaning up any config applied to the server for a test after executing it -->
-        <payara.asadmin>${payara.home}${file.separator}glassfish${file.separator}bin${file.separator}asadmin${script.extension}</payara.asadmin>
+        <payara.asadmin>${payara.home}${file.separator}glassfish${file.separator}bin${file.separator}asadmin</payara.asadmin>
         <payara.domain.name>domain1</payara.domain.name>
         <micro.randomPort>false</micro.randomPort>
         <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.home>
