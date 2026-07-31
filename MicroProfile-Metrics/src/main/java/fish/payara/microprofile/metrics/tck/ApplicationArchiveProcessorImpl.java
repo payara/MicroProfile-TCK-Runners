@@ -55,9 +55,5 @@ public class ApplicationArchiveProcessorImpl implements ApplicationArchiveProces
         }
         WebArchive webArchive = WebArchive.class.cast(archive);
         webArchive.addAsWebInfResource("beans.xml", "beans.xml");
-        // TestNG 7.8+ uses SLF4J internally; the classes must be in the WAR classloader
-        // or TestNG fails to initialise server-side. slf4j-jdk14 is on the compile
-        // classpath via the root pom so addPackages picks it up without extra deps.
-        webArchive.addPackages(true, "org.slf4j");
     }
 }

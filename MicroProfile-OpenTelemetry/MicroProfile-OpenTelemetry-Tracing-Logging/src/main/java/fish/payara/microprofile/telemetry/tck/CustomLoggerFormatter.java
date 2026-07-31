@@ -45,7 +45,7 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 public class CustomLoggerFormatter extends Formatter {
-
+    
     @Override
     public String format(LogRecord record) {
         String message = record.getMessage();

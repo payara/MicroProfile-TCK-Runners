@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2017-2023] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -53,24 +53,10 @@
 
     <name>MicroProfile Metrics TCK Runner</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Metrics 5.1.0 TCK (via microprofile-tck-bom 3.2) was compiled against TestNG 7.8.0,
-                 which added boxed-type overloads of Assert.assertEquals. Override 7.4.0 from root pom.
-                 SLF4J (required by TestNG 7.8+) is added to the WAR via ApplicationArchiveProcessorImpl. -->
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>7.8.0</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <properties>
         <!-- Metrics Dependencies -->
         <microprofile.metrics.version>5.1.0.payara-p1</microprofile.metrics.version>
         <microprofile.metrics.tck.version>5.1.0.payara-p1</microprofile.metrics.tck.version>
-        <micro.randomPort>false</micro.randomPort>
 
         <!-- Other Test Dependencies -->
         <cdi.version>4.0.1</cdi.version>
@@ -175,23 +161,4 @@
             </plugin>
         </plugins>
     </build>
-    
-    <profiles>
-        <profile>
-            <id>Jdk17+</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens=java.base/jdk.internal.loader=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-exports=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jrt=ALL-UNNAMED --add-exports=java.base/sun.net.www=ALL-UNNAMED --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.desktop/java.beans=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jar=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

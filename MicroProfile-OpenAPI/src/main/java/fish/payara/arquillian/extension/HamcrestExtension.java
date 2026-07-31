@@ -49,6 +49,5 @@ public class HamcrestExtension implements LoadableExtension {
     @Override
     public void register(ExtensionBuilder builder) {
         builder.service(AuxiliaryArchiveAppender.class, HamcrestDeploymentAppender.class);
-        builder.service(AuxiliaryArchiveAppender.class, SLF4JDeploymentAppender.class);
     }
 }

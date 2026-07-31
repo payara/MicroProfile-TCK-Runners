@@ -52,8 +52,8 @@
             <package name="org.eclipse.microprofile.telemetry.metrics.tck.jvm.*" />
         </packages>
         <!-- Uncomment to run a single test -->
-<!--        <classes>-->
-<!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
-<!--        </classes>-->
+        <!--        <classes>-->
+        <!--            <class name="org.eclipse.microprofile.telemetry.tracing.tck.async.JaxRsServerAsyncTest"></class>-->
+        <!--        </classes>-->
     </test>
 </suite>
