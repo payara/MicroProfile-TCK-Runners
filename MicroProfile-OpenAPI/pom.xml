@@ -53,11 +53,7 @@
     <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>4.1</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>4.1</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
@@ -84,7 +80,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.openapi</groupId>
             <artifactId>microprofile-openapi-api</artifactId>
-            <version>${microprofile.openapi.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -94,7 +89,7 @@
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.81</version>
+            <version>${jcommander.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

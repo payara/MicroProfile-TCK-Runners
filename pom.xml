@@ -53,6 +53,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- MicroProfile TCK Versions -->
+        <microprofile.config.tck.version>3.1.1</microprofile.config.tck.version>
+        <microprofile.metrics.tck.version>5.1.2</microprofile.metrics.tck.version>
+        <microprofile.fault-tolerance.tck.version>4.1.2</microprofile.fault-tolerance.tck.version>
+        <microprofile.health.tck.version>4.0.1</microprofile.health.tck.version>
+        <microprofile.jwt-auth.tck.version>2.1</microprofile.jwt-auth.tck.version>
+        <microprofile.openapi.tck.version>4.1.1</microprofile.openapi.tck.version>
+        <microprofile.telemetry.tck.version>2.1</microprofile.telemetry.tck.version>
+        <microprofile.rest.client.tck.version>4.0</microprofile.rest.client.tck.version>
+
         <!-- Misc. Runner Dependencies -->
         <maven.compiler.release>21</maven.compiler.release>
         <maven.failsafe.plugin.version>3.5.6</maven.failsafe.plugin.version>
@@ -71,9 +81,12 @@
         <directory.maven.plugin.version>1.0</directory.maven.plugin.version>
         <build.helper.maven.plugin.version>3.6.1</build.helper.maven.plugin.version>
         <exec.maven.plugin.version>3.6.3</exec.maven.plugin.version>
+        <awaitility.version>4.3.0</awaitility.version>
+        <rest.assured.version>6.0.1</rest.assured.version>
+        <jcommander.version>1.82</jcommander.version>
 
         <!-- Payara Dependencies -->
-        <payara.version>7.2026.3</payara.version>
+        <payara.version>7.2026.7</payara.version>
         <payara.server.artifact>payara</payara.server.artifact> <!-- Either payara or payara-web -->
         <payara.embedded.artifact>payara-embedded-all</payara.embedded.artifact> <!-- Either payara-embedded-all or payara-embedded-web -->
         <payara.arquillian.container.version>4.0.alpha4</payara.arquillian.container.version>

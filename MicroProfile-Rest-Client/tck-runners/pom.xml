@@ -128,7 +128,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
-            <version>${microprofile.rest.client.api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
