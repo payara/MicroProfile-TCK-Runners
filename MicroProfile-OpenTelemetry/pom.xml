@@ -57,7 +57,6 @@
     <artifactId>parent</artifactId>
 
     <properties>
-        <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 

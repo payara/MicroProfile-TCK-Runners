@@ -59,6 +59,8 @@
         <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.httpcore.version>4.4.16</apache.httpcore.version>
         <apache.commons.logging.version>1.2</apache.commons.logging.version>
+
+        <jersey.version>4.0.2.payara-p1</jersey.version>
     </properties>
 
     <build>

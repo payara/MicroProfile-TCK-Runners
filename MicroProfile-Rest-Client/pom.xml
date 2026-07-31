@@ -53,11 +53,6 @@
 
     <name>MicroProfile Rest Client TCK Runner - Parent</name>
 
-    <properties>
-        <microprofile.rest.client.tck.version>4.0</microprofile.rest.client.tck.version>
-        <microprofile.rest.client.api.version>4.0</microprofile.rest.client.api.version>
-    </properties>
-
     <modules>
         <module>arquillian-extension</module>
         <module>smallrye-config-repackaged</module>

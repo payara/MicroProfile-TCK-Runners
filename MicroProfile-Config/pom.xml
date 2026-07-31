@@ -54,13 +54,7 @@
     <name>MicroProfile Config TCK Runner</name>
 
     <properties>
-        <!-- Config Dependencies -->
-        <microprofile.config.version>3.1</microprofile.config.version>
-        <microprofile.config.tck.version>3.1</microprofile.config.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-
-    	<!-- Other Test Dependencies -->
-    	<cdi.version>4.0.1</cdi.version>
     </properties>
 
     <dependencies>
@@ -73,7 +67,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
-            <version>${microprofile.config.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -88,7 +81,6 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

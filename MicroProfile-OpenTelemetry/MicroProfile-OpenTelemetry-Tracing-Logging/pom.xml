@@ -59,13 +59,13 @@
         <dependency>
             <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-tracing-tck</artifactId>
-            <version>${microprofile.telemetry.version}</version>
+            <version>${microprofile.telemetry.tck.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-logs-tck</artifactId>
-            <version>${microprofile.telemetry.version}</version>
+            <version>${microprofile.telemetry.tck.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -53,21 +53,10 @@
 
     <name>MicroProfile Metrics TCK Runner</name>
 
-    <properties>
-        <!-- Metrics Dependencies -->
-        <microprofile.metrics.version>5.1.0.payara-p1</microprofile.metrics.version>
-        <microprofile.metrics.tck.version>5.1.0.payara-p1</microprofile.metrics.tck.version>
-
-        <!-- Other Test Dependencies -->
-        <cdi.version>4.0.1</cdi.version>
-        <jaxb.version>4.0.0</jaxb.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
-            <version>${microprofile.metrics.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -103,13 +92,12 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
+            <version>${rest.assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
 

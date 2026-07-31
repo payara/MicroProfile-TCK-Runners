@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile.telemetry</groupId>
             <artifactId>microprofile-telemetry-metrics-tck</artifactId>
-            <version>${microprofile.telemetry.version}</version>
+            <version>${microprofile.telemetry.tck.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
