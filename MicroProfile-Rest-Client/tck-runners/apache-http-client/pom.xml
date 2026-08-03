@@ -60,7 +60,7 @@
         <apache.httpcore.version>4.4.14</apache.httpcore.version>
         <apache.commons.logging.version>1.2</apache.commons.logging.version>
 
-        <jersey.version>4.0.2.payara-p1</jersey.version>
+        <jersey.version>3.1.11.payara-p2</jersey.version>
     </properties>
 
     <build>
