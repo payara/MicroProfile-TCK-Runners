@@ -62,6 +62,7 @@
         <microprofile.openapi.tck.version>3.1.1</microprofile.openapi.tck.version>
         <microprofile.telemetry.tck.version>1.1</microprofile.telemetry.tck.version>
         <microprofile.rest.client.tck.version>3.0.1</microprofile.rest.client.tck.version>
+        <microprofile.opentracing.tck.version>3.0</microprofile.opentracing.tck.version>
 
         <!-- Misc. Runner Dependencies -->
         <maven.compiler.release>11</maven.compiler.release>
