@@ -69,6 +69,14 @@
                     <groupId>io.rest-assured</groupId>
                     <artifactId>rest-assured</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>java-hamcrest</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
