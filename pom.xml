@@ -134,6 +134,7 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-api-maven</artifactId>
+            <version>${shrinkwrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
@@ -143,6 +144,7 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>${shrinkwrap.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
