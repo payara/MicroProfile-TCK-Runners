@@ -90,6 +90,7 @@
     <test name="extended-tests" verbose="10">
         <groups>
             <define name="extended-groups">
+                <include name="arquillian" description="Arquillian internal"/>
                 <include name="ejb-optional" description="EJB container integration tests"/>
                 <include name="jacc-optional" description="JACC API integration tests"/>
                 <include name="servlet-optional" description="Servlet container integration tests"/>
