@@ -597,6 +597,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Define failsafe, even with empty config, to ensure tests are actually run -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
         </plugins>
 
         <pluginManagement>
