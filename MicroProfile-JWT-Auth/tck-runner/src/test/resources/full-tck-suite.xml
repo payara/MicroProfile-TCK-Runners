@@ -13,7 +13,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<suite name="microprofile-jwt-auth-BaseTCK" verbose="1" preserve-order="true" configfailurepolicy="continue" >
+<suite name="microprofile-jwt-auth-FullTCK" verbose="1" preserve-order="true" configfailurepolicy="continue" >
 
     <!-- The required base JAX-RS and CDI based tests that all MP-JWT implementations
     must pass.
@@ -110,5 +110,4 @@
         </classes>
 
     </test>
-
 </suite>
