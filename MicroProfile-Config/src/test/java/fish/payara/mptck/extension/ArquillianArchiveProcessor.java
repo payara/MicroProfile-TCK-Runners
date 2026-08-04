@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2020-2022] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020-2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -58,7 +58,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all";
+    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest";
     private static final String JUNIT_DEP = "junit:junit";
 
     @Override
