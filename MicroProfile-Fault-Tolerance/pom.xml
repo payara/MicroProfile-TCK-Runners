@@ -119,7 +119,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>FT version ${microprofile.fault-tolerance.version}</echo>
                                 <echo>FT TCK version ${microprofile.fault-tolerance.tck.version}</echo>
                                 <echo>FT suite ${mptck.suite}</echo>
                             </target>
