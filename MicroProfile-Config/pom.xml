@@ -156,9 +156,6 @@
     <profiles>
         <profile>
             <id>payara-micro-managed</id>
-            <properties>
-                <payara.micro.managed/>
-            </properties>
             <build>
                 <plugins>
                     <!-- Configure Payara Micro Runtime -->

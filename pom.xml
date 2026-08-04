@@ -333,6 +333,11 @@
         </profile>
         <profile>
             <id>payara-micro-managed</id>
+
+            <properties>
+                <payara.micro.managed/>
+            </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -384,6 +389,11 @@
         </profile>
         <profile>
             <id>payara-micro-remote</id>
+
+            <properties>
+                <payara.micro.remote/>
+            </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
