@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE payara-web-app PUBLIC "-//Payara.fish//DTD Payara Server 7 Servlet 6.1 Revision 1//EN" "https://raw.githubusercontent.com/payara/Payara/refs/heads/main/appserver/deployment/dtds/src/main/resources/glassfish/lib/dtds/payara7-web-app_6_1-1.dtd">
+<payara-web-app error-url="">
+  <context-root>/</context-root>
+</payara-web-app>
