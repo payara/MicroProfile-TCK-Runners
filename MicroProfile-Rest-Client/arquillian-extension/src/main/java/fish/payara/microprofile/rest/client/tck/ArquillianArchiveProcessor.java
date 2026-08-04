@@ -57,7 +57,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String WIREMOCK = "org.wiremock:wiremock";
+    private static final String WIREMOCK = "com.github.tomakehurst:wiremock";
     private static final String JUNIT = "junit:junit";
 
     @Override
