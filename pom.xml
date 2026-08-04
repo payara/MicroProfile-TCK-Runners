@@ -220,7 +220,7 @@
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
-                                <phase>pre-integration-test</phase>
+                                <phase>process-test-classes</phase>
                                 <configuration>
                                     <skip>${skipConfig}</skip>
                                     <artifactItems>
