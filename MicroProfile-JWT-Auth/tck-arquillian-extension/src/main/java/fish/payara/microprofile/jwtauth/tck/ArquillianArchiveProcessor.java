@@ -80,7 +80,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
             webArchive.addAsResource("payara-mp-jwt.properties");
         }
         webArchive.addAsWebInfResource("web.xml")
-                .addAsWebInfResource("glassfish-web.xml");
+                .addAsWebInfResource("payara-web.xml");
 
         LOGGER.log(INFO, "Augmenting virtual web archive: {0}", archive);
         LOGGER.log(INFO, "Virtually augmented web archive: \n{0}", webArchive.toString(true));
