@@ -100,7 +100,7 @@
         <payara.domain.name>domain1</payara.domain.name>
         <micro.randomPort>false</micro.randomPort>
         <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.home>
-        <payara.microJar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.microJar>
+        <payara.microJar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro-${payara.version}.jar</payara.microJar>
         <payara-nexus-staging.repo.releases.enabled>false</payara-nexus-staging.repo.releases.enabled>
         <payara-nexus-staging.repo.snapshots.enabled>false</payara-nexus-staging.repo.snapshots.enabled>
     </properties>
