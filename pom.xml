@@ -364,7 +364,7 @@
                                             <version>${payara.version}</version>
                                             <overWrite>false</overWrite>
                                             <type>jar</type>
-                                            <outputDirectory>${mptck.basedir}/target/</outputDirectory>
+                                            <outputDirectory>${maven.multiModuleProjectDirectory}${file.separator}target</outputDirectory>
                                             <destFileName>payara-micro-${payara.version}.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
