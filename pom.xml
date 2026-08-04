@@ -99,8 +99,8 @@
         <payara.asadmin>${payara.home}${file.separator}glassfish${file.separator}bin${file.separator}asadmin</payara.asadmin>
         <payara.domain.name>domain1</payara.domain.name>
         <micro.randomPort>false</micro.randomPort>
-        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.home>
-        <payara.microJar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara7</payara.microJar>
+        <payara.home>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.home>
+        <payara.microJar>${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara6</payara.microJar>
         <payara-nexus-staging.repo.releases.enabled>false</payara-nexus-staging.repo.releases.enabled>
         <payara-nexus-staging.repo.snapshots.enabled>false</payara-nexus-staging.repo.snapshots.enabled>
     </properties>
