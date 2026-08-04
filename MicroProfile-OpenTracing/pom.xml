@@ -65,12 +65,6 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
-            <artifactId>microprofile-opentracing-api</artifactId>
-            <version>${microprofile.opentracing.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.opentracing</groupId>
             <artifactId>microprofile-opentracing-tck-rest-client</artifactId>
             <version>${microprofile.opentracing.tck.version}</version>
             <scope>test</scope>
@@ -82,7 +76,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
-            <version>${microprofile.config.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -93,7 +86,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
             <artifactId>microprofile-opentracing-api</artifactId>
-            <version>3.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -127,6 +119,7 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -214,6 +207,7 @@
                 <plugins>
                     <!-- Configure Payara Micro Runtime -->
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>
