@@ -183,11 +183,5 @@
                 <test.url>http://localhost:8181/openapi/</test.url>
             </properties>
         </profile>
-        <profile>
-            <id>payara-micro-managed</id>
-            <properties>
-                <payara.micro.managed/>
-            </properties>
-        </profile>
     </profiles>
 </project>
