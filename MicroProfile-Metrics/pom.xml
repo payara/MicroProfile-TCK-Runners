@@ -140,7 +140,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>Metrics version     ${microprofile.metrics.version}</echo>
                                 <echo>Metrics TCK version ${microprofile.metrics.tck.version}</echo>
                             </target>
                         </configuration>
