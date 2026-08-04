@@ -52,8 +52,7 @@
     <name>MicroProfile JWT-Auth TCK Runner</name>
 
     <properties>
-        <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
-        <micro.randomPort>false</micro.randomPort>
+        <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
     </properties>
 
     <dependencies>
@@ -67,32 +66,21 @@
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
                 </exclusion>
-                <!--<exclusion>
-                    <groupId>fish.payara.server.internal.payara-appserver-modules</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                </exclusion>-->
-                <!-- exclude dependency inheritance for server-managed from tck extension -->
-                <exclusion>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>fish.payara.arquillian</groupId>
-            <artifactId>payara-client-ee8</artifactId>
+            <groupId>org.eclipse.parsson</groupId>
+            <artifactId>jakarta.json</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -100,13 +88,26 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
-            <id>full</id>
+            <id>base-tck</id>
             <properties>
-                <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
+                <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
             </properties>
         </profile>
 
@@ -123,26 +124,6 @@
                                 <mp.jwt.tck.jwks.baseURL>http://localhost:8080/</mp.jwt.tck.jwks.baseURL>
                                 <mp.jwt.tck.pem.baseURL>http://localhost:8080/</mp.jwt.tck.pem.baseURL>
                             </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        
-        <!-- One test fails with jdk19 (and above), because AES KeyGenerator has changed its default size from 128 to 256. 
-        This is fixed in Microprofile-JWT-Auth 2.1, but Enterprise 5 uses Microprofile-JWT-Auth 1.2.2, so the test needs an extra configuration
-        See https://github.com/eclipse/microprofile-jwt-auth/issues/295 -->                 
-        <profile>
-            <id>jdk19+</id>
-            <activation>
-                <jdk>[19,)</jdk>
-            </activation>            
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>-Djdk.security.defaultKeySize=AES:128</argLine>
                         </configuration>
                     </plugin>
                 </plugins>

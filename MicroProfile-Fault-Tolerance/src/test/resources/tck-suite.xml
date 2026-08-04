@@ -1,30 +1,11 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="microprofile-fault-tolerance-TCK" verbose="2" configfailurepolicy="continue" >
+<suite name="microprofile-FT-TCK" verbose="2" >
 
-    <test name="microprofile-fault-tolerance 1.1.1 TCK">
+    <test name="MicroProfile Fault Tolerance TCK">
         <packages>
-            <package name="org.eclipse.microprofile.fault.tolerance.tck.*">
-                <exclude name="org.eclipse.microprofile.fault.tolerance.tck.invalidParameters"/>
-                <exclude name="org.eclipse.microprofile.fault.tolerance.tck.illegalConfig"/>
-            </package>
+            <package name="org.eclipse.microprofile.fault.tolerance.tck.*" />
         </packages>
-        <classes>
-            <!-- Disabled due to dubious validity: it's using fallback without any other annotation -->
-            <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.FallbackMetricTest">
-                <methods>
-                    <exclude name="fallbackMetricMethodTest"/>
-                    <exclude name="fallbackMetricHandlerTest"/>
-                </methods>
-            </class>
-            <!-- Disabled due to odd behaviour - possibly due to future.get() interation -->
-            <class name="org.eclipse.microprofile.fault.tolerance.tck.metrics.BulkheadMetricTest">
-                <methods>
-                    <exclude name="bulkheadMetricHistogramTest"/>
-                    <exclude name="bulkheadMetricRejectionTest"/>
-                </methods>
-            </class>
-        </classes>
     </test>
 
 </suite>

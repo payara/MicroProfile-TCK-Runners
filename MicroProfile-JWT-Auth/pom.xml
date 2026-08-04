@@ -53,12 +53,6 @@
 
     <name>MicroProfile JWT-Auth TCK Runner Parent</name>
 
-    <properties>
-        <!-- JWT Auth Dependencies -->
-        <microprofile.jwt-auth.version>1.2.2</microprofile.jwt-auth.version>
-        <microprofile.jwt-auth.tck.version>1.2.2</microprofile.jwt-auth.tck.version>
-    </properties>
-
     <modules>
         <module>tck-arquillian-extension</module>
         <module>tck-runner</module>
@@ -73,7 +67,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
             <artifactId>microprofile-jwt-auth-api</artifactId>
-            <version>${microprofile.jwt-auth.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
@@ -82,4 +75,5 @@
             <type>test-jar</type>
         </dependency>
     </dependencies>
+
 </project>
