@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2020-2021] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,50 +37,57 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.microprofile.config.tck;
+package fish.payara.mptck.extension;
 
-import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
+import org.jboss.arquillian.container.spi.event.container.BeforeDeploy;
+import org.jboss.arquillian.core.api.annotation.Observes;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePath;
+import org.jboss.shrinkwrap.api.Node;
+import org.jboss.shrinkwrap.api.asset.ArchiveAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 
-import java.io.File;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This archive processor adds the Hamcrest matcher and JUnit Assert classes
- * to each archive being created by the MP-Config TCK.
+ * @author ariekiswanto
  *
  */
-public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
+public class LifecycleExecutor {
 
-    private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
+    private static final Logger LOG = Logger.getLogger(LifecycleExecutor.class.getName());
 
-    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest";
-    private static final String JUNIT_DEP = "junit:junit";
+    /**
+     * Observes <code>BeforeDeploy</code> event to modify beans definition
+     * before deployment happen to prevent CDI deployment failure
+     * @param event
+     * @param testClass
+     */
+    public void executeBeforeDeploy(@Observes BeforeDeploy event, TestClass testClass) {
+       LOG.info("before deploy event: " + event.getDeployment().getArchive().getName());
+        Archive archive = event.getDeployment().getArchive();
+        if (archive instanceof WebArchive) {
+            WebArchive webArchive = WebArchive.class.cast(archive);
+            if (webArchive.contains("WEB-INF/beans.xml")) {
+                LOG.info("modify beans");
+                webArchive.addAsWebInfResource("beans.xml", "beans.xml");
+            }
 
-    @Override
-    public void process(Archive<?> archive, TestClass testClass) {
-        if (!(archive instanceof WebArchive)) {
-            return;
+            for(Map.Entry<ArchivePath, Node> content : webArchive.getContent().entrySet()) {
+                if (content.getValue().getAsset() instanceof ArchiveAsset) {
+                    ArchiveAsset asset = (ArchiveAsset) content.getValue().getAsset();
+                    if (asset.getArchive().contains("META-INF/beans.xml")) {
+                        LOG.log(Level.INFO, "Virtually augmented content archive \n");
+                        JavaArchive javaArchive = JavaArchive.class.cast(asset.getArchive());
+                        javaArchive.addAsManifestResource("beans.xml");
+
+                    }
+                }
+            }
         }
-        WebArchive webArchive = WebArchive.class.cast(archive);
-        try {
-            webArchive.addAsLibraries(lib(HAMCREST_ALL));
-            webArchive.addAsLibraries(lib(JUNIT_DEP));
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "addLibraries exception", e);
-        }
-
-        LOG.log(Level.INFO, "Virtually augmented web archive: \n {0}", webArchive.toString(true));
-    }
-
-    private File[] lib(String depspec) {
-        return Maven.resolver()
-                .loadPomFromFile("pom.xml")
-                .resolve(depspec)
-                .withoutTransitivity().asFile();
     }
 }
