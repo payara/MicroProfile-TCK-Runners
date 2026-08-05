@@ -58,7 +58,7 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest-all";
+    private static final String HAMCREST_ALL = "org.hamcrest:hamcrest";
     private static final String JUNIT_DEP = "junit:junit";
 
     @Override
