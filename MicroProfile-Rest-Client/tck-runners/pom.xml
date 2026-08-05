@@ -110,6 +110,20 @@
             <artifactId>payara-client-ee8</artifactId>
             <scope>test</scope>
             <exclusions>
+                <!-- depending on version of ee8-client, the possibly
+                conflicting rest client implementation is either of these -->
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext.microprofile</groupId>
+                    <artifactId>jersey-mp-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext</groupId>
+                    <artifactId>jersey-mp-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.jersey.ext</groupId>
+                    <artifactId>jersey-microprofile-rest-client</artifactId>
+                </exclusion>
                 <!-- Jersey internals may be incompatible to those needed by rest client -->
                 <exclusion>
                     <groupId>org.glassfish.jersey.core</groupId>
@@ -143,8 +157,8 @@
         <!-- TCK needs standalone mp config implementation. Ours works only remotely -->
         <dependency>
             <groupId>io.smallrye.config</groupId>
-            <artifactId>smallrye-config-repackaged</artifactId>
-            <version>${project.version}</version>
+            <artifactId>smallrye-config</artifactId>
+            <version>${smallrye-config.version}</version>
         </dependency>
         <dependency>
             <groupId>fish.payara.microprofile.rest-client</groupId>
