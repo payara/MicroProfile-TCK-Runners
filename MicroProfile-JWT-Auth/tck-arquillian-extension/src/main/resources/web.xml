@@ -2,7 +2,7 @@
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
 The contents of this file are subject to the terms of either the GNU
 General Public License Version 2 only ("GPL") or the Common Development
@@ -41,39 +41,5 @@ holder.
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
     version="6.0">
-
-    <!-- 
-        Workaround for https://github.com/eclipse/microprofile-jwt-auth/issues/51
-        Should be removed after that issue being resolved. 
-    -->
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>TCK ServletTest</web-resource-name>
-            <url-pattern>/ServiceServlet/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>Tester</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <!-- 
-        Workaround for ServletContext#declareRoles not working correctly in Payara.
-        Should be removed when Payara is fixed.
-    -->
-    <security-role>
-        <role-name>Echoer</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Tester</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Token2Role</role-name>
-    </security-role>
-    <security-role>
-        <role-name>group1</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Group1MappedRole</role-name>
-    </security-role>
 
 </web-app>
