@@ -55,7 +55,6 @@
 
     <modules>
         <module>arquillian-extension</module>
-        <module>smallrye-config-repackaged</module>
         <module>tck-runners</module>
     </modules>
 
