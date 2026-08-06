@@ -86,7 +86,7 @@
         <jcommander.version>1.82</jcommander.version>
 
         <!-- Payara Dependencies -->
-        <payara.version>5.89.0</payara.version>
+        <payara.version>5.90.0-SNAPSHOT</payara.version>
         <payara.server.artifact>payara</payara.server.artifact> <!-- Either payara or payara-web -->
         <payara.embedded.artifact>payara-embedded-all</payara.embedded.artifact> <!-- Either payara-embedded-all or payara-embedded-web -->
         <payara.arquillian.container.version>2.5</payara.arquillian.container.version>
