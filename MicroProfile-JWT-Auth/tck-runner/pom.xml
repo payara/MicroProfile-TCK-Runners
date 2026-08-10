@@ -52,7 +52,7 @@
     <name>MicroProfile JWT-Auth TCK Runner</name>
 
     <properties>
-        <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
+        <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
     </properties>
 
     <dependencies>
@@ -65,15 +65,6 @@
                 <exclusion>
                     <groupId>fish.payara.microprofile.jwt-auth</groupId>
                     <artifactId>microprofile-jwt-auth</artifactId>
-                </exclusion>
-                <!--<exclusion>
-                    <groupId>fish.payara.server.internal.payara-appserver-modules</groupId>
-                    <artifactId>microprofile-jwt-auth</artifactId>
-                </exclusion>-->
-                <!-- exclude dependency inheritance for server-managed from tck extension -->
-                <exclusion>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -97,6 +88,11 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -109,9 +105,9 @@
 
     <profiles>
         <profile>
-            <id>full</id>
+            <id>base-tck</id>
             <properties>
-                <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
+                <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
             </properties>
         </profile>
 

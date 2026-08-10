@@ -53,11 +53,7 @@
     <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>4.1</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>4.1</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
@@ -78,23 +74,22 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
+            <version>${rest.assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.openapi</groupId>
             <artifactId>microprofile-openapi-api</artifactId>
-            <version>${microprofile.openapi.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
+            <artifactId>hamcrest</artifactId>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.81</version>
+            <version>${jcommander.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -186,12 +181,6 @@
             <id>payara-server-embedded</id>
             <properties>
                 <test.url>http://localhost:8181/openapi/</test.url>
-            </properties>
-        </profile>
-        <profile>
-            <id>payara-micro-managed</id>
-            <properties>
-                <payara.micro.managed/>
             </properties>
         </profile>
     </profiles>
