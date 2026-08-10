@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2020-2023] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2020-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -53,12 +53,7 @@
     <name>MicroProfile OpenAPI TCK Runner</name>
 
     <properties>
-        <!-- Latest version of Microprofile Dependencies set via profiles -->
-        <microprofile.openapi.version>3.1.1</microprofile.openapi.version>
-        <microprofile.openapi.tck.version>3.1.1</microprofile.openapi.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
-
         <!-- OpenAPI test url -->
         <test.url>http://localhost:8080/openapi/</test.url>
     </properties>
@@ -74,28 +69,35 @@
                     <groupId>io.rest-assured</groupId>
                     <artifactId>rest-assured</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>java-hamcrest</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
+            <version>${rest.assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.openapi</groupId>
             <artifactId>microprofile-openapi-api</artifactId>
-            <version>${microprofile.openapi.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
+            <artifactId>hamcrest</artifactId>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.81</version>
+            <version>${jcommander.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -115,7 +117,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="start-domain" />
                                 </exec>
                             </target>
@@ -129,7 +131,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target unless="payara.micro.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="set" />
                                     <arg value="configs.config.server-config.network-config.network-listeners.network-listener.http-listener-2.enabled=false" />
                                 </exec>
@@ -144,7 +146,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="stop-domain" />
                                 </exec>
                             </target>
@@ -158,9 +160,9 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.remote">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain" />
-                                    <arg value="${payara_domain}" />
+                                    <arg value="${payara.domain.name}" />
                                 </exec>
                             </target>
                         </configuration>
@@ -187,23 +189,6 @@
             <id>payara-server-embedded</id>
             <properties>
                 <test.url>http://localhost:8181/openapi/</test.url>
-            </properties>
-        </profile>
-        <profile>
-            <id>payara-micro-managed</id>
-            <properties>
-                <payara.micro.managed/>
-            </properties>
-        </profile>
-        <profile>
-            <id>windows-profile</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
             </properties>
         </profile>
     </profiles>

@@ -13,7 +13,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<suite name="microprofile-jwt-auth-BaseTCK" verbose="1" preserve-order="true" configfailurepolicy="continue" >
+<suite name="microprofile-jwt-auth-FullTCK" verbose="1" preserve-order="true" configfailurepolicy="continue" >
 
     <!-- The required base JAX-RS and CDI based tests that all MP-JWT implementations
     must pass.
@@ -90,6 +90,7 @@
     <test name="extended-tests" verbose="10">
         <groups>
             <define name="extended-groups">
+                <include name="arquillian" description="Arquillian internal"/>
                 <include name="ejb-optional" description="EJB container integration tests"/>
                 <include name="jacc-optional" description="JACC API integration tests"/>
                 <include name="servlet-optional" description="Servlet container integration tests"/>
@@ -110,5 +111,4 @@
         </classes>
 
     </test>
-
 </suite>
