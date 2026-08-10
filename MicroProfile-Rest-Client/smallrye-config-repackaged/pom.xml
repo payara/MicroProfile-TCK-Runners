@@ -8,7 +8,7 @@
     <name>smallrye-config repackaged as a module</name>
 
     <properties>
-        <smallrye-config.version>2.7.0</smallrye-config.version>
+        <smallrye-config.version>3.8.3</smallrye-config.version>
     </properties>
 
     <build>
