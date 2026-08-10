@@ -52,7 +52,6 @@
     <name>MicroProfile Health TCK Runner</name>
 
     <properties>
-        <microprofile.health.tck.version>4.0.1</microprofile.health.tck.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
@@ -66,7 +65,6 @@
         <dependency>
             <groupId>org.eclipse.microprofile.health</groupId>
             <artifactId>microprofile-health-api</artifactId>
-            <version>${microprofile.health.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -87,26 +85,14 @@
             <artifactId>tck-arquillian-extension</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <!-- exclude dependency inheritance for server-managed from tck extension -->
-                <exclusion>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-4-managed</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
-    
-    <!-- 1 TCK fails in MP Health 4.0.1 with jdk17+, so we exclude it. See https://github.com/eclipse/microprofile-health/issues/324 -->
-    <profiles>
-        <profile>
-            <id>Jdk17+</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/tck-suite-jdk17.xml</mptck.suite>
-            </properties>
-        </profile>
-    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

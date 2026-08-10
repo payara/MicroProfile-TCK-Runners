@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2018 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018-2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -57,10 +57,8 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
 
     private static final Logger LOG = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
-    private static final String WIREMOCK = "com.github.tomakehurst:wiremock";
+    private static final String WIREMOCK = "org.wiremock:wiremock";
     private static final String JUNIT = "junit:junit";
-    private static final String SLF4J_API = "org.slf4j:slf4j-api";
-    private static final String SLF4J_NOP = "org.slf4j:slf4j-nop";
 
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
@@ -71,8 +69,6 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         try {
             webArchive.addAsLibraries(lib(WIREMOCK));
             webArchive.addAsLibraries(lib(JUNIT));
-            webArchive.addAsLibraries(lib(SLF4J_API));
-            webArchive.addAsLibraries(lib(SLF4J_NOP));
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "addLibraries exception", e);
         }

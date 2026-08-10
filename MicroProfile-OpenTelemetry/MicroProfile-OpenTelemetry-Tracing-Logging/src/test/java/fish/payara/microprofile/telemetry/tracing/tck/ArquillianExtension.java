@@ -62,10 +62,10 @@ import java.util.Set;
  * @author ariekiswanto
  */
 public class ArquillianExtension implements LoadableExtension {
-
+    
     private static final String EXECUTOR_PROPERTY = "telemetry.tck.executor";
     private static final String PATH = "META-INF/microprofile-telemetry-tck.properties";
-
+    
     @Override
     public void register(ExtensionBuilder extensionBuilder) {
         extensionBuilder.service(ApplicationArchiveProcessor.class, ApplicationArchiveProcessorImpl.class);

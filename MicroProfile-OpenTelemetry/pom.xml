@@ -3,7 +3,7 @@
   ~
   ~  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
   ~
-  ~  Copyright (c) 2024-2025 Payara Foundation and/or its affiliates. All rights reserved.
+  ~  Copyright (c) 2026 Payara Foundation and/or its affiliates. All rights reserved.
   ~
   ~  The contents of this file are subject to the terms of either the GNU
   ~  General Public License Version 2 only ("GPL") or the Common Development
@@ -50,14 +50,13 @@
         <artifactId>tck-suite-parent</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
-
+    
     <packaging>pom</packaging>
-
+    
     <groupId>fish.payara.microprofile.telemetry</groupId>
     <artifactId>parent</artifactId>
 
     <properties>
-        <microprofile.telemetry.version>2.1</microprofile.telemetry.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
@@ -92,22 +91,4 @@
         <module>MicroProfile-OpenTelemetry-JVM-Metrics-Application</module>
     </modules>
 
-    <profiles>
-        <profile>
-            <id>Jdk17+</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens=java.base/jdk.internal.loader=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-exports=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jrt=ALL-UNNAMED --add-exports=java.base/sun.net.www=ALL-UNNAMED --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.desktop/java.beans=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jar=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
