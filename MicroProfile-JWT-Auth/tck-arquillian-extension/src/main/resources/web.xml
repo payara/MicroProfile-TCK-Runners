@@ -42,38 +42,4 @@ holder.
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
 
-    <!-- 
-        Workaround for https://github.com/eclipse/microprofile-jwt-auth/issues/51
-        Should be removed after that issue being resolved. 
-    -->
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>TCK ServletTest</web-resource-name>
-            <url-pattern>/ServiceServlet/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>Tester</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <!-- 
-        Workaround for ServletContext#declareRoles not working correctly in Payara.
-        Should be removed when Payara is fixed.
-    -->
-    <security-role>
-        <role-name>Echoer</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Tester</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Token2Role</role-name>
-    </security-role>
-    <security-role>
-        <role-name>group1</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Group1MappedRole</role-name>
-    </security-role>
-
 </web-app>

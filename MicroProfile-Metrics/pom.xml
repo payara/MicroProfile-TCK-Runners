@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -53,21 +53,10 @@
 
     <name>MicroProfile Metrics TCK Runner</name>
 
-    <properties>
-        <!-- Metrics Dependencies -->
-    	<microprofile.metrics.version>3.0</microprofile.metrics.version>
-    	<microprofile.metrics.tck.version>3.0</microprofile.metrics.tck.version>
-        <micro.randomPort>false</micro.randomPort>
-
-    	<!-- Other Test Dependencies -->
-    	<cdi.version>2.0.SP1</cdi.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
-            <version>${microprofile.metrics.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -89,9 +78,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>${cdi.version}</version>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -129,7 +117,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>Metrics version     ${microprofile.metrics.version}</echo>
                                 <echo>Metrics TCK version ${microprofile.metrics.tck.version}</echo>
                             </target>
                         </configuration>
@@ -138,23 +125,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>Jdk17+</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens=java.base/jdk.internal.loader=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-exports=java.base/jdk.internal.ref=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jrt=ALL-UNNAMED --add-exports=java.base/sun.net.www=ALL-UNNAMED --add-exports=java.base/sun.security.util=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.desktop/java.beans=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=ALL-UNNAMED --add-opens=java.base/sun.net.www.protocol.jar=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

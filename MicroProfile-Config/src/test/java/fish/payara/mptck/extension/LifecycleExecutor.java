@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,52 +37,57 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.microprofile.jwtauth.tck;
+package fish.payara.mptck.extension;
 
-import static java.util.logging.Level.INFO;
-import java.util.logging.Logger;
-import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
+import org.jboss.arquillian.container.spi.event.container.BeforeDeploy;
+import org.jboss.arquillian.core.api.annotation.Observes;
 import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.Node;
+import org.jboss.shrinkwrap.api.asset.ArchiveAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- * This archive processor adds the files <code>payara-mp-jwt.properties</code>
- * and <code>web.xml</code> to each archive being created by the MP-JWT TCK.
- * 
- * <p>
- * <code>payara-mp-jwt.properties</code> configures the valid issuer, while
- * <code>web.xml</code> contains a fix for a TCK bug, and a fix for a Payara bug
- * (see inside that file for more details).
- * 
- * @author Arjan Tijms
+ * @author ariekiswanto
  *
  */
-public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
-    
-    private static final Logger LOGGER = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
+public class LifecycleExecutor {
 
-    @Override
-    public void process(Archive<?> archive, TestClass testClass) {
-        if (!(archive instanceof WebArchive)) {
-            return;
-        }
-        
-        WebArchive webArchive = WebArchive.class.cast(archive);
-        Node publicKeyNode = webArchive.get("/WEB-INF/classes/publicKey.pem");
-        if (publicKeyNode == null) {
-            return;
-        }
+    private static final Logger LOG = Logger.getLogger(LifecycleExecutor.class.getName());
 
-        Node microprofileConfig = webArchive.get("/META-INF/microprofile-config.properties");
-        if (microprofileConfig == null) {
-            webArchive.addAsResource("payara-mp-jwt.properties");
-        }
-        webArchive.addAsWebInfResource("web.xml")
-                .addAsWebInfResource("payara-web.xml");
+    /**
+     * Observes <code>BeforeDeploy</code> event to modify beans definition
+     * before deployment happen to prevent CDI deployment failure
+     * @param event
+     * @param testClass
+     */
+    public void executeBeforeDeploy(@Observes BeforeDeploy event, TestClass testClass) {
+       LOG.info("before deploy event: " + event.getDeployment().getArchive().getName());
+        Archive archive = event.getDeployment().getArchive();
+        if (archive instanceof WebArchive) {
+            WebArchive webArchive = WebArchive.class.cast(archive);
+            if (webArchive.contains("WEB-INF/beans.xml")) {
+                LOG.info("modify beans");
+                webArchive.addAsWebInfResource("beans.xml", "beans.xml");
+            }
 
-        LOGGER.log(INFO, "Augmenting virtual web archive: {0}", archive);
-        LOGGER.log(INFO, "Virtually augmented web archive: \n{0}", webArchive.toString(true));
+            for(Map.Entry<ArchivePath, Node> content : webArchive.getContent().entrySet()) {
+                if (content.getValue().getAsset() instanceof ArchiveAsset) {
+                    ArchiveAsset asset = (ArchiveAsset) content.getValue().getAsset();
+                    if (asset.getArchive().contains("META-INF/beans.xml")) {
+                        LOG.log(Level.INFO, "Virtually augmented content archive \n");
+                        JavaArchive javaArchive = JavaArchive.class.cast(asset.getArchive());
+                        javaArchive.addAsManifestResource("beans.xml");
+
+                    }
+                }
+            }
+        }
     }
 }

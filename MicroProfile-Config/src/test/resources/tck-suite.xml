@@ -2,7 +2,12 @@
 
 <suite name="microprofile-config-TCK" verbose="2" configfailurepolicy="continue" >
 
-    <test name="microprofile-config 2.0 TCK">
+    <test name="Setup">
+        <classes>
+            <class name="fish.payara.mptck.setup.SetupIT"/>
+        </classes>
+    </test>
+    <test name="MicroProfile Config TCK">
         <packages>
             <package name="org.eclipse.microprofile.config.tck.*">
                 <exclude name="org.eclipse.microprofile.config.tck.broken"/>

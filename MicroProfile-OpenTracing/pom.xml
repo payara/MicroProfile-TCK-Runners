@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -53,30 +53,26 @@
     <name>MicroProfile OpenTracing TCK Runner</name>
 
     <properties>
-        <!-- OpenTracing Dependencies -->
-        <microprofile.opentracing.version>2.0</microprofile.opentracing.version>
         <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
-        <payara.executable>${payara.home}/bin/asadmin</payara.executable>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
             <artifactId>microprofile-opentracing-tck</artifactId>
-            <version>${microprofile.opentracing.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.opentracing</groupId>
-            <artifactId>microprofile-opentracing-api</artifactId>
-            <version>${microprofile.opentracing.version}</version>
+            <version>${microprofile.opentracing.tck.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.opentracing</groupId>
             <artifactId>microprofile-opentracing-tck-rest-client</artifactId>
-            <version>${microprofile.opentracing.version}</version>
+            <version>${microprofile.opentracing.tck.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.opentracing</groupId>
+            <artifactId>microprofile-opentracing-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
@@ -86,13 +82,13 @@
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
-            <version>${jersey.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -100,7 +96,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="start-domain" />
                                 </exec>
                             </target>
@@ -114,20 +110,20 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target unless="payara.micro.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="create-system-properties" />
                                     <arg value="USE_OPENTRACING_MOCK_TRACER=true" />
                                 </exec>
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="set-requesttracing-configuration" />
                                     <arg value="--enabled=true" />
                                     <arg value="--dynamic=true" />
                                 </exec>
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="set" />
                                     <arg value="configs.config.server-config.thread-pools.thread-pool.http-thread-pool.max-thread-pool-size=200" />
                                 </exec>
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="set-payara-executor-service-configuration" />
                                     <arg value="--threadpoolexecutorcorepoolsize=20" />
                                     <arg value="--threadpoolexecutormaxpoolsize=100" />
@@ -135,12 +131,12 @@
                                     <arg value="--scheduledthreadpoolexecutorcorepoolsize=20" />
                                 </exec>
                                 <!--
-                                    Add OpenTracing Mock to classpath. This JAR is just the normal opentracing-mock 
+                                    Add OpenTracing Mock to classpath. This JAR is just the normal opentracing-mock
                                     dependency with the Service Loader file added to it (by cracking it open, adding
                                     the file, and recreating the jar. This needs updating whenever opentracing gets
                                     updated (until they add the serviceloader themselves).
-                                --> 
-                                <exec executable="${payara.executable}">
+                                -->
+                                <exec executable="${payara.asadmin}">
                                     <arg value="add-library" />
                                     <arg value="${basedir}/opentracing-mock-0.33.0-serviceloader.jar" />
                                 </exec>
@@ -155,7 +151,7 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.managed">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="stop-domain" />
                                 </exec>
                             </target>
@@ -169,9 +165,9 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target if="payara.server.remote">
-                                <exec executable="${payara.executable}">
+                                <exec executable="${payara.asadmin}">
                                     <arg value="restart-domain" />
-                                    <arg value="${payara_domain}" />
+                                    <arg value="${payara.domain.name}" />
                                 </exec>
                             </target>
                         </configuration>
@@ -186,17 +182,6 @@
 
     <profiles>
         <profile>
-            <id>windows-profile</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <payara.executable>${payara.home}/bin/asadmin.bat</payara.executable>
-            </properties>
-        </profile>
-        <profile>
             <id>payara-micro-managed</id>
             <properties>
                 <payara.micro.managed/>
@@ -205,6 +190,7 @@
                 <plugins>
                     <!-- Configure Payara Micro Runtime -->
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <environmentVariables>

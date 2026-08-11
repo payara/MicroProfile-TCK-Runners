@@ -54,11 +54,7 @@
     <name>MicroProfile Fault Tolerance TCK Runner</name>
 
     <properties>
-        <!-- Defaults for API and TCK dependencies - latest version -->
-        <microprofile.fault-tolerance.version>3.0</microprofile.fault-tolerance.version>
-        <microprofile.fault-tolerance.tck.version>3.0</microprofile.fault-tolerance.tck.version>
-        <microprofile.metrics.version>3.0</microprofile.metrics.version>
-        <mptck.suite>${basedir}/src/test/resources/tck-suite3.0-all.xml</mptck.suite>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
     </properties>
 
     <dependencies>
@@ -71,13 +67,11 @@
         <dependency>
             <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
             <artifactId>microprofile-fault-tolerance-api</artifactId>
-            <version>${microprofile.fault-tolerance.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
-            <version>${microprofile.metrics.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -112,7 +106,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>FT version ${microprofile.fault-tolerance.version}</echo>
                                 <echo>FT TCK version ${microprofile.fault-tolerance.tck.version}</echo>
                                 <echo>FT suite ${mptck.suite}</echo>
                             </target>
@@ -124,19 +117,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>unstable-1.1</id>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/no-ext-libs-tck-suite.xml</mptck.suite>
-            </properties>
-        </profile>
-        <profile>
-            <id>unstable-2.0</id>
-            <properties>
-                <mptck.suite>${basedir}/src/test/resources/tck-suite2.0.xml</mptck.suite>
-            </properties>
-        </profile>
-
         <profile>
             <id>payara-micro-managed</id>
             <build>
