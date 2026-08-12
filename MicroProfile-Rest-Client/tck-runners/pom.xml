@@ -55,7 +55,7 @@
     <name>MicroProfile Rest Client TCK Runners - Parent</name>
 
     <properties>
-        <smallrye-config.version>2.7.0</smallrye-config.version>
+        <smallrye-config.version>3.18.1</smallrye-config.version>
     </properties>
 
     <modules>
