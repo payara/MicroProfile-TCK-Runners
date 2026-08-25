@@ -61,7 +61,7 @@
         <microprofile.jwt-auth.tck.version>1.2.2</microprofile.jwt-auth.tck.version>
         <microprofile.openapi.tck.version>2.0</microprofile.openapi.tck.version>
         <microprofile.rest.client.tck.version>2.0</microprofile.rest.client.tck.version>
-        <microprofile.opentracing.tck.version>2.0</microprofile.opentracing.tck.version>
+        <microprofile.opentracing.tck.version>3.0</microprofile.opentracing.tck.version>
 
         <!-- Misc. Runner Dependencies -->
         <maven.compiler.release>8</maven.compiler.release>
