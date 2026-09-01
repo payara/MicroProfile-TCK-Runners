@@ -222,7 +222,22 @@
                                     <goal>integration-test</goal>
                                 </goals>
                                 <configuration>
-                                    <skipTests>true</skipTests>
+                                    <skipTests>false</skipTests>
+                                    <!--
+                                        Activating a profile on the command line (e.g. -Ppayara-micro-managed)
+                                        deactivates the activeByDefault 'proxy-tests-only' profile, so the
+                                        test-selection config it provides must be repeated here. Otherwise
+                                        failsafe falls back to the parent's ${mptck.suite} suiteXmlFiles,
+                                        which is unset and fails with "testSuiteXmlFiles0 has null value".
+                                    -->
+                                    <dependenciesToScan>
+                                        <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck
+                                        </dependency>
+                                    </dependenciesToScan>
+                                    <includes>
+                                        <include>**/ProxyServerTest.java</include>
+                                    </includes>
+                                    <suiteXmlFiles combine.self="override"/>
                                 </configuration>
                             </execution>
                         </executions>

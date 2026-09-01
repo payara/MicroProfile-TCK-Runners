@@ -202,5 +202,89 @@
             </plugin>
         </plugins>
     </build>
-    
+
+    <profiles>
+        <!--
+            Payara Micro has no persistent domain, so the log file path and custom
+            log formatter the full-server profile sets (via asadmin, guarded
+            unless="payara.micro.managed") never get applied, leaving
+            mptelemetry.tck.log.file.path null and JulTest failing with an NPE.
+
+            This profile supplies the same setup to the Micro JVM instead:
+              * the systemproperties option (EXTRA_MICRO_OPTIONS) sets
+                mptelemetry.tck.log.file.path.
+              * the logproperties option adds a FileHandler (keeping the
+                ConsoleHandler the Arquillian connector needs for startup
+                detection) that writes to that file using CustomLoggerFormatter,
+                whose " scopeInfo:full" suffix satisfies JulTest's assertion.
+              * CustomLoggerFormatter must be loadable by Micro's boot classloader,
+                because PayaraMicroImpl.resetLogging() instantiates log formatters
+                via Class.forName() during bootstrap, before the addlibs libraries
+                are added. A runtime addlibs is therefore too late (it yields a
+                ClassNotFoundException and the FileHandler silently falls back to
+                the default XML formatter, dropping scopeInfo). Instead we bake this
+                module's jar into a custom Micro uber jar's MICRO-INF/lib (which the
+                boot classloader scans) using the payara-micro addlibs plus
+                outputuberjar options, and point payara.microJar at that uber jar.
+            The two Micro resource files are filtered so ${micro.otel.log.file} is
+            shared between the FileHandler target and mptelemetry.tck.log.file.path.
+        -->
+        <profile>
+            <id>payara-micro-managed</id>
+            <properties>
+                <micro.otel.log.file>${project.build.directory}${file.separator}telemetry-tck.log</micro.otel.log.file>
+                <!-- Custom Micro uber jar (with CustomLoggerFormatter baked in) the connector launches. -->
+                <payara.microJar>${project.build.directory}${file.separator}payara-micro-with-formatter.jar</payara.microJar>
+            </properties>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-micro</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <!-- Build a Micro uber jar with CustomLoggerFormatter on the boot classpath. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-micro-uberjar-with-formatter</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target if="payara.micro.managed">
+                                        <exec executable="${java.home}${file.separator}bin${file.separator}java" failonerror="true">
+                                            <arg value="-jar"/>
+                                            <arg value="${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro-${payara.version}.jar"/>
+                                            <arg value="--addlibs"/>
+                                            <arg value="${project.build.directory}${file.separator}${project.build.finalName}.jar"/>
+                                            <arg value="--outputuberjar"/>
+                                            <arg value="${payara.microJar}"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <EXTRA_MICRO_OPTIONS>--systemproperties ${project.build.testOutputDirectory}${file.separator}micro-system-properties.properties --logproperties ${project.build.testOutputDirectory}${file.separator}micro-logging.properties</EXTRA_MICRO_OPTIONS>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
