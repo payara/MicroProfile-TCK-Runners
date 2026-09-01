@@ -12,5 +12,23 @@ The TCK tests are designed as Arquillian tests, which run tests in an isolated c
 
 **NOTES:**
 
-* The illegalConfig and invalidParameters tests are disabled due to the tests a) expecting failures earlier than Payara throws them, and b) looking for the wrong exception.
-* Several timeout tests are disabled due to jenkins failures. These can be run with the `unstable` profile.
+* The deployment-validation tests (the `illegalConfig` and `invalidParameters`
+  packages, and the four negative `fallbackmethod` tests) expect the deployment
+  to be rejected with a `FaultToleranceDefinitionException`. Payara Micro deploys
+  applications with `--loadOnly`, so it logs the validation failure but boots
+  anyway and the managed Arquillian connector reports a successful deployment. An
+  Arquillian observer, `DeploymentFailureDetector` (see `src/test/java`),
+  captures Micro's console output around each deployment and, when it sees the
+  failure, rethrows it as a deployment exception whose type matches the test's
+  `@ShouldThrowException`. It only uses Arquillian SPI, so it is a no-op on the
+  full-server and embedded profiles (where failed deployments already throw
+  directly).
+* On the `payara-micro-managed` profile every test starts its own Payara Micro
+  JVM, which must print its startup banner within the connector's startup
+  timeout (~180s). Avoid running other heavy builds concurrently with the suite:
+  CPU starvation can push a Micro instance past that timeout, which the connector
+  reports as `No applications were found deployed to Payara Micro` — a false
+  failure unrelated to the test.
+* If the timeout tests prove flaky on slow/loaded CI, uncomment the
+  `org.eclipse.microprofile.fault.tolerance.tck.timeout.multiplier` system
+  property in `pom.xml` to relax their timing.

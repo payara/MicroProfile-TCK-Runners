@@ -223,4 +223,49 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+            Payara Micro has no persistent domain, so the OpenTelemetry system
+            properties the full-server profiles set via 'asadmin create-system-property'
+            (all guarded unless="payara.micro.managed") never get applied, leaving
+            mptelemetry.tck.log.file.path null and every test failing with an NPE.
+
+            This profile supplies them to the Micro JVM instead, via EXTRA_MICRO_OPTIONS:
+              * the systemproperties option feeds the otel.* settings and the log file path.
+              * the logproperties option adds a FileHandler (keeping the ConsoleHandler the
+                Arquillian connector needs for startup detection) so the OTel
+                "logging" metrics exporter output lands in a file the TCK can read.
+            Both files are filtered so ${micro.otel.log.file} is shared between the
+            FileHandler target and mptelemetry.tck.log.file.path.
+        -->
+        <profile>
+            <id>payara-micro-managed</id>
+            <properties>
+                <micro.otel.log.file>${project.build.directory}${file.separator}otel-metrics.log</micro.otel.log.file>
+            </properties>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                    <testResource>
+                        <directory>src/test/resources-micro</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <EXTRA_MICRO_OPTIONS>--systemproperties ${project.build.testOutputDirectory}${file.separator}micro-system-properties.properties --logproperties ${project.build.testOutputDirectory}${file.separator}micro-logging.properties</EXTRA_MICRO_OPTIONS>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

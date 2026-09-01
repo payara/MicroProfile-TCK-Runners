@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2020-2022] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,26 +37,20 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.mptck.extension;
+package fish.payara.microprofile.ft.tck;
 
-import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
 import org.jboss.arquillian.core.spi.LoadableExtension;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class ArquillianExtension implements LoadableExtension {
-
-    private static final Logger LOG = Logger.getLogger(ArquillianExtension.class.getName());
+/**
+ * Registers {@link DeploymentFailureDetector} so that Payara Micro deployment
+ * failures the managed connector swallows are surfaced to Arquillian. This is a
+ * test-scoped extension (separate from the main-scoped {@code ArquillianExtension});
+ * both are discovered via their respective {@code META-INF/services} files.
+ */
+public class DeploymentFailureExtension implements LoadableExtension {
 
     @Override
-    public void register(ExtensionBuilder extensionBuilder) {
-        LOG.log(Level.INFO, "\n Registered Payara TCK ArquillianExtension \n");
-        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class)
-                .observer(LifecycleExecutor.class)
-                .observer(DeploymentFailureDetector.class);
-
-
+    public void register(ExtensionBuilder builder) {
+        builder.observer(DeploymentFailureDetector.class);
     }
-
 }
