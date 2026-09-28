@@ -177,7 +177,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <payara.server.managed/>
+                <payara.server/> <!-- Property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
+                <payara.server.managed/> <!-- Managed property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
                 <skipKillZombies>true</skipKillZombies> <!-- Whether to skip the pre-integration-test phase zombie server kill -->
             </properties>
             <dependencies>
@@ -310,7 +311,8 @@
         <profile>
             <id>payara-server-remote</id>
             <properties>
-                <payara.server.remote/>
+                <payara.server/> <!-- Property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
+                <payara.server.remote/> <!-- Remote property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
             </properties>
             <dependencies>
                 <dependency>
@@ -325,7 +327,8 @@
             <id>payara-micro-managed</id>
 
             <properties>
-                <payara.micro.managed/>
+                <payara.micro/> <!-- Property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
+                <payara.micro.managed/> <!-- Managed property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
             </properties>
 
             <dependencies>
@@ -372,6 +375,7 @@
                             <systemPropertyVariables>
                                 <arquillian.launch>payara-micro-managed</arquillian.launch>
                                 <micro.randomPort>${micro.randomPort}</micro.randomPort>
+                                <payara.micro.managed/>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -382,20 +386,40 @@
             <id>payara-micro-remote</id>
 
             <properties>
-                <payara.micro.remote/>
+                <payara.micro/> <!-- Property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
+                <payara.micro.remote/> <!-- Remote property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
             </properties>
 
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-micro-remote</artifactId>
+                    <artifactId>arquillian-payara-micro-remote</artifactId>
                     <scope>test</scope>
                     <optional>true</optional>
                 </dependency>
             </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <payara.micro.remote/>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>payara-server-embedded</id>
+
+            <properties>
+                <payara.server.embedded/> <!-- Property to be used in "if" statements for controlling  Server, Micro, or Embedded -->
+            </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
