@@ -122,7 +122,7 @@
                         <id>prepare-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <target unless="payara.micro.managed">
+                            <target if="payara.server">
                                 <exec executable="${payara.asadmin}">
                                     <arg value="set" />
                                     <arg value="configs.config.server-config.network-config.network-listeners.network-listener.http-listener-2.enabled=false" />

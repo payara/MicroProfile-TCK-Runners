@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2020-2026 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) [2022] Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,27 +37,39 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.mptck.extension;
+package fish.payara.microprofile.ft.tck;
 
 import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
-import org.jboss.arquillian.core.spi.LoadableExtension;
+import org.jboss.arquillian.test.spi.TestClass;
+import org.jboss.shrinkwrap.api.*;
+import org.jboss.shrinkwrap.api.asset.ArchiveAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArquillianExtension implements LoadableExtension {
+/**
+ * @author ariekiswanto
+ */
+public class ApplicationArchiveProcessorImpl implements ApplicationArchiveProcessor {
 
-    private static final Logger LOG = Logger.getLogger(ArquillianExtension.class.getName());
+    private static final Logger LOG = Logger.getLogger(ApplicationArchiveProcessorImpl.class.getName());
 
     @Override
-    public void register(ExtensionBuilder extensionBuilder) {
-        LOG.log(Level.INFO, "\n Registered Payara TCK ArquillianExtension \n");
-        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class).observer(LifecycleExecutor.class);
-
-        if (System.getProperty("payara.micro.managed") != null || System.getProperty("payara.micro.remote") != null) {
-            extensionBuilder.observer(MicroDeploymentFailureDetector.class);
+    public void process(Archive<?> applicationArchive, TestClass testClass) {
+        for(Map.Entry<ArchivePath, Node> content : applicationArchive.getContent().entrySet()) {
+            if (content.getValue().getAsset() instanceof ArchiveAsset) {
+                ArchiveAsset asset = (ArchiveAsset) content.getValue().getAsset();
+                for(Map.Entry<ArchivePath, Node> contentArchive : asset.getArchive().getContent().entrySet()) {
+                    if(contentArchive.getKey().get().contains("META-INF/beans.xml")) {
+                        LOG.log(Level.INFO, "Virtually augmented content archive \n");
+                        JavaArchive javaArchive = JavaArchive.class.cast(asset.getArchive());
+                        javaArchive.delete(contentArchive.getKey());
+                        javaArchive.addAsManifestResource("beans.xml", "beans.xml");
+                    }
+                }
+            }
         }
-
     }
-
 }

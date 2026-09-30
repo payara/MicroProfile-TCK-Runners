@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2021] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) 2017-2024 Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -47,22 +47,45 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.health</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>health-tck</artifactId>
 
-    <name>MicroProfile Health TCK Runner Parent</name>
+    <name>MicroProfile Health TCK Runner</name>
 
-    <modules>
-        <module>tck-arquillian-extension</module>
-        <module>tck-runner</module>
-    </modules>
+    <properties>
+        <mptck.suite>${basedir}/src/test/resources/tck-suite.xml</mptck.suite>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.microprofile.health</groupId>
+            <artifactId>microprofile-health-tck</artifactId>
+            <version>${microprofile.health.tck.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.health</groupId>
             <artifactId>microprofile-health-api</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>payara-client-ee11</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- This is required as of jackson 2.17.0 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
