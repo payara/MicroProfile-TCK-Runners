@@ -2,7 +2,7 @@
 <!--
    DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-   Copyright (c) [2018-2025] Payara Foundation and/or its affiliates. All rights reserved.
+   Copyright (c) [2017-2021] Payara Foundation and/or its affiliates. All rights reserved.
 
    The contents of this file are subject to the terms of either the GNU
    General Public License Version 2 only ("GPL") or the Common Development
@@ -47,33 +47,93 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.microprofile.jwt-auth</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>jwt-auth-tck</artifactId>
 
-    <name>MicroProfile JWT-Auth TCK Runner Parent</name>
+    <name>MicroProfile JWT-Auth TCK Runner</name>
 
-    <modules>
-        <module>tck-arquillian-extension</module>
-        <module>tck-runner</module>
-    </modules>
+    <properties>
+        <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
             <artifactId>microprofile-jwt-auth-tck</artifactId>
             <version>${microprofile.jwt-auth.tck.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
             <artifactId>microprofile-jwt-auth-api</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
             <artifactId>microprofile-jwt-auth-tck</artifactId>
             <version>${microprofile.jwt-auth.tck.version}</version>
             <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.parsson</groupId>
+            <artifactId>jakarta.json</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>base-tck</id>
+            <properties>
+                <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>payara-micro-managed</id>
+            <build>
+                <plugins>
+                    <!-- Configure Payara Micro Runtime -->
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>payara-micro-managed</arquillian.launch>
+                                <mp.jwt.tck.jwks.baseURL>http://localhost:8080/</mp.jwt.tck.jwks.baseURL>
+                                <mp.jwt.tck.pem.baseURL>http://localhost:8080/</mp.jwt.tck.pem.baseURL>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

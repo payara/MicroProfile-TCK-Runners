@@ -108,7 +108,7 @@
                         <id>prepare-payara-server</id>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <target unless="payara.micro.managed">
+                            <target if="payara.server">
                                 <exec executable="${payara.asadmin}">
                                     <arg value="create-system-properties" />
                                     <arg value="config_ordinal=120:customer.hobby=Tennis:mp.tck.prop.dummy=dummy" />

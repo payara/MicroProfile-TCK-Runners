@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2020-2026 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017-2026 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,27 +37,53 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.mptck.extension;
+package fish.payara.microprofile.jwtauth.tck;
 
-import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
-import org.jboss.arquillian.core.spi.LoadableExtension;
-
-import java.util.logging.Level;
+import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
+import org.jboss.arquillian.container.test.spi.client.deployment.ApplicationArchiveProcessor;
+import org.jboss.arquillian.test.spi.TestClass;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.Node;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 
-public class ArquillianExtension implements LoadableExtension {
-
-    private static final Logger LOG = Logger.getLogger(ArquillianExtension.class.getName());
+/**
+ * This archive processor adds the files <code>payara-mp-jwt.properties</code>
+ * and <code>web.xml</code> to each archive being created by the MP-JWT TCK.
+ * 
+ * <p>
+ * <code>payara-mp-jwt.properties</code> configures the valid issuer, while
+ * <code>web.xml</code> contains a fix for a TCK bug, and a fix for a Payara bug
+ * (see inside that file for more details).
+ * 
+ * @author Arjan Tijms
+ *
+ */
+public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
+    
+    private static final Logger LOGGER = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
     @Override
-    public void register(ExtensionBuilder extensionBuilder) {
-        LOG.log(Level.INFO, "\n Registered Payara TCK ArquillianExtension \n");
-        extensionBuilder.service(ApplicationArchiveProcessor.class, ArquillianArchiveProcessor.class).observer(LifecycleExecutor.class);
-
-        if (System.getProperty("payara.micro.managed") != null || System.getProperty("payara.micro.remote") != null) {
-            extensionBuilder.observer(MicroDeploymentFailureDetector.class);
+    public void process(Archive<?> archive, TestClass testClass) {
+        if (!(archive instanceof WebArchive)) {
+            return;
+        }
+        
+        WebArchive webArchive = WebArchive.class.cast(archive);
+        Node publicKeyNode = webArchive.get("/WEB-INF/classes/publicKey.pem");
+        if (publicKeyNode == null) {
+            return;
         }
 
-    }
+        Node microprofileConfig = webArchive.get("/META-INF/microprofile-config.properties");
+        if (microprofileConfig == null) {
+            webArchive.addAsResource("payara-mp-jwt.properties");
+        }
+        webArchive.addAsWebInfResource("web.xml")
+                .addAsWebInfResource("payara-web.xml")
+                .addAsWebInfResource("beans.xml");
 
+        LOGGER.log(INFO, "Augmenting virtual web archive: {0}", archive);
+        LOGGER.log(INFO, "Virtually augmented web archive: \n{0}", webArchive.toString(true));
+    }
 }
