@@ -63,6 +63,9 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
     
     private static final Logger LOGGER = Logger.getLogger(ArquillianArchiveProcessor.class.getName());
 
+    private static final String RS256_OR_ES256_ENDPOINT =
+            "org/eclipse/microprofile/jwt/tck/config/RS256OrES256Endpoint.class";
+
     @Override
     public void process(Archive<?> archive, TestClass testClass) {
         if (!(archive instanceof WebArchive)) {
@@ -70,6 +73,14 @@ public class ArquillianArchiveProcessor implements ApplicationArchiveProcessor {
         }
         
         WebArchive webArchive = WebArchive.class.cast(archive);
+
+        // RsaAndEcSignatureAlgorithmTest (TCK 2.2) points mp.jwt.verify.publickey.location at
+        // /rs256es256.jwk but never packages it, so add it to the archive.
+        if (webArchive.contains("/WEB-INF/classes/" + RS256_OR_ES256_ENDPOINT)
+                && !webArchive.contains("/WEB-INF/classes/rs256es256.jwk")) {
+            webArchive.addAsResource("rs256es256.jwk");
+        }
+
         Node publicKeyNode = webArchive.get("/WEB-INF/classes/publicKey.pem");
         if (publicKeyNode == null) {
             return;
