@@ -3,7 +3,6 @@
 This repository contains:
  
  - tck-runner - a template project to run the MicroProfile TCK suite against a custom implementation
- - payara-arquillian-extension - an extension used to correct the @ArquillianResource URL
 
 # Some notes and requirements of the TCK
 
