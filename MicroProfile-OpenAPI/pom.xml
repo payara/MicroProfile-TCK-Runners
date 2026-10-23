@@ -171,6 +171,9 @@
                         <test.url>${test.url}</test.url>
                         <payara.randomHttpPort>false</payara.randomHttpPort>
                     </systemProperties>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${payara.home}/glassfish/modules/microprofile-openapi.jar</additionalClasspathElement>
+                    </additionalClasspathElements>
                 </configuration>
             </plugin>
         </plugins>
