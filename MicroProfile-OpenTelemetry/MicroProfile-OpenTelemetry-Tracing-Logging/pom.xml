@@ -88,7 +88,7 @@
                         </goals>
                         <configuration>
                             <skip>${skipConfig}</skip>
-                            <target unless="payara.micro.managed">
+                            <target if="payara.server">
                                 <mkdir dir="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}lib${file.separator}ext"/>
                                 <copy file="${project.build.directory}${file.separator}${project.build.finalName}.jar" toFile="${payara.home}${file.separator}glassfish${file.separator}domains${file.separator}${payara.domain.name}${file.separator}lib${file.separator}ext${file.separator}${project.build.finalName}.jar"/>
                             </target>
@@ -118,7 +118,7 @@
                         </goals>
                         <configuration>
                             <skip>${skipConfig}</skip>
-                            <target unless="payara.micro.managed">
+                            <target if="payara.server">
                                 <exec executable="${payara.asadmin}">
                                     <arg value="create-system-property" />
                                     <arg value="--target" />
@@ -202,5 +202,59 @@
             </plugin>
         </plugins>
     </build>
-    
+
+    <profiles>
+        <!--
+              Because PayaraMicroImpl.resetLogging() instantiates log formatters
+              via Class.forName() during bootstrap before the addlibs libraries
+              are added, a runtime addlibs is therefore too late (it yields a
+              ClassNotFoundException and the FileHandler silently falls back to
+              the default). Instead, we generate an uber jar with the required properties
+              and libraries during pre-integration and point payara.microJar at it
+        -->
+        <profile>
+            <id>payara-micro-managed</id>
+            <properties>
+                <micro.otel.log.file>${project.build.directory}${file.separator}telemetry-tck.log</micro.otel.log.file>
+                <!-- Custom Micro uber jar (with CustomLoggerFormatter baked in) the connector launches. -->
+                <payara.microJar>${project.build.directory}${file.separator}payara-micro-with-formatter.jar</payara.microJar>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Build a Micro uber jar with CustomLoggerFormatter on the boot classpath. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-micro-uberjar-with-formatter</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skipConfig}</skip>
+                                    <target>
+                                        <exec executable="${java.home}${file.separator}bin${file.separator}java" failonerror="true">
+                                            <arg value="-jar"/>
+                                            <arg value="${maven.multiModuleProjectDirectory}${file.separator}target${file.separator}payara-micro-${payara.version}.jar"/>
+                                            <arg value="--addlibs"/>
+                                            <arg value="${project.build.directory}${file.separator}${project.build.finalName}.jar"/>
+                                            <arg value="--systemproperties"/>
+                                            <arg value="${project.build.testOutputDirectory}${file.separator}micro-system-properties.properties"/>
+                                            <arg value="--logproperties"/>
+                                            <arg value="${project.build.testOutputDirectory}${file.separator}micro-logging.properties"/>
+                                            <arg value="--outputuberjar"/>
+                                            <arg value="${payara.microJar}"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
