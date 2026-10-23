@@ -69,6 +69,7 @@
             <class name="org.eclipse.microprofile.jwt.tck.config.PublicKeyAsJWKSLocationTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.PublicKeyAsBase64JWKTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.PublicKeyAsFileLocationURLTest" />
+            <class name="org.eclipse.microprofile.jwt.tck.config.RsaAndEcSignatureAlgorithmTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.ECPublicKeyAsPEMTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.ECPublicKeyAsPEMLocationTest" />
             <class name="org.eclipse.microprofile.jwt.tck.config.ECPublicKeyAsJWKLocationTest" />
@@ -104,11 +105,5 @@
                 <exclude name="excludes" />
             </run>
         </groups>
-        <classes>
-            <class name="org.eclipse.microprofile.jwt.tck.container.ejb.EjbTest" />
-            <class name="org.eclipse.microprofile.jwt.tck.container.jacc.SubjectTest" />
-            <class name="org.eclipse.microprofile.jwt.tck.container.servlet.ServletTest" />
-        </classes>
-
     </test>
 </suite>
