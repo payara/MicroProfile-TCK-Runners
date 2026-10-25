@@ -52,7 +52,7 @@
     <name>MicroProfile JWT-Auth TCK Runner</name>
 
     <properties>
-        <mptck.suite>${basedir}/src/test/resources/full-tck-suite.xml</mptck.suite>
+        <mptck.suite>${project.build.directory}/tck-suites/suites/tck-full-suite.xml</mptck.suite>
     </properties>
 
     <dependencies>
@@ -106,6 +106,32 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
+            <!-- Use the TestNG suites shipped with the TCK rather than maintaining our own copies -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-tck-suites</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>generate-test-resources</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.microprofile.jwt</groupId>
+                                    <artifactId>microprofile-jwt-auth-tck</artifactId>
+                                    <version>${microprofile.jwt-auth.tck.version}</version>
+                                    <classifier>tests</classifier>
+                                    <includes>suites/*.xml</includes>
+                                    <outputDirectory>${project.build.directory}/tck-suites</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -113,7 +139,7 @@
         <profile>
             <id>base-tck</id>
             <properties>
-                <mptck.suite>${basedir}/src/test/resources/base-tck-suite.xml</mptck.suite>
+                <mptck.suite>${project.build.directory}/tck-suites/suites/tck-base-suite.xml</mptck.suite>
             </properties>
         </profile>
 
