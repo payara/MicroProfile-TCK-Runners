@@ -59,7 +59,7 @@
         <microprofile.fault-tolerance.tck.version>4.1.2</microprofile.fault-tolerance.tck.version>
         <microprofile.health.tck.version>4.0.1</microprofile.health.tck.version>
         <microprofile.jwt-auth.tck.version>2.2</microprofile.jwt-auth.tck.version>
-        <microprofile.openapi.tck.version>4.1.1</microprofile.openapi.tck.version>
+        <microprofile.openapi.tck.version>4.2-RC5</microprofile.openapi.tck.version>
         <microprofile.telemetry.tck.version>2.1</microprofile.telemetry.tck.version>
         <microprofile.rest.client.tck.version>4.0</microprofile.rest.client.tck.version>
 
